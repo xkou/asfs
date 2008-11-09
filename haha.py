@@ -6,6 +6,7 @@ import random, time
 import functools
 from smtplib import SMTP
 from email.mime.text import MIMEText
+import random
 
 
 cities = [116399,125463,145742]
@@ -68,7 +69,7 @@ def call_buy_resource():
 	low = 10000
 	def check( name, id ):
 		if res[name]< low:
-			print "卖入", name
+			print self,cname, "买入", name
 			sg.buy(3, id)
 
 	check("stone", SG._stone )
@@ -79,7 +80,7 @@ def call_buy_resource():
 	tasklist = sg.get_current_update()
 	print  time.asctime(), sg.cname, ", 铜钱:", sg.get_money_number(),"当前任务数:",len(tasklist)
 
-	return 30
+	return random.randint(30, 60)
 
 
 
@@ -106,17 +107,6 @@ def call_update_tech():
 		print "所有科技升级完成"
 	return 611
 
-def call_update_build():
-	reactor.callLater( 20,call_update_build)
-	tasklist = sg.get_current_update()
-	print "铜钱:", sg.get_money_number(),"当前任务数:",len(tasklist)
-	if len(tasklist) == 3:
-		return
-	
-	sg.force_update_building(13,12)
-	sg.force_update_building(14,24)
-	sg.force_update_building(15,19)
-	sg.force_update_building(6,14)
 
 def call_update_building( gid ):
 	tasklist = sg.get_current_update()
