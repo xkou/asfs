@@ -451,8 +451,13 @@ class SG:
 		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=8&tab=2&tid=0')['rumor']
 		return ret
 
+	def find_wen(self):
+		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=7&tab=2&tid=0')['rumor']
+		return ret
+
 	def get_wen_infos( self ):
 		r= self.post("/GateWay/Build.ashx?id=2","pid=%d&gid=9&tab=1&tid=0" % -1 )
+		print r
 		if r['ret'] == 0:
 			return r['incity']
 		else:
@@ -554,5 +559,5 @@ if __name__ == "__main__":
 	#print sg.get_wall_info()
 	#print sg.make_wall(1,901)
 	print sg.get_minyuan()
-	print sg.dofind(1)  # use generals
+	print sg.get_wen_infos()  # use generals
 
