@@ -457,7 +457,6 @@ class SG:
 
 	def get_wen_infos( self ):
 		r= self.post("/GateWay/Build.ashx?id=2","pid=%d&gid=9&tab=1&tid=0" % -1 )
-		print r
 		if r['ret'] == 0:
 			return r['incity']
 		else:
