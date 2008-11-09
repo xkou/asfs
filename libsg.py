@@ -447,12 +447,15 @@ class SG:
 		else:
 			return []
 	
+	def find_gen(self, id ):
+		return self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=%d&tab=2&tid=0' % id )
+	
 	def find_wu(self):
-		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=8&tab=2&tid=0')['rumor']
+		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=8&tab=2&tid=0')
 		return ret
 
 	def find_wen(self):
-		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=7&tab=2&tid=0')['rumor']
+		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=7&tab=2&tid=0')
 		return ret
 
 	def get_wen_infos( self ):
@@ -483,14 +486,12 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=37","lGeneralID=%d&lDestID=%d&lMoney=%d&lHorseID=-1&lGiftID=-1&tid=0" % (wenid, dest, money) )
 	
 	def dofind(self, dest ):
-		r = self.get_idle_wen()
-		if len(r) == 0:
-			self.buy_wen(4)
-		r = self.get_idle_wen()
-		if len(r) == 0:
-			return dict(ret=1)
-		r.sort( cmp = lambda x,y: cmp(y[4], x[4]) )
-		r = self.getfind_info(r[0][0], dest )
+		ls = self.get_wen_infos()
+		ls = filter( lambda x: x[4]==0 , ls )
+		ls.sort( cmp = lambda x,y: cmp(y[9], x[9]) )
+		g = ls[0]
+		sg.give_job( g[0],0 )
+		r = self.getfind_info(g[0], dest )
 		print tostr(r['offical_name']) , "»•—∞∑√", tostr( r['hero_name'] ), "”√ ±:", r['duration']
 		return self._dofind( r['offical_id'],dest, r['money_percent'] )
 
@@ -500,6 +501,9 @@ class SG:
 		weninfo = r['list'][0]
 		r = self.post("/GateWay/OPT.ashx?id=33", "lGeneralID=%d&tid=0" % weninfo[0])
 		return r
+	
+	def give_job( self, wenid, job ):
+		return self.post("/GateWay/OPT.ashx?id=5","lCityID=%d&lGeneralID=%d&lType=%d" % (self.cid, wenid, job) )
 
 
 if __name__ == "__main__":
