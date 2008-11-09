@@ -80,11 +80,13 @@ def call_update_tech():
 	alltech = filter( lambda x: x[2] < top_level, alltech)
 	alltech.sort( cmp = lambda x,y: cmp( x[2] , y[2] ) )
 	for tech in alltech:
-		if sg.update_tech( tech[0] )['ret']==0:
+		r = sg.update_tech( tech[0] )['ret']
+		print "升级科技", tostr(tech[1]), r == 0
+		if r==0:
 			return 5
 	else:
 		print "所有科技升级完成"
-
+	return 611
 
 def call_update_build():
 	reactor.callLater( 20,call_update_build)
@@ -166,6 +168,13 @@ def check_minxin():
 		sg.anfu()
 	return 600
 	
+def call_get_newb_general():
+	w = sg.find_wu()
+	if len(w) == 0 :
+		return 400
+	sg.dofind(w[0])
+	return 400
+
 def call_build_wall( ):
 	i = sg.get_wall_info()
 	c = i['current']
@@ -210,6 +219,7 @@ def main():
 	call_func( call_make_new_weapon, cities[0], 14,  305, 305 )
 	call_func( call_make_new_weapon, cities[0], 15,  405, 405 )
 	call_func( check_minxin, cities[0] )
+	call_func( call_get_newb_general, cities[0] )
 
 	call_func( call_buy_resource, cities[1] )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105 )
