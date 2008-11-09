@@ -170,10 +170,12 @@ def check_minxin():
 	
 def call_get_newb_general():
 	w = sg.find_wu()
-	if len(w) == 0 :
-		return 400
+	if len(w) == 0:
+		w = sg.find_wen()
+		if len(w) == 0:
+			return 65
 	sg.dofind(w[0])
-	return 400
+	return 111
 
 def call_build_wall( ):
 	i = sg.get_wall_info()
