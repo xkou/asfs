@@ -472,7 +472,9 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=4","lType=1&tid=0")
 	
 	def get_idle_wen(self):
-		return self.post("/GateWay/Common.ashx?id=15", "lType=1&tid=0")
+		ls = self.get_wen_infos()
+		ls = filter( lambda x:x[3]==x[4]==0, ls )
+		return ls
 	
 	def getfind_info(self, wenid, dest):
 		return self.post("/GateWay/OPT.ashx?id=36","lGeneralID=%d&lDestID=%d&tid=0" % (wenid, dest) )
@@ -481,21 +483,22 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=37","lGeneralID=%d&lDestID=%d&lMoney=%d&lHorseID=-1&lGiftID=-1&tid=0" % (wenid, dest, money) )
 	
 	def dofind(self, dest ):
-		r = self.get_idle_wen()['generals']
+		r = self.get_idle_wen()
 		if len(r) == 0:
 			self.buy_wen(4)
-		r = self.get_idle_wen()['generals']
+		r = self.get_idle_wen()
 		if len(r) == 0:
 			return dict(ret=1)
+		r.sort( cmp = lambda x,y: cmp(y[4], x[4]) )
 		r = self.getfind_info(r[0][0], dest )
 		print tostr(r['offical_name']) , "»•—∞∑√", tostr( r['hero_name'] ), "”√ ±:", r['duration']
 		return self._dofind( r['offical_id'],dest, r['money_percent'] )
 
 	def buy_wen( self, key = 4 ):
 		r = self.post("/GateWay/Build.ashx?id=2", "pid=-1&gid=7&tab=1&tid=0")
-		print r['list'].sort( cmp = lambda x,y : cmp(y[key],x[key]) )
+		r['list'].sort( cmp = lambda x,y : cmp(y[key],x[key]) )
 		weninfo = r['list'][0]
-		r = self.post("/GateWay/OPT.ashx?id=33", "lGeneralID=%d&tid=0", weninfo[0])
+		r = self.post("/GateWay/OPT.ashx?id=33", "lGeneralID=%d&tid=0" % weninfo[0])
 		return r
 
 
@@ -558,5 +561,5 @@ if __name__ == "__main__":
 	#print sg.get_wall_info()
 	#print sg.make_wall(1,901)
 	print sg.get_minyuan()
-	print sg.get_wen_infos()  # use generals
+	print sg.dofind(1)  # use generals
 
