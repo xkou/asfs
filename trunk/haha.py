@@ -168,14 +168,24 @@ def check_minxin():
 		sg.anfu()
 	return 600
 	
-def call_get_newb_general():
-	w = sg.find_wu()
+def call_get_newb_general( tid ):# 7,8
+	r = sg.find_gen( tid )
+	if r['look_for']:
+		pass
+		#return 100
+		#return r['look_for'][0][6]
+	w = r['rumor']
 	if len(w) == 0:
-		w = sg.find_wen()
-		if len(w) == 0:
-			return 65
-	sg.dofind(w[0])
-	return 111
+		ls = sg.get_wen_infos()
+		ls = filter( lambda x:x[4] == 0, ls )
+		ls.sort( cmp = lambda x,y: cmp( y[11],x[11] ) )
+		gen = ls[0]
+		if gen[3] != 1:
+			print self.cname, "ÈÎÃü", tostr(gen[1]) ,"ÎªÌ«ÊØ"
+			sg.give_job( gen[0], 1 )
+	else:
+		sg.dofind(w[0])
+	return 125
 
 def call_build_wall( ):
 	i = sg.get_wall_info()
@@ -211,6 +221,10 @@ def main():
 	
 
 	#call_make_weapon()
+	
+	call_func( call_get_newb_general, cities[0], 7 )
+	call_func( call_get_newb_general, cities[0], 8 )
+
 
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
@@ -221,7 +235,7 @@ def main():
 	call_func( call_make_new_weapon, cities[0], 14,  305, 305 )
 	call_func( call_make_new_weapon, cities[0], 15,  405, 405 )
 	call_func( check_minxin, cities[0] )
-	call_func( call_get_newb_general, cities[0] )
+
 
 	call_func( call_buy_resource, cities[1] )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105 )
