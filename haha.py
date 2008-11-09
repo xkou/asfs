@@ -65,7 +65,7 @@ def call_buy_resource():
 
 
 
-top_level = 5
+top_level = 20
 
 def call_update_tech():
 	global top_level
