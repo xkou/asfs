@@ -4,8 +4,26 @@ from twisted.internet import threads
 from libsg import SG, tostr
 import random, time
 import functools
+from smtplib import SMTP
+from email.mime.text import MIMEText
+
 
 cities = [116399,125463,145742]
+
+def sendemail( content ):
+	f = '"三国" <hk888@163.com>'
+	t = 'netmud@gmail.com'
+	smtp = SMTP()
+	smtp.connect('smtp.163.com')
+	smtp.login("hk888","3281044")
+
+	msg = MIMEText(content)
+	msg['subject']='三国之兵临城下'
+	msg['Content-Type']= 'text/plain; charset="gbk"'
+	msg['From'] = f
+
+	smtp.sendmail( f,t, msg.as_string( ) )
+	
 
 sg = SG(116399)
 print sg.change_city( 116399 )
@@ -184,6 +202,7 @@ def call_get_newb_general( tid ):# 7,8
 			print self.cname, "任命", tostr(gen[1]) ,"为太守"
 			sg.give_job( gen[0], 1 )
 	else:
+		threads.deferToThread( sendemail, "找到名将 " + tostr(`w`) )
 		sg.dofind(w[0])
 	return 125
 
@@ -274,6 +293,7 @@ if __name__ == "__main__":
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
+	
 
 reactor.run()
 
