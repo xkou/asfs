@@ -67,6 +67,8 @@ class SG:
 	_p = 14  # ·À¾ß
 	_h = 15  # ³µÂí
 
+	_speed = 1
+
 	_tex = 0.072
 
 	def __init__(self, cid=116399 ):
@@ -127,7 +129,7 @@ class SG:
 		p[4]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
-		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=3" % (num, gid, pid) )
+		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=1" % (num, gid, pid) )
 	
 	def show_weapon(self):
 		#http://sg2.dipan.com/GateWay/Common.ashx?id=27&0.6599525046579348
@@ -411,8 +413,9 @@ class SG:
 		pid=17
 		return self.post("/GateWay/Build.ashx?id=2", "gid=%d&pid=%d&tab=6" %( self.get_building_gid(pid), pid ))['list']
 	
-	def update_shiqi(self, id):
-		return self.post("/GateWay/OPT.ashx?id=47","lAddPoint=10&lGeneralID=%d&tid=0" % id )
+	def update_shiqi(self, id, addpt = 10):
+		if addpt > 10: addpt = 10
+		return self.post("/GateWay/OPT.ashx?id=47","lAddPoint=%d&lGeneralID=%d&tid=0" % (addpt,id) )
 
 	def sell_auto( self, rtype, num ):
 		price  = self.get_seller( rtype )['infos'][1]['price']
@@ -423,7 +426,8 @@ class SG:
 	
 	def do_task(self, taskid, gens ):
 		gens += [0,0,0,0,0,0,0]
-		return self.post("/GateWay/OPT.ashx?id=62","taskid=%d&general1=%d&general2=%d&general3=%d&general4=%d&general5=%d&tid=0" % [taskid]+gens)
+		gens.insert(0,taskid	)
+		return self.post("/GateWay/OPT.ashx?id=62","taskid=%d&general1=%d&general2=%d&general3=%d&general4=%d&general5=%d&tid=0" % tuple( gens[0:6] ) )
 	
 	def query_general(self ):
 		return self.post("/GateWay/Build.ashx?id=2", "pid=25&gid=8&tab=2&tid=2")

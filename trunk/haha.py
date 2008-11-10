@@ -27,6 +27,7 @@ def sendemail( content ):
 	
 
 sg = SG(116399)
+sg._speed = 2
 print sg.change_city( 116399 )
 def call_make_weapon():
 	global sg
@@ -237,7 +238,7 @@ def call_many( fun, ls , *args ):
 def call_do_task( tid, gs ):
 	tinfo = sg.task_info()
 	s = tinfo['status']
-	t = info['current'][1]
+	t = tinfo['current'][1]
 	if s == 1:
 		print "任务正在进行中", t,"秒后重试"
 	elif s == 2:
@@ -246,28 +247,43 @@ def call_do_task( tid, gs ):
 		print "任务完成，正在返回", t,"秒后重试"
 	
 	if s != 0:
-		return t
-
-	n = call_up_shiqi( gs )
-	if n==8000:
+		return t+1
+	
+	infos = sg.get_soldier_info()
+	infos = filter( lambda x:x[1] in gs, infos )
+	infos = filter( lambda x:x[7] < 100, infos )
+	ns = filter( lambda x:x[8] != -1 and x[7] > 89, infos )
+	if len(ns) == len(infos) and len(ns)!=0:
+		infos.sort( cmp = lambda x,y : cmp(y[8], x[8]) )
+		if infos[0][8] < 899:
+			sg.do_task( tid, gs )
+			return 5
+	if len(infos) == 0 :
 		sg.do_task( tid, gs )
-		n = 5
+		return 5
+	
+	n = call_up_shiqi( gs )
 	return n
 
 def call_up_shiqi( gs ):
+	t = 898
 	infos = sg.get_soldier_info()
 	infos = filter( lambda x:x[1] in gs, infos )
 	infos = filter( lambda x:x[7] < 100, infos )
 	if len(infos) == 0:
-		return 8000
+		return 100
 	
 	ls = filter( lambda x:x[8] == -1, infos )
 	for inf in ls:
 		sg.buy( sum(inf[3:6])*5/1000+3, SG._food )
-		r = sg.update_shiqi( inf[1] )
+		r = sg.update_shiqi( inf[1], 100-inf[7] )
 		print sg.cname, "提升土气", tostr(inf[2]),r['ret'] == 0
 	if len(ls) == 0:
-		infos.sort( cmp = lambda x,y : x[8] < y[8] )
+		if len( filter( lambda x:x[7] < 90 , infos ) ) == 0:
+			infos.sort( cmp = lambda x,y : cmp(y[8],x[8]))
+			return 5 if infos[0][8]< t else infos[0][8]-t
+				
+		infos.sort( cmp = lambda x,y : cmp(x[8],y[8]))
 		return infos[0][8]
 	return 5
 
@@ -290,7 +306,7 @@ def main():
 	call_func( call_make_new_weapon, cities[0], 14,  305, 305 )
 	call_func( call_make_new_weapon, cities[0], 15,  405, 405 )
 	call_func( check_minxin, cities[0] )
-	call_func( call_up_shiqi, cities[0], [363930,364214,326572] )
+	call_func( call_do_task, cities[0], 1, [363930,364214,326572] )
 
 
 	call_func( call_buy_resource, cities[1], 10 )
@@ -326,8 +342,9 @@ def main():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	#print sg.change_city( cities[2] )
+	print sg.change_city( cities[0] )
 	#call_make_new_weapon( 13, 103,103)
+	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
 	#print call_up_shiqi(  )
 	main()
