@@ -64,13 +64,13 @@ def call_sell_weapon( ws =(206,306,406) ):
 	
 	return 20
 
-def call_buy_resource():
+def call_buy_resource( num = 3):
 	res = sg.get_resouce_number()
-	low = 10000
+	low = 30000
 	def check( name, id ):
 		if res[name]< low:
 			print sg.cname, "买入", name
-			sg.buy(3, id)
+			sg.buy(num, id)
 
 	check("stone", SG._stone )
 	check("food", SG._food )
@@ -156,26 +156,32 @@ def call_func( func, cid,  *args ):
 	
 
 def call_make_new_weapon( btype, wtype, wtype2 ):
+	n = 6
 	c = sg.get_build( btype )
 	if len(c) == 2:
 		ts = [ x[3] for x in c ]
 		return min(ts)
 	if len(c) == 1:
 		if( c[0][0] == wtype ):
-			sg.make( 2, wtype2 )
+			sg.make( n, wtype2 )
 		else:
-			sg.make( 2, wtype )
+			sg.make( n, wtype )
 		return c[0][3]
 	
-	sg.make( 2, wtype )
+	sg.make( n, wtype )
 	return 5
 
 def check_minxin():
 	v = sg.get_minyuan()
-	print v
-	if v: 
-		sg.anfu()
-	return 600
+	if v:
+		r = sg.pre_anfu()
+		if r['left']:
+			print sg.cname, "需要安抚",r['left'],"秒后重试"
+			return r['left']
+		else:
+			sg.buy( r['population'] * 3 /1000, SG._food )
+			sg.anfu()
+	return 315
 	
 def call_get_newb_general( tid ):# 7,8
 	global sg
@@ -226,7 +232,45 @@ def check_general():
 def call_many( fun, ls , *args ):
 	for l in  ls:
 		call_func( fun, cities[l], * args )
+
+
+def call_do_task( tid, gs ):
+	tinfo = sg.task_info()
+	s = tinfo['status']
+	t = info['current'][1]
+	if s == 1:
+		print "任务正在进行中", t,"秒后重试"
+	elif s == 2:
+		print "任务正在战斗", t,"秒后重试"
+	elif s == 3:
+		print "任务完成，正在返回", t,"秒后重试"
 	
+	if s != 0:
+		return t
+
+	n = call_up_shiqi( gs )
+	if n==8000:
+		sg.do_task( tid, gs )
+		n = 5
+	return n
+
+def call_up_shiqi( gs ):
+	infos = sg.get_soldier_info()
+	infos = filter( lambda x:x[1] in gs, infos )
+	infos = filter( lambda x:x[7] < 100, infos )
+	if len(infos) == 0:
+		return 8000
+	
+	ls = filter( lambda x:x[8] == -1, infos )
+	for inf in ls:
+		sg.buy( sum(inf[3:6])*5/1000+3, SG._food )
+		r = sg.update_shiqi( inf[1] )
+		print sg.cname, "提升土气", tostr(inf[2]),r['ret'] == 0
+	if len(ls) == 0:
+		infos.sort( cmp = lambda x,y : x[8] < y[8] )
+		return infos[0][8]
+	return 5
+
 
 def main():
 	
@@ -239,16 +283,17 @@ def main():
 
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
-	call_func( call_buy_resource, cities[0] )
+	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  205, 105 )
+	call_func( call_make_new_weapon, cities[0], 13,  205, 105 )#
 	call_func( call_make_new_weapon, cities[0], 14,  305, 305 )
 	call_func( call_make_new_weapon, cities[0], 15,  405, 405 )
 	call_func( check_minxin, cities[0] )
+	call_func( call_up_shiqi, cities[0], [363930,364214,326572] )
 
 
-	call_func( call_buy_resource, cities[1] )
+	call_func( call_buy_resource, cities[1], 10 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405 )
@@ -261,8 +306,8 @@ def main():
 	
 	
 #	call_func( call_update_all, cities[2] )
-	call_func( call_make_new_weapon, cities[2], 13,  103, 103 )
-	call_func( call_sell_weapon,  cities[2], (103,) )
+#	call_func( call_make_new_weapon, cities[2], 13,  103, 103 )
+#	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2] )
 #	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
@@ -281,9 +326,10 @@ def main():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	#sg.change_city( cities[2] )
+	#print sg.change_city( cities[2] )
+	#call_make_new_weapon( 13, 103,103)
 	#print check_general()
-	#print call_buy_resource()
+	#print call_up_shiqi(  )
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
