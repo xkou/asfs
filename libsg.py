@@ -469,7 +469,7 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=46","lCityID=%d&lGeneralID=%d&lMoney=%d" % (self.cid, genid, money ) )
 	
 	def get_minyuan(self):
-		return self.post("/GateWay/Common.ashx?id=30")['morale'][1]
+		return self.post("/GateWay/Common.ashx?id=30")['morale'][2]
 	
 	def anfu(self):
 		return self.post("/GateWay/OPT.ashx?id=4","lType=1&tid=0")
@@ -490,7 +490,7 @@ class SG:
 		ls = filter( lambda x: x[4]==0 , ls )
 		ls.sort( cmp = lambda x,y: cmp(y[9], x[9]) )
 		g = ls[0]
-		sg.give_job( g[0],0 )
+		self.give_job( g[0],0 )
 		r = self.getfind_info(g[0], dest )
 		print tostr(r['offical_name']) , "»•—∞∑√", tostr( r['hero_name'] ), "”√ ±:", r['duration']
 		return self._dofind( r['offical_id'],dest, r['money_percent'] )
@@ -565,5 +565,5 @@ if __name__ == "__main__":
 	#print sg.get_wall_info()
 	#print sg.make_wall(1,901)
 	print sg.get_minyuan()
-	print sg.dofind(1)  # use generals
+	#print sg.dofind(1)  # use generals
 
