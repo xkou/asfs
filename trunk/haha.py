@@ -69,7 +69,7 @@ def call_buy_resource():
 	low = 10000
 	def check( name, id ):
 		if res[name]< low:
-			print self,cname, "买入", name
+			print sg.cname, "买入", name
 			sg.buy(3, id)
 
 	check("stone", SG._stone )
@@ -172,11 +172,13 @@ def call_make_new_weapon( btype, wtype, wtype2 ):
 
 def check_minxin():
 	v = sg.get_minyuan()
+	print v
 	if v: 
 		sg.anfu()
 	return 600
 	
 def call_get_newb_general( tid ):# 7,8
+	global sg
 	r = sg.find_gen( tid )
 	if r['look_for']:
 		pass
@@ -189,7 +191,7 @@ def call_get_newb_general( tid ):# 7,8
 		ls.sort( cmp = lambda x,y: cmp( y[11],x[11] ) )
 		gen = ls[0]
 		if gen[3] != 1:
-			print self.cname, "任命", tostr(gen[1]) ,"为太守"
+			print sg.cname, "任命", tostr(gen[1]) ,"为太守"
 			sg.give_job( gen[0], 1 )
 	else:
 		threads.deferToThread( sendemail, "找到名将 " + tostr(`w`) )
@@ -251,7 +253,7 @@ def main():
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405 )
 	call_func( call_update_hourse, cities[1] )
-	call_func( call_build_wall, cities[1] )
+#	call_func( call_build_wall, cities[1] )
 	call_func( check_minxin, cities[1] )
 
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
@@ -262,7 +264,7 @@ def main():
 	call_func( call_make_new_weapon, cities[2], 13,  103, 103 )
 	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2] )
-	call_func( call_build_wall, cities[2] )
+#	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 
 #	call_func( call_update_base, cities[0] )
@@ -278,8 +280,10 @@ def main():
 	#call_update_build()
 
 if __name__ == "__main__":
+	#print check_minxin()
 	#sg.change_city( cities[2] )
 	#print check_general()
+	#print call_buy_resource()
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
