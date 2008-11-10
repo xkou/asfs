@@ -127,7 +127,7 @@ class SG:
 		p[4]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
-		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d" % (num, gid, pid) )
+		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=3" % (num, gid, pid) )
 	
 	def show_weapon(self):
 		#http://sg2.dipan.com/GateWay/Common.ashx?id=27&0.6599525046579348
@@ -198,11 +198,11 @@ class SG:
 		return self.post( "/GateWay/Build.ashx?id=2" ,"gid=%d&pid=%d&tab=%d" % ( self.get_building_gid(pid), pid, tab))
 	
 	def get_resouce_number(self):
-		r = self.send( self.geturl("/GateWay/Common.ashx?id=33"),"" )
+		r = self.post("/GateWay/City.ashx?id=20" )
 		ret={}
 		keys = ['stone', 'food',  'wood', 'iron']
 		for e in keys:
-			ret[e] = r[e][-2]
+			ret[e] = r[e][0]
 		return ret
 	
 	def get_weapon_number(self):
@@ -421,8 +421,9 @@ class SG:
 	def task_info(self):
 		return self.post("/GateWay/Common.ashx?id=3")
 	
-	def do_task(self, taskid ):
-		return self.post("/GateWay/OPT.ashx?id=62","general1=364214&general2=363930&general3=326572&general4=0&general5=0&taskid=%d&tid=0" % taskid)
+	def do_task(self, taskid, gens ):
+		gens += [0,0,0,0,0,0,0]
+		return self.post("/GateWay/OPT.ashx?id=62","taskid=%d&general1=%d&general2=%d&general3=%d&general4=%d&general5=%d&tid=0" % [taskid]+gens)
 	
 	def query_general(self ):
 		return self.post("/GateWay/Build.ashx?id=2", "pid=25&gid=8&tab=2&tid=2")
@@ -470,6 +471,9 @@ class SG:
 	
 	def get_minyuan(self):
 		return self.post("/GateWay/Common.ashx?id=30")['morale'][2]
+	
+	def pre_anfu(self):
+		return self.post("/GateWay/Build.ashx?id=2", "pid=-1&gid=1&tab=4&tid=0")
 	
 	def anfu(self):
 		return self.post("/GateWay/OPT.ashx?id=4","lType=1&tid=0")
@@ -564,6 +568,6 @@ if __name__ == "__main__":
 	#print sg.show_weapon()
 	#print sg.get_wall_info()
 	#print sg.make_wall(1,901)
-	print sg.get_minyuan()
+	print sg.get_soldier_info()
 	#print sg.dofind(1)  # use generals
 
