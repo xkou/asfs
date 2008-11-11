@@ -245,11 +245,12 @@ def call_do_task( tid, gs ):
 		print "任务正在战斗", t,"秒后重试"
 	elif s == 3:
 		print "任务完成，正在返回", t,"秒后重试"
-	
+	print s,t
 	if s != 0:
-		return t+1
+		return t+2 if t<900 else 5
 	
 	infos = sg.get_soldier_info()
+	print infos
 	infos = filter( lambda x:x[1] in gs, infos )
 	infos = filter( lambda x:x[7] < 100, infos )
 	ns = filter( lambda x:x[8] != -1 and x[7] > 89, infos )
@@ -263,7 +264,7 @@ def call_do_task( tid, gs ):
 		return 5
 	
 	n = call_up_shiqi( gs )
-	return n
+	return 54
 
 def call_up_shiqi( gs ):
 	t = 898
@@ -281,7 +282,7 @@ def call_up_shiqi( gs ):
 	if len(ls) == 0:
 		if len( filter( lambda x:x[7] < 90 , infos ) ) == 0:
 			infos.sort( cmp = lambda x,y : cmp(y[8],x[8]))
-			return 5 if infos[0][8]< t else infos[0][8]-t
+			return  infos[0][8]
 				
 		infos.sort( cmp = lambda x,y : cmp(x[8],y[8]))
 		return infos[0][8]
