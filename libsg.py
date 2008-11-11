@@ -67,7 +67,7 @@ class SG:
 	_p = 14  # 防具
 	_h = 15  # 车马
 
-	_speed = 1
+
 
 	_tex = 0.072
 
@@ -76,6 +76,7 @@ class SG:
 		self.url = "http://sg2.dipan.com/GateWay/OPT.ashx?id=38&0.2639979069258746"
 		self.headers = {}
 		self.cid = 0
+		self.tid = 0
 		self.cookie=open("cookie","rb").read()
 		#self.cookie = self.cookie.replace("cid=116399;","cid=%d;" % cid)
 		self.headers['Content-Type']="application/x-www-form-urlencoded; charset=UTF-8"
@@ -91,10 +92,13 @@ class SG:
 	def init_building(self, cid ):
 		self.building_data[cid] = json.read(open("buildings.data.%d" % cid,"rb").read())
 	
-	def fix_cookie(self, cityid ):
+	def fix_cookie(self, cityid, tid=0 ):
 		self.cid= cityid
-		s = re.findall('cid=\d+',self.cookie)[0]
+		self.tid = tid
+		s = re.findall('cid=-?\d+',self.cookie)[0]
 		self.cookie = self.cookie.replace(s,"cid=%d" % cityid )
+		s = re.findall('tid=-?\d+',self.cookie)[0]
+		self.cookie = self.cookie.replace(s,"tid=%d" % tid )
 		self.headers['Cookie'] = self.cookie
 	
 	def geturl( self, p ):
@@ -120,7 +124,7 @@ class SG:
 			print "Json error:", ret
 		return ret
 		
-	def make(self, num, gid=201 ):
+	def make(self, num, gid, speed ):
 		p={}
 		m = gid/100
 		p[1] = 13
@@ -129,7 +133,7 @@ class SG:
 		p[4]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
-		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, self._speed) )
+		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, speed) )
 	
 	def show_weapon(self):
 		#http://sg2.dipan.com/GateWay/Common.ashx?id=27&0.6599525046579348
@@ -207,6 +211,9 @@ class SG:
 			ret[e] = r[e][0]
 		return ret
 	
+	def get_yz_building(self, tid):
+		return self.post("/GateWay/City.ashx?id=5","tid=%d" % tid )
+			
 	def get_weapon_number(self):
 		r = self.show_weapon()['list'][0]
 		#print r
@@ -238,7 +245,7 @@ class SG:
 
 	def get_current(self):
 		# http://sg2.dipan.com/GateWay/Common.ashx?id=41&0.6108996970752234
-		ret = self.post("/GateWay/City.ashx?id=37","ttid=-1")
+		ret = self.post("/GateWay/City.ashx?id=37","ttid=%d" % (-1 if self.tid == 0 else self.tid) )
 		#ret = self.post("/GateWay/Common.ashx?id=41","lCityCampID=116399")
 		return ret
 	
@@ -296,8 +303,10 @@ class SG:
 		checkres("food")
 		return self.update_building(pid)
 	
-	def update_building(self, pid ):
-		ret= self.post("/GateWay/OPT.ashx?id=65", "gid=%d&pid=%d&tid=%d&type=1" % (self.get_building_gid(pid), pid, self.cid))
+	def update_building(self, pid, gid = 0 ):
+		if gid ==0:
+			gid = self.get_building_gid(pid)
+		ret= self.post("/GateWay/OPT.ashx?id=65", "gid=%d&pid=%d&tid=%d&type=1" % (gid, pid, self.tid))
 		return ret
 	
 	def get_money_number(self):
@@ -346,23 +355,23 @@ class SG:
 		
 		return ret
 	
-	def change_city( self,citynum = 116399 ):
-		if self.cid == citynum: return dict(ret=0)
+	def change_city( self,citynum = 116399, tid= 0 ):
+		if self.cid == citynum and self.tid == tid: return dict(ret=0)
 
 		if not self.city_names.has_key( citynum ):
 			for e in self.post("/GateWay/Common.ashx?id=28")['list']:
 				self.city_names[e[0]] = tostr(e[1])
 		self.cname = self.city_names[ citynum ]
-		self.fix_cookie( citynum )
+		self.fix_cookie( citynum, tid )
 		if not self.building_data.has_key( citynum ):
 			self.init_building( citynum )
 		self.buildings = self.building_data[ citynum ]
-		ret = self.post("/GateWay/City.ashx?id=50","tid=0" )
+		ret = self.post("/GateWay/City.ashx?id=50","tid=%d" % tid )
 		
 		return ret
 	
 	def get_all_building(self):
-		ret = self.post("/GateWay/City.ashx?id=5")
+		ret = self.post("/GateWay/City.ashx?id=5", "tid=%d" % self.tid )
 		return map( lambda x: (x[1], x[0], x[2],x[3]), ret["infos"] )
 
 	def show_all_building(self):
@@ -435,13 +444,13 @@ class SG:
 		return self.post("/Interfaces/report_list.aspx?t=0&page=2", "t=0&page=%d" % page)
 	
 	def get_wall_info( self , tab = 1):
-		return self.post("/GateWay/Build.ashx?id=2", "pid=0&gid=2&tab=%d" % tab)
+		return self.post("/GateWay/Build.ashx?id=2", "pid=0&gid=2&tab=%d&tid=%d" % (tab, self.tid))
 	
 	def get_wall_value(self):
 		return filter( lambda x:x[0] == self.cid, self.post("/GateWay/Common.ashx?id=28")['list'] )[0]
 
-	def make_wall( self, num, btype ):
-		return self.post("/GateWay/OPT.ashx?id=38", "pos=0&tid=0&gid=%d&count=%d" % (btype, num) )
+	def make_wall( self, num, btype, speed=1 ):
+		return self.post("/GateWay/OPT.ashx?id=38", "pos=0&tid=%d&gid=%d&count=%d&lFaster=%d" % (self.tid, btype, num, speed) )
 	
 	def get_wu_infos( self ):
 		pid = self.get_pid_by_gid( 10 )[0][1]
@@ -457,6 +466,7 @@ class SG:
 	def find_wu(self):
 		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=8&tab=2&tid=0')
 		return ret
+	
 
 	def find_wen(self):
 		ret = self.post('/GateWay/Build.ashx?id=2','pid=-1&gid=7&tab=2&tid=0')
@@ -543,11 +553,17 @@ class SG:
 		if pt==1 or pt == 3 or pt == 10:
 			pass
 		return self.post("/GateWay/OPT.ashx?id=67", "lCityID=%d&lGeneralID=%d&lAttribType=%d&lAdd=%d"  % (self.cid, genid, attrs[prop], pt ) )
+	
+	def set_giving( self, dest , count, supid ):
+		return self.post("/GateWay/OPT.ashx?id=64","lDestID=%d&lFood=%d&lIron=%d&lStone=%d&lSupplyID=%d&lWood=%d&tid=%d" % (dest, count, count, count, supid, count, self.tid) )
 
 if __name__ == "__main__":
 	sg = SG()
 	#print sg.change_city( 125463 )
-	print sg.change_city( 116399 )
+	print sg.change_city( 116399, 0 )
+	print sg.change_city( 116399, -40050 )
+	print sg.change_city( 116399, -34034 )
+	print sg.change_city( 145742, 0 )
 	print sg.cname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -574,7 +590,7 @@ if __name__ == "__main__":
 	#print sg.get_need_resouce(14,24,-1)  # 防具
 	#print sg.get_need_resouce(15,19,-1)  # 车马
 	#print sg.get_need_resouce(6,14,-1)  # 大学升级
-	#print sg.get_current_update()
+	print sg.get_current_update()
 	#print sg.get_current_update()
 	#print sg.update_building(15,19)
 	#print sg.force_update_building( 14)
@@ -602,6 +618,6 @@ if __name__ == "__main__":
 	#print sg.show_weapon()
 	#print sg.get_wall_info()
 	#print sg.make_wall(1,901)
-	print sg.get_soldier_info()
+	#print sg.make_wall(1,901)
 	#print sg.dofind(1)  # use generals
 
