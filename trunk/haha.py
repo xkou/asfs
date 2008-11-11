@@ -10,6 +10,7 @@ import random
 
 
 cities = [116399,125463,145742]
+tids = [ -40050 , -34034 ]
 
 def sendemail( content ):
 	f = '"三国" <hk888@163.com>'
@@ -27,8 +28,7 @@ def sendemail( content ):
 	
 
 sg = SG(116399)
-sg._speed = 3
-print sg.change_city( 116399 )
+
 def call_make_weapon():
 	global sg
 	num = 2
@@ -109,6 +109,28 @@ def call_update_tech():
 	return 611
 
 
+def call_yz_update_building( pids ):
+	tasklist = sg.get_current_update()
+	bs = sg.get_all_building()
+	if len( tasklist) == 3:
+		m = min( tasklist.values() )
+		print sg.cname, tasklist
+		return m
+	bs = filter( lambda x: x[1] not in tasklist.keys(), bs )
+	bs = filter( lambda x: x[1] in pids, bs )
+	bs.sort( key = lambda x:x[3] )
+	for obj in bs:
+		ret = sg.update_building( obj[1], obj[0] )
+		print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+		if ret['ret'] == 0:
+			break
+	else:
+		print "营寨无法升级成功任何建筑"
+		return 300
+	
+	return 5
+
+
 def call_update_building( gid ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
@@ -145,7 +167,7 @@ call_update_base =  functools.partial( call_update_building, gid = 1)
 call_update_wall =  functools.partial( call_update_building, gid = 2)
 call_update_all =  functools.partial( call_update_building, gid = 0)
 
-def call_func( func, cid,  *args ):
+def call_func( func, cid, *args ):
 	try:
 		sg.change_city( cid )
 		r = func( *args )
@@ -155,22 +177,32 @@ def call_func( func, cid,  *args ):
 		return
 	reactor.callLater( r, call_func, func, cid, *args )
 	
+def call_func2( func, cid, tid, *args ):
+	try:
+		sg.change_city( cid, tid )
+		r = func( *args )
+	except Exception , err:
+		print func, sg.tid, args ,err
+		reactor.callLater( 10, call_func2, func, cid, tid, *args )
+		return
+	reactor.callLater( r, call_func2, func, cid, tid, *args )
+
 
 def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 	n = 6
-	if speed: sg._speed = speed
+	
 	c = sg.get_build( btype )
 	if len(c) == 2:
 		ts = [ x[3] for x in c ]
 		return min(ts)
 	if len(c) == 1:
 		if( c[0][0] == wtype ):
-			sg.make( n, wtype2 )
+			sg.make( n, wtype2, speed )
 		else:
-			sg.make( n, wtype )
+			sg.make( n, wtype, speed )
 		return c[0][3]
 	
-	sg.make( n, wtype )
+	sg.make( n, wtype,speed )
 	return 5
 
 def check_minxin():
@@ -277,7 +309,7 @@ def call_many( fun, ls , *args ):
 
 
 def call_do_task( tid, gs ):
-	at = 899
+	at = 1800
 
 	tinfo = sg.task_info()
 	s = tinfo['status']
@@ -289,7 +321,7 @@ def call_do_task( tid, gs ):
 	elif s == 3:
 		print "任务完成，正在返回", t,"秒后重试"
 	if s != 0:
-		return t+2 if t<at else 5
+		return t
 	
 	infos = sg.get_soldier_info()
 	infos = filter( lambda x:x[1] in gs, infos )
@@ -330,38 +362,50 @@ def call_up_shiqi( gs ):
 		return infos[0][8]
 	return 5
 
+def call_check_giving( dest, supid, count ):
+	sg.set_giving( dest, count, supid )
+	return 600
 
 def main():
 	
 
 	#call_make_weapon()
+	call_func2( call_yz_update_building, cities[0], tids[0], [0,1,4])
+	call_func2( call_yz_update_building, cities[0], tids[1], [0,1,2])
+
+	call_func2( call_build_wall, cities[0], tids[0] )
+	call_func2( call_build_wall, cities[0], tids[1] )
+
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
 
+	call_func( call_check_giving, cities[0], tids[1], 	145422, 10000)
+	call_func( call_check_giving, cities[0], tids[0], 	145321, 10000)
 
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  205, 105, 3 )#
+	call_func( call_make_new_weapon, cities[0], 13,  105, 105, 2 )#
 	call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
 	call_func( call_make_new_weapon, cities[0], 15,  406, 406, 1 )
 	call_func( call_sell_weapon,     cities[0], ( 206,306,406 ) )
 	call_func( check_minxin, cities[0] )
-	call_func( call_do_task, cities[0], 1, [363930,364214,326572] )
+	call_func( call_do_task, cities[0], 2, [363930,364214,326572,442487,442097] )
 	call_func( check_skill_point, cities[0])
-	call_func( call_up_shiqi, cities[0], [442487,442097] )
+#	call_func( call_up_shiqi, cities[0], [442487,442097] )
 	
 
 	call_func( call_buy_resource, cities[1], 10 )
-	call_func( call_make_new_weapon, cities[1], 13,  205, 105 )
-	call_func( call_make_new_weapon, cities[1], 14,  305, 305 )
-	call_func( call_make_new_weapon, cities[1], 15,  405, 405 )
+	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
+	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
+	call_func( call_make_new_weapon, cities[1], 15,  405, 405,1 )
 	call_func( call_update_hourse, cities[1] )
 #	call_func( call_build_wall, cities[1] )
 	call_func( check_minxin, cities[1] )
+	call_func( check_skill_point, cities[1])
 
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
@@ -373,6 +417,7 @@ def main():
 	call_func( call_buy_resource, cities[2] )
 #	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
+	call_func( check_skill_point, cities[2])
 
 #	call_func( call_update_base, cities[0] )
 #	call_func( call_update_wall, cities[0] )
@@ -388,12 +433,12 @@ def main():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	print sg.change_city( cities[0] )
+	#print sg.change_city( cities[0] )
 	#call_make_new_weapon( 13, 103,103)
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
 	#check_skill_point()
-	#
+	#call_func2( call_yz_update_building, cities[0], tids[0], [0,1,2,3,4])
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
