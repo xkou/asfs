@@ -425,9 +425,8 @@ class SG:
 		return self.post("/GateWay/Common.ashx?id=3")
 	
 	def do_task(self, taskid, gens ):
-		gens += [0,0,0,0,0,0,0]
-		gens.insert(0,taskid	)
-		return self.post("/GateWay/OPT.ashx?id=62","taskid=%d&general1=%d&general2=%d&general3=%d&general4=%d&general5=%d&tid=0" % tuple( gens[0:6] ) )
+		p = [taskid]+gens+[0,0,0,0,0,0,0]
+		return self.post("/GateWay/OPT.ashx?id=62","taskid=%d&general1=%d&general2=%d&general3=%d&general4=%d&general5=%d&tid=0" % tuple( p[0:6] ) )
 	
 	def query_general(self ):
 		return self.post("/GateWay/Build.ashx?id=2", "pid=25&gid=8&tab=2&tid=2")
