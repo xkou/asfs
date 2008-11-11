@@ -129,7 +129,7 @@ class SG:
 		p[4]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
-		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=1" % (num, gid, pid) )
+		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, self._speed) )
 	
 	def show_weapon(self):
 		#http://sg2.dipan.com/GateWay/Common.ashx?id=27&0.6599525046579348
@@ -511,7 +511,38 @@ class SG:
 	
 	def give_job( self, wenid, job ):
 		return self.post("/GateWay/OPT.ashx?id=5","lCityID=%d&lGeneralID=%d&lType=%d" % (self.cid, wenid, job) )
+	
+	def get_gen_detail( self, genid ):
+		return self.post("/GateWay/Common.ashx?id=14","lGeneralID=%d&lCityID=0" % genid )
 
+	def get_all_gen( self ):
+		return self.post("/GateWay/Common.ashx?id=15","lType=4&tid=undefined")
+	
+	def add_point( self, genid, prop, pt ):
+		attrs = {}
+		# "strength":74,"agility":116,"captain":43
+		# charm":47,"brain":115,"manage":68
+		attrs['strength'] = 1
+		attrs['agility']  = 2
+		attrs['captain']  = 3
+
+		attrs['charm'] = 1
+		attrs['brain']  = 2
+		attrs['manage']  = 3
+
+		if pt > 10:
+			self.add_point( genid, prop, pt-10 )
+			pt = 10
+		if pt > 3:
+			self.add_point( genid, prop, pt-3 )
+			pt = 3
+		if pt > 1:
+			self.add_point( genid, prop, pt-1 )
+			pt = 1
+
+		if pt==1 or pt == 3 or pt == 10:
+			pass
+		return self.post("/GateWay/OPT.ashx?id=67", "lCityID=%d&lGeneralID=%d&lAttribType=%d&lAdd=%d"  % (self.cid, genid, attrs[prop], pt ) )
 
 if __name__ == "__main__":
 	sg = SG()

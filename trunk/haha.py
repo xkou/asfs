@@ -27,7 +27,7 @@ def sendemail( content ):
 	
 
 sg = SG(116399)
-sg._speed = 2
+sg._speed = 3
 print sg.change_city( 116399 )
 def call_make_weapon():
 	global sg
@@ -156,8 +156,9 @@ def call_func( func, cid,  *args ):
 	reactor.callLater( r, call_func, func, cid, *args )
 	
 
-def call_make_new_weapon( btype, wtype, wtype2 ):
+def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 	n = 6
+	if speed: sg._speed = speed
 	c = sg.get_build( btype )
 	if len(c) == 2:
 		ts = [ x[3] for x in c ]
@@ -228,7 +229,47 @@ def check_general():
 		print sg.cname, "犒赏", tostr(g[1]) , sg.give_money( g[0], g[12] *10)['ret'] == 0
 	
 	return 1200
+
+def check_skill_point():
+#    {"ret":0,"head_img":4006,"name":"冯超","histroy_name":"","type":2,"job":0,"partner_id":364837,"partner_name":"关敦川","status":24,"city_tent_id":116399,"level":66,"exp":3314,"update_exp":3620,"loyalty":66,"hp":760,"hp_max":760,"strength":74,"agility":116,"captain":43,"salary":660,"heal_left":0,"skill_point":12,"hpmax_add1":0,"attrib_add1":0,"attrib_add2":0,"attrib_add3":0}
+#	{"ret":0,"head_img":4000,"name":"关敦川","histroy_name":"","type":1,"job":3,"partner_id":364214,"partner_name":"冯超","status":24,"city_tent_id":116399,"level":66,"exp":3273,"update_exp":3620,"loyalty":63,"hp":760,"hp_max":760,"charm":47,"brain":115,"manage":68,"salary":660,"heal_left":0,"skill_point":12,"hpmax_add1":0,"attrib_add1":0,"attrib_add2":6,"attrib_add3":0}
+	def addpt( l, props ):
+		addpt1 = l['skill_point']
+		addpt2 = 0
+		if addpt1 == 0: return
+		prodict = {}
+		for p in props:
+			prodict[p] = l[p]
+		newlist = sorted( prodict.items(), key = lambda x:x[1])
+		d1 = newlist[2][0]
+		d2 = newlist[1][0]
+		d3 = newlist[0][0]
+		
+		for pt in range( l['skill_point'] ):
+			if l[d1]+addpt1 > l[d2]+addpt2 + l[d3]:
+				addpt1 -= 1
+				addpt2 += 1
+			else:
+				break
+		print sg.cname, tostr(l['name']), l['skill_point'] ,newlist
+		print sg.cname, tostr(l['name']), "点数", addpt1, addpt2
+		sg.add_point( l['id'], newlist[1][0], addpt2   )
+		sg.add_point( l['id'], newlist[2][0], addpt1   )
+		
+		return 900
+		# add point
+
+		
+	ls = sg.get_all_gen()['generals']
+	for l in ls:
+		info = sg.get_gen_detail( l[0] )
+		info['id'] = l[0]
+		if info['type'] == 1:
+			addpt( info, [ "charm","brain","manage" ] )
+		else:
+			addpt( info , [ "strength","agility","captain"] )
 	
+	return 900
 
 def call_many( fun, ls , *args ):
 	for l in  ls:
@@ -236,6 +277,8 @@ def call_many( fun, ls , *args ):
 
 
 def call_do_task( tid, gs ):
+	at = 899
+
 	tinfo = sg.task_info()
 	s = tinfo['status']
 	t = tinfo['current'][1]
@@ -245,18 +288,16 @@ def call_do_task( tid, gs ):
 		print "任务正在战斗", t,"秒后重试"
 	elif s == 3:
 		print "任务完成，正在返回", t,"秒后重试"
-	print s,t
 	if s != 0:
-		return t+2 if t<900 else 5
+		return t+2 if t<at else 5
 	
 	infos = sg.get_soldier_info()
-	print infos
 	infos = filter( lambda x:x[1] in gs, infos )
 	infos = filter( lambda x:x[7] < 100, infos )
 	ns = filter( lambda x:x[8] != -1 and x[7] > 89, infos )
 	if len(ns) == len(infos) and len(ns)!=0:
 		infos.sort( cmp = lambda x,y : cmp(y[8], x[8]) )
-		if infos[0][8] < 899:
+		if infos[0][8] < at:
 			sg.do_task( tid, gs )
 			return 5
 	if len(infos) == 0 :
@@ -264,7 +305,8 @@ def call_do_task( tid, gs ):
 		return 5
 	
 	n = call_up_shiqi( gs )
-	return 54
+	if n > at: return n -at 
+	return 10
 
 def call_up_shiqi( gs ):
 	t = 898
@@ -303,12 +345,15 @@ def main():
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  205, 105 )#
-	call_func( call_make_new_weapon, cities[0], 14,  305, 305 )
-	call_func( call_make_new_weapon, cities[0], 15,  405, 405 )
+	call_func( call_make_new_weapon, cities[0], 13,  205, 105, 3 )#
+	call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
+	call_func( call_make_new_weapon, cities[0], 15,  406, 406, 1 )
+	call_func( call_sell_weapon,     cities[0], ( 206,306,406 ) )
 	call_func( check_minxin, cities[0] )
 	call_func( call_do_task, cities[0], 1, [363930,364214,326572] )
-
+	call_func( check_skill_point, cities[0])
+	call_func( call_up_shiqi, cities[0], [442487,442097] )
+	
 
 	call_func( call_buy_resource, cities[1], 10 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105 )
@@ -323,8 +368,8 @@ def main():
 	
 	
 #	call_func( call_update_all, cities[2] )
-#	call_func( call_make_new_weapon, cities[2], 13,  103, 103 )
-#	call_func( call_sell_weapon,  cities[2], (103,) )
+	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
+	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2] )
 #	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
@@ -347,7 +392,8 @@ if __name__ == "__main__":
 	#call_make_new_weapon( 13, 103,103)
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
-	#print call_up_shiqi(  )
+	#check_skill_point()
+	#
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
