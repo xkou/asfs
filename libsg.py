@@ -78,7 +78,6 @@ class SG:
 		self.cid = 0
 		self.tid = 0
 		self.cookie=open("cookie","rb").read()
-		#self.cookie = self.cookie.replace("cid=116399;","cid=%d;" % cid)
 		self.headers['Content-Type']="application/x-www-form-urlencoded; charset=UTF-8"
 		self.headers['Referer'] = "http://sg2.dipan.com/city"
 		self.headers['X-Requested-With'] = "XMLHttpRequest"
@@ -88,9 +87,35 @@ class SG:
 		self.buildings = None
 		self.building_data = {}
 		self.city_names={}
+		citiesinfo = self.get_city_list()['infos']
+		for e in citiesinfo:
+			print tostr(e[2]), e[1]
+		self.cs = filter(lambda x:x[-1] == 0, citiesinfo )
+		self.ts = filter(lambda x:x[-1] > 0, citiesinfo)
+		
+		self.res = {}
+	
+	def update_self_res(self):
+		i = self.cid if self.tid == 0 else self.tid
+		self.res[i] = self.get_resouce_number()
+	
+	def get_city_list( self ):
+		r = self.post("/GateWay/City.ashx?id=7")
+		return r
+	
+	def get_res_number( self, cid ):
+		r = self.post("/GateWay/Common.ashx?id=31")
+		l = filter( lambda x: x[0] == cid, r['list'] )[0]
+		k = {}
+		k['food'] = l[5]
+		k['wood'] = l[6]
+		k['stone'] = l[7]
+		k['iron'] =l[8] 
+		return k
 
 	def init_building(self, cid ):
-		self.building_data[cid] = json.read(open("buildings.data.%d" % cid,"rb").read())
+		#self.building_data[cid] = json.read(open("buildings.data.%d" % cid,"rb").read())
+		self.building_data[cid] = self.get_all_building()
 	
 	def fix_cookie(self, cityid, tid=0 ):
 		self.cid= cityid
@@ -127,7 +152,7 @@ class SG:
 	def make(self, num, gid, speed ):
 		p={}
 		m = gid/100
-		p[1] = 13
+		p[1]=13
 		p[2]=13
 		p[3]=14
 		p[4]=15
@@ -196,9 +221,8 @@ class SG:
 		data['type3'] = 2 
 		return self.post("/GateWay/OPT.ashx?id=9", urllib.urlencode(data) )
 	
-	def get_build(self, gid=13, pid=12, tab = 1):
-		pid = filter( lambda x:x[0]==gid, self.buildings )[0][1]
-		return self.post( "/GateWay/Build.ashx?id=2" ,"gid=%d&pid=%d&tab=%d" % (gid, pid, tab))['current']
+	def get_build(self, gid=13 ):
+		return self.post( "/GateWay/Build.ashx?id=2" ,"gid=%d&pid=%d&tab=%d" % (gid, -1, 1))['current']
 	
 	def get_build_detail( self, pid, tab = 1 ):
 		return self.post( "/GateWay/Build.ashx?id=2" ,"gid=%d&pid=%d&tab=%d" % ( self.get_building_gid(pid), pid, tab))
@@ -246,7 +270,6 @@ class SG:
 	def get_current(self):
 		# http://sg2.dipan.com/GateWay/Common.ashx?id=41&0.6108996970752234
 		ret = self.post("/GateWay/City.ashx?id=37","ttid=%d" % (-1 if self.tid == 0 else self.tid) )
-		#ret = self.post("/GateWay/Common.ashx?id=41","lCityCampID=116399")
 		return ret
 	
 	def get_current_update(self):
@@ -355,18 +378,33 @@ class SG:
 		
 		return ret
 	
-	def change_city( self,citynum = 116399, tid= 0 ):
-		if self.cid == citynum and self.tid == tid: return dict(ret=0)
-
-		if not self.city_names.has_key( citynum ):
-			for e in self.post("/GateWay/Common.ashx?id=28")['list']:
-				self.city_names[e[0]] = tostr(e[1])
-		self.cname = self.city_names[ citynum ]
-		self.fix_cookie( citynum, tid )
-		if not self.building_data.has_key( citynum ):
-			self.init_building( citynum )
-		self.buildings = self.building_data[ citynum ]
+	def change_city( self,citynum = 116399 ):
+		cid = 0
+		tid = 0
+		cinfo = tinfo = None
+		if citynum > 0:
+			cid = citynum
+		else:
+			tid = citynum
+			tinfo = filter( lambda x: x[1]==tid, self.ts )[0]
+			cid = tinfo[-1]
+				
+		cinfo = filter( lambda x: x[1]==cid, self.cs )[0]
+			
+		if self.cid == cid and self.tid==tid: return dict(ret=0)
+		self.cid = cid
+		self.tid = tid
+		self.cname = tostr(cinfo[2])
+		if tinfo:
+			self.tname = tostr(tinfo[2])
+		
+		self.fix_cookie( cid, tid )
 		ret = self.post("/GateWay/City.ashx?id=50","tid=%d" % tid )
+		h = cid if tid==0 else tid
+		if not self.building_data.has_key( h ):
+			self.init_building( h )
+		self.buildings = self.building_data[ h ]
+		
 		
 		return ret
 	
@@ -447,14 +485,15 @@ class SG:
 		return self.post("/GateWay/Build.ashx?id=2", "pid=0&gid=2&tab=%d&tid=%d" % (tab, self.tid))
 	
 	def get_wall_value(self):
-		return filter( lambda x:x[0] == self.cid, self.post("/GateWay/Common.ashx?id=28")['list'] )[0]
+		key = self.cid
+		if self.tid : key = self.tid
+		return filter( lambda x:x[0] == key, self.post("/GateWay/Common.ashx?id=28")['list'] )[0]
 
 	def make_wall( self, num, btype, speed=1 ):
 		return self.post("/GateWay/OPT.ashx?id=38", "pos=0&tid=%d&gid=%d&count=%d&lFaster=%d" % (self.tid, btype, num, speed) )
 	
 	def get_wu_infos( self ):
-		pid = self.get_pid_by_gid( 10 )[0][1]
-		r = self.post("/GateWay/Build.ashx?id=2","pid=%d&gid=10&tab=1&tid=0" % pid )
+		r = self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=10&tab=1&tid=%d" % ( self.tid ) )
 		if r['ret'] == 0:
 			return r['incity']
 		else:
@@ -511,6 +550,16 @@ class SG:
 		r = self.getfind_info(g[0], dest )
 		print tostr(r['offical_name']) , "去寻访", tostr( r['hero_name'] ), "用时:", r['duration']
 		return self._dofind( r['offical_id'],dest, r['money_percent'] )
+	
+	def train_new(self, num ):
+		r = self.post("/GateWay/OPT.ashx?id=41","lAmount=%d&tid=0" % num )
+		return r
+	
+	def army_info(self, num ):
+		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=16&tab=2&tid=0")
+	
+	def add_soldier(self, genid, stype, num ):
+		return self.post("/GateWay/OPT.ashx?id=6","lGeneralID=%d&lSoldierType=%d&lAmount=%d&tid=0" % ( genid, stype, num) )
 
 	def buy_wen( self, key = 4 ):
 		r = self.post("/GateWay/Build.ashx?id=2", "pid=-1&gid=7&tab=1&tid=0")
@@ -557,14 +606,18 @@ class SG:
 	def set_giving( self, dest , count, supid ):
 		return self.post("/GateWay/OPT.ashx?id=64","lDestID=%d&lFood=%d&lIron=%d&lStone=%d&lSupplyID=%d&lWood=%d&tid=%d" % (dest, count, count, count, supid, count, self.tid) )
 
+	def get_trader_info( self ):
+		# {"ret":0,"trader":12,"plus_left":0,"come":[],"back":[],"goto":[[539885,"1周杰伦1",96389,-34034,"测试",1419863,5000,10000,10000,10000,0,4,938,1,1,0,"",0],[539888,"1周杰伦1",96389,-34034,"测试",1419863,5000,10000,10000,10000,0,4,943,1,1,0,"",0]]}
+		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=11&tab=1&tid=0")
+
+	def do_trans( self, dest, wood = 0, iron= 0, stone =0, food = 0, money = 0 ):
+		return self.post("/GateWay/OPT.ashx?id=52", "tid=0&gid=0&gamount=0&Wood=%d&Iron=%d&Stone=%d&Food=%d&Money=%d&times=1&dest=%d" % (wood, iron, stone, food, money, dest))
+
 if __name__ == "__main__":
 	sg = SG()
 	#print sg.change_city( 125463 )
-	print sg.change_city( 116399, 0 )
-	print sg.change_city( 116399, -40050 )
-	print sg.change_city( 116399, -34034 )
-	print sg.change_city( 145742, 0 )
-	print sg.cname
+	print sg.change_city( -40050 )
+	print sg.cname, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
 	#print sg.get_build_detail(19,1)
@@ -590,7 +643,7 @@ if __name__ == "__main__":
 	#print sg.get_need_resouce(14,24,-1)  # 防具
 	#print sg.get_need_resouce(15,19,-1)  # 车马
 	#print sg.get_need_resouce(6,14,-1)  # 大学升级
-	print sg.get_current_update()
+	#print sg.get_current_update()
 	#print sg.get_current_update()
 	#print sg.update_building(15,19)
 	#print sg.force_update_building( 14)
@@ -599,7 +652,7 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	#print sg.get_all_building()
+	print sg.get_all_building()
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "空闲:",sg.get_people_info()[5]
@@ -620,4 +673,5 @@ if __name__ == "__main__":
 	#print sg.make_wall(1,901)
 	#print sg.make_wall(1,901)
 	#print sg.dofind(1)  # use generals
+	#print sg.get_trader_info( )
 
