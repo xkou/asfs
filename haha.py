@@ -436,12 +436,12 @@ def main():
 	call_func( call_sell_weapon,     cities[0], ( 206,306,406 ) )
 	call_func( check_minxin, cities[0] )
 
-#	call_func( call_do_task, cities[0], 1, [442487,442097,326572] )
+	call_func( call_do_task, cities[0], 1, [364214,442487,442097] )
 #=======
 #	call_func( call_do_task, cities[0], 2, [363930,364214,326572,442487,442097] )
 #>>>>>>> .r21
 	call_func( check_skill_point, cities[0])
-	call_func( call_up_shiqi, cities[0], [363930,364214,326572,442487,442097] )
+	call_func( call_up_shiqi, cities[0], [ 363930, 326572 ] )
 	
 
 	call_func( call_buy_resource, cities[1], 10 )
