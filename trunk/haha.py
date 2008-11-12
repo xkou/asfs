@@ -65,9 +65,9 @@ def call_sell_weapon( ws =(206,306,406) ):
 	
 	return 20
 
-def call_buy_resource( num = 3):
+def call_buy_resource( num = 5):
 	res = sg.get_resouce_number()
-	low = 30000
+	low = 50000
 	def check( name, id ):
 		if res[name]< low:
 			print sg.cname, "买入", name
@@ -114,14 +114,14 @@ def call_yz_update_building( pids ):
 	bs = sg.get_all_building()
 	if len( tasklist) == 3:
 		m = min( tasklist.values() )
-		print sg.cname, tasklist
+		print sg.tname, tasklist
 		return m
 	bs = filter( lambda x: x[1] not in tasklist.keys(), bs )
 	bs = filter( lambda x: x[1] in pids, bs )
 	bs.sort( key = lambda x:x[3] )
 	for obj in bs:
 		ret = sg.update_building( obj[1], obj[0] )
-		print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+		print sg.tname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
 		if ret['ret'] == 0:
 			break
 	else:
@@ -129,6 +129,10 @@ def call_yz_update_building( pids ):
 		return 300
 	
 	return 5
+
+def call_update_res_number():
+	sg.update_self_res()
+	return 60
 
 
 def call_update_building( gid ):
@@ -167,25 +171,25 @@ call_update_base =  functools.partial( call_update_building, gid = 1)
 call_update_wall =  functools.partial( call_update_building, gid = 2)
 call_update_all =  functools.partial( call_update_building, gid = 0)
 
-def call_func( func, cid, *args ):
+def call_func( func, cid, *args, **awk ):
+	try:
+		sg.change_city( cid )
+		r = func( *args, **awk )
+	except Exception , err:
+		print func, sg.cid, args ,err
+		reactor.callLater( 10, call_func, func, cid, *args, **awk )
+		return
+	reactor.callLater( r, call_func, func, cid, *args, **awk )
+	
+def call_func2( func, cid, *args ):
 	try:
 		sg.change_city( cid )
 		r = func( *args )
 	except Exception , err:
-		print func, sg.cid, args ,err
-		reactor.callLater( 10, call_func, func, cid, *args )
-		return
-	reactor.callLater( r, call_func, func, cid, *args )
-	
-def call_func2( func, cid, tid, *args ):
-	try:
-		sg.change_city( cid, tid )
-		r = func( *args )
-	except Exception , err:
 		print func, sg.tid, args ,err
-		reactor.callLater( 10, call_func2, func, cid, tid, *args )
+		reactor.callLater( 10, call_func2, func, cid, *args )
 		return
-	reactor.callLater( r, call_func2, func, cid, tid, *args )
+	reactor.callLater( r, call_func2, func, cid,  *args )
 
 
 def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
@@ -264,7 +268,7 @@ def check_general():
 
 def check_skill_point():
 #    {"ret":0,"head_img":4006,"name":"冯超","histroy_name":"","type":2,"job":0,"partner_id":364837,"partner_name":"关敦川","status":24,"city_tent_id":116399,"level":66,"exp":3314,"update_exp":3620,"loyalty":66,"hp":760,"hp_max":760,"strength":74,"agility":116,"captain":43,"salary":660,"heal_left":0,"skill_point":12,"hpmax_add1":0,"attrib_add1":0,"attrib_add2":0,"attrib_add3":0}
-#	{"ret":0,"head_img":4000,"name":"关敦川","histroy_name":"","type":1,"job":3,"partner_id":364214,"partner_name":"冯超","status":24,"city_tent_id":116399,"level":66,"exp":3273,"update_exp":3620,"loyalty":63,"hp":760,"hp_max":760,"charm":47,"brain":115,"manage":68,"salary":660,"heal_left":0,"skill_point":12,"hpmax_add1":0,"attrib_add1":0,"attrib_add2":6,"attrib_add3":0}
+#	  {"ret":0,"head_img":4000,"name":"关敦川","histroy_name":"","type":1,"job":3,"partner_id":364214,"partner_name":"冯超","status":24,"city_tent_id":116399,"level":66,"exp":3273,"update_exp":3620,"loyalty":63,"hp":760,"hp_max":760,"charm":47,"brain":115,"manage":68,"salary":660,"heal_left":0,"skill_point":12,"hpmax_add1":0,"attrib_add1":0,"attrib_add2":6,"attrib_add3":0}
 	def addpt( l, props ):
 		addpt1 = l['skill_point']
 		addpt2 = 0
@@ -303,13 +307,43 @@ def check_skill_point():
 	
 	return 900
 
-def call_many( fun, ls , *args ):
+def call_many( fun, ls , *args, **awk ):
 	for l in  ls:
-		call_func( fun, cities[l], * args )
+		call_func( fun, cities[l], * args, **awk )
+
+def call_check_yz_res( dest ):
+	res = sg.get_res_number(dest)
+	for e in res:
+		if res[e]<50000:
+			cmd = "sg.do_trans( dest, %s=20000 )" % e
+			eval(cmd)
+	return 400
+
+def call_trans_res( dest,  stone=0, wood=0, iron = 0, food = 0 ):
+	info = sg.get_trader_info()
+	
+	n = (stone+wood+iron+food)/10000
+	
+	if info['trader'] > n:
+		sg.do_trans( dest, stone = stone, wood=wood, iron=iron, food=food )
+		return 30*60
+	
+	if info['back']:
+		gt = info['back']
+		gt.sort( key = lambda x:x[12] )
+		return gt[0][12]
+	
+	
+	if info['goto']:
+		gt = info['goto']
+		gt.sort( key = lambda x:x[12] )
+		return gt[0][12]
+	
+	return 60
 
 
 def call_do_task( tid, gs ):
-	at = 1800
+	at = 900
 
 	tinfo = sg.task_info()
 	s = tinfo['status']
@@ -352,7 +386,7 @@ def call_up_shiqi( gs ):
 	for inf in ls:
 		sg.buy( sum(inf[3:6])*5/1000+3, SG._food )
 		r = sg.update_shiqi( inf[1], 100-inf[7] )
-		print sg.cname, "提升土气", tostr(inf[2]),r['ret'] == 0
+		print sg.cname, "提升士气", tostr(inf[2]),r['ret'] == 0
 	if len(ls) == 0:
 		if len( filter( lambda x:x[7] < 90 , infos ) ) == 0:
 			infos.sort( cmp = lambda x,y : cmp(y[8],x[8]))
@@ -370,40 +404,52 @@ def main():
 	
 
 	#call_make_weapon()
-	call_func2( call_yz_update_building, cities[0], tids[0], [0,1,4])
-	call_func2( call_yz_update_building, cities[0], tids[1], [0,1,2])
+	call_func( call_yz_update_building, tids[0], [0,1,4])
+	call_func( call_yz_update_building, tids[1], [0,1,2])
 
-	call_func2( call_build_wall, cities[0], tids[0] )
-	call_func2( call_build_wall, cities[0], tids[1] )
-
+	call_func( call_build_wall, tids[0] )
+	call_func( call_build_wall, tids[1] )
+	
+	call_func( call_update_res_number, tids[0] )
+	call_func( call_update_res_number, tids[1] )
+	
+	call_func( call_check_yz_res, cities[0], tids[0] )
+	call_func( call_check_yz_res, cities[0], tids[1] )
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
+	
+#	call_func( call_trans_res, cities[0], tids[0],  wood=20000, stone=10000, food=10000, iron = 10000 )
+#	call_func( call_trans_res, cities[0], tids[1],  wood=30000, stone=10000, food=10000, iron = 0 )
 
-	call_func( call_check_giving, cities[0], tids[1], 	145422, 30000)
-	call_func( call_check_giving, cities[0], tids[0], 	145321, 30000)
+	call_func( call_check_giving, cities[0], tids[1], 	145422, 0)
+	call_func( call_check_giving, cities[0], tids[0], 	145321, 0)
 
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  105, 105, 4 )#
+	call_func( call_make_new_weapon, cities[0], 13,  105, 105, 4 )
 	call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
 	call_func( call_make_new_weapon, cities[0], 15,  406, 406, 1 )
 	call_func( call_sell_weapon,     cities[0], ( 206,306,406 ) )
 	call_func( check_minxin, cities[0] )
+
+#	call_func( call_do_task, cities[0], 1, [442487,442097,326572] )
+#=======
 #	call_func( call_do_task, cities[0], 2, [363930,364214,326572,442487,442097] )
+#>>>>>>> .r21
 	call_func( check_skill_point, cities[0])
-#	call_func( call_up_shiqi, cities[0], [442487,442097] )
+	call_func( call_up_shiqi, cities[0], [363930,364214,326572,442487,442097] )
 	
 
 	call_func( call_buy_resource, cities[1], 10 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405,1 )
-	call_func( call_update_hourse, cities[1] )
-#	call_func( call_build_wall, cities[1] )
+#	call_func( call_update_hourse, cities[1] )
+	call_func( call_update_all, cities[1] )
 	call_func( check_minxin, cities[1] )
 	call_func( check_skill_point, cities[1])
 
@@ -433,12 +479,12 @@ def main():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	#print sg.change_city( cities[0] )
+	print sg.change_city( tids[0] )
 	#call_make_new_weapon( 13, 103,103)
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
 	#check_skill_point()
-	#call_func2( call_yz_update_building, cities[0], tids[0], [0,1,2,3,4])
+	#call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
