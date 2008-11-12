@@ -364,7 +364,7 @@ def call_up_shiqi( gs ):
 
 def call_check_giving( dest, supid, count ):
 	sg.set_giving( dest, count, supid )
-	return 600
+	return 60
 
 def main():
 	
@@ -380,20 +380,20 @@ def main():
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
 
-	call_func( call_check_giving, cities[0], tids[1], 	145422, 10000)
-	call_func( call_check_giving, cities[0], tids[0], 	145321, 10000)
+	call_func( call_check_giving, cities[0], tids[1], 	145422, 30000)
+	call_func( call_check_giving, cities[0], tids[0], 	145321, 30000)
 
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  105, 105, 2 )#
+	call_func( call_make_new_weapon, cities[0], 13,  105, 105, 4 )#
 	call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
 	call_func( call_make_new_weapon, cities[0], 15,  406, 406, 1 )
 	call_func( call_sell_weapon,     cities[0], ( 206,306,406 ) )
 	call_func( check_minxin, cities[0] )
-	call_func( call_do_task, cities[0], 2, [363930,364214,326572,442487,442097] )
+#	call_func( call_do_task, cities[0], 2, [363930,364214,326572,442487,442097] )
 	call_func( check_skill_point, cities[0])
 #	call_func( call_up_shiqi, cities[0], [442487,442097] )
 	
