@@ -156,6 +156,7 @@ class SG:
 		p[2]=13
 		p[3]=14
 		p[4]=15
+		p[5]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
 		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, speed) )

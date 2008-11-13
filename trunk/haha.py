@@ -10,7 +10,7 @@ import random
 
 
 cities = [116399,125463,145742]
-tids = [ -40050 , -34034 ]
+tids = [ -40050 , -34034 , -50256, -50278]
 
 def sendemail( content ):
 	f = '"三国" <hk888@163.com>'
@@ -95,6 +95,7 @@ def call_update_tech():
 		print "当前研究:", tostr(ret[1]), "级别:", ret[2], "剩余时间:", ret[4]
 		return ret[4]
 	techlist=range(16,30) #,13,12,15 #,1,4,3,2,
+	techlist= [9] #,13,12,15 #,1,4,3,2,
 	alltech = sg.get_all_tech()['list']
 	alltech = filter( lambda x: x[0] in techlist, alltech)
 	alltech = filter( lambda x: x[2] < top_level, alltech)
@@ -311,13 +312,13 @@ def call_many( fun, ls , *args, **awk ):
 	for l in  ls:
 		call_func( fun, cities[l], * args, **awk )
 
-def call_check_yz_res( dest ):
+def call_check_yz_res( dest, low = 50000 ):
 	res = sg.get_res_number(dest)
 	for e in res:
-		if res[e]<50000:
-			cmd = "sg.do_trans( dest, %s=20000 )" % e
+		if res[e] < low:
+			cmd = "sg.do_trans( dest, %s=10000 )" % e
 			eval(cmd)
-	return 400
+	return 200
 
 def call_trans_res( dest,  stone=0, wood=0, iron = 0, food = 0 ):
 	info = sg.get_trader_info()
@@ -404,17 +405,19 @@ def main():
 	
 
 	#call_make_weapon()
-	call_func( call_yz_update_building, tids[0], [0,1,4])
-	call_func( call_yz_update_building, tids[1], [0,1,2])
+	call_func( call_yz_update_building, tids[0], [0,1,2,3,4] )
+	call_func( call_yz_update_building, tids[1], [0,1,2,3,4] )
+	call_func( call_yz_update_building, tids[2], [0,1,2,3,4] )
+	call_func( call_yz_update_building, tids[3], [0,1,2,3,4] )
 
 	call_func( call_build_wall, tids[0] )
+	call_func( call_build_wall, tids[2] )
+	call_func( call_build_wall, tids[3] )
 	call_func( call_build_wall, tids[1] )
-	
-	call_func( call_update_res_number, tids[0] )
-	call_func( call_update_res_number, tids[1] )
 	
 	call_func( call_check_yz_res, cities[0], tids[0] )
 	call_func( call_check_yz_res, cities[0], tids[1] )
+	call_func( call_check_yz_res, cities[0], tids[3] , 50000 )
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
@@ -422,34 +425,34 @@ def main():
 #	call_func( call_trans_res, cities[0], tids[0],  wood=20000, stone=10000, food=10000, iron = 10000 )
 #	call_func( call_trans_res, cities[0], tids[1],  wood=30000, stone=10000, food=10000, iron = 0 )
 
-	call_func( call_check_giving, cities[0], tids[1], 	145422, 0)
-	call_func( call_check_giving, cities[0], tids[0], 	145321, 0)
+#	call_func( call_check_giving, cities[0], tids[1], 	145422, 0)
+#	call_func( call_check_giving, cities[0], tids[0], 	145321, 0)
 
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  105, 105, 4 )
+	call_func( call_make_new_weapon, cities[0], 13,  207, 107, 1 )
 	call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
 	call_func( call_make_new_weapon, cities[0], 15,  406, 406, 1 )
-	call_func( call_sell_weapon,     cities[0], ( 206,306,406 ) )
+	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cities[0] )
 
-	call_func( call_do_task, cities[0], 1, [364214,442487,442097] )
-#=======
-#	call_func( call_do_task, cities[0], 2, [363930,364214,326572,442487,442097] )
-#>>>>>>> .r21
-	call_func( check_skill_point, cities[0])
-	call_func( call_up_shiqi, cities[0], [ 363930, 326572 ] )
-	
+	call_func( call_do_task, cities[0], 1, [363930,364214,326572] )
 
-	call_func( call_buy_resource, cities[1], 10 )
+	call_func( check_skill_point, cities[0])
+#	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
+	
+	
+	call_func( call_check_yz_res, cities[1], tids[2], 50000 )
+	call_func( call_buy_resource, cities[1], 15 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405,1 )
 #	call_func( call_update_hourse, cities[1] )
 	call_func( call_update_all, cities[1] )
+	call_func( call_build_wall, cities[1] )
 	call_func( check_minxin, cities[1] )
 	call_func( check_skill_point, cities[1])
 
