@@ -435,7 +435,7 @@ def main():
 	call_func( call_update_hourse, cities[0] )
 	call_func( call_make_new_weapon, cities[0], 13,  207, 107, 1 )
 	call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
-	call_func( call_make_new_weapon, cities[0], 15,  406, 406, 1 )
+	call_func( call_make_new_weapon, cities[0], 15,  501, 501, 1 )
 	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cities[0] )
 
