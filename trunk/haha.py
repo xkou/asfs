@@ -239,7 +239,7 @@ def call_get_newb_general( tid ):# 7,8
 			print sg.cname, "任命", tostr(gen[1]) ,"为太守"
 			sg.give_job( gen[0], 1 )
 	else:
-		threads.deferToThread( sendemail, "找到名将 " + tostr(`w`) )
+		threads.deferToThread( sendemail, "找到名将 " + tostr(w[3]) )
 		sg.dofind(w[0])
 	return 125
 
