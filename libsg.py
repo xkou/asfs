@@ -234,6 +234,7 @@ class SG:
 		keys = ['stone', 'food',  'wood', 'iron']
 		for e in keys:
 			ret[e] = r[e][0]
+			ret["-"+e] = r[e][1]
 		return ret
 	
 	def get_yz_building(self, tid):
@@ -653,7 +654,7 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	print sg.get_all_building()
+	print sg.get_gen_detail(303990)
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "ø’œ–:",sg.get_people_info()[5]

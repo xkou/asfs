@@ -66,10 +66,10 @@ def call_sell_weapon( ws =(206,306,406) ):
 	return 20
 
 def call_buy_resource( num = 5):
-	res = sg.get_resouce_number()
-	low = 50000
+	res = sg.get_resouce_number( )
+	low = 50000 
 	def check( name, id ):
-		if res[name]< low:
+		if res[name] < low - 12 * (res["-"+name] if res["-"+name]<0 else 0) :
 			print sg.cname, "ÂòÈë", name
 			sg.buy(num, id)
 
@@ -312,10 +312,10 @@ def call_many( fun, ls , *args, **awk ):
 	for l in  ls:
 		call_func( fun, cities[l], * args, **awk )
 
-def call_check_yz_res( dest, low = 50000 ):
+def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000 ):
 	res = sg.get_res_number(dest)
 	for e in res:
-		if res[e] < low:
+		if res[e] < eval(e):
 			cmd = "sg.do_trans( dest, %s=10000 )" % e
 			eval(cmd)
 	return 200
@@ -415,9 +415,14 @@ def main():
 	call_func( call_build_wall, tids[3] )
 	call_func( call_build_wall, tids[1] )
 	
-	call_func( call_check_yz_res, cities[0], tids[0] )
-	call_func( call_check_yz_res, cities[0], tids[1] )
-	call_func( call_check_yz_res, cities[0], tids[3] , 50000 )
+	call_func( check_skill_point, tids[0] )
+	call_func( check_skill_point, tids[2] )
+	call_func( check_skill_point, tids[3] )
+	call_func( check_skill_point, tids[1] )
+	
+	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000)
+	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000)
+	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000 )
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
@@ -445,7 +450,7 @@ def main():
 #	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
 	
-	call_func( call_check_yz_res, cities[1], tids[2], 50000 )
+	call_func( call_check_yz_res, cities[1], tids[2], wood=200000 )
 	call_func( call_buy_resource, cities[1], 15 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
