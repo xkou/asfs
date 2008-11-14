@@ -455,8 +455,8 @@ def main():
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405,1 )
-#	call_func( call_update_hourse, cities[1] )
-	call_func( call_update_all, cities[1] )
+	call_func( call_update_hourse, cities[1] )
+#	call_func( call_update_all, cities[1] )
 	call_func( call_build_wall, cities[1] )
 	call_func( check_minxin, cities[1] )
 	call_func( check_skill_point, cities[1])
@@ -465,11 +465,11 @@ def main():
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
 	
-#	call_func( call_update_all, cities[2] )
+	call_func( call_update_hourse, cities[2] )
 	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2] )
-#	call_func( call_build_wall, cities[2] )
+	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
 
