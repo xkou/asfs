@@ -614,12 +614,24 @@ class SG:
 
 	def do_trans( self, dest, wood = 0, iron= 0, stone =0, food = 0, money = 0 ):
 		return self.post("/GateWay/OPT.ashx?id=52", "tid=0&gid=0&gamount=0&Wood=%d&Iron=%d&Stone=%d&Food=%d&Money=%d&times=1&dest=%d" % (wood, iron, stone, food, money, dest))
+	
+	def get_best_tax(self):
+		r = self.post("/GateWay/Common.ashx?id=30")
+		peo = r['population']
+		# 合理税率＝50-46*劳动人口/人口上限-50*军事人口/人口上限	
+		return 50-46.0*peo[3]/peo[1]-50.0*peo[4]/peo[1]
+	
+	def get_fin_info( self, cid = 0):
+		if cid == 0: cid = self.cid
+		r= self.post("/GateWay/Common.ashx?id=29")['city']
+		return filter( lambda x:x[0] == cid, r )[0]
+
 
 if __name__ == "__main__":
 	sg = SG()
-	#print sg.change_city( 125463 )
-	print sg.change_city( -40050 )
-	print sg.cname, sg.tname
+	print sg.change_city( 125463 )
+	#print sg.change_city( -40050 )
+	print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
 	#print sg.get_build_detail(19,1)
@@ -654,7 +666,7 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	print sg.get_gen_detail(303990)
+	print sg.get_best_tax()
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "空闲:",sg.get_people_info()[5]
