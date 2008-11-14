@@ -420,9 +420,9 @@ def main():
 	call_func( check_skill_point, tids[3] )
 	call_func( check_skill_point, tids[1] )
 	
-	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000)
-	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000)
-	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000 )
+	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000, stone = 150000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000, stone = 150000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000, stone = 150000, iron = 150000 )
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
@@ -450,7 +450,7 @@ def main():
 #	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
 	
-	call_func( call_check_yz_res, cities[1], tids[2], wood=200000 )
+	call_func( call_check_yz_res, cities[1], tids[2], wood= 300000, stone = 150000, iron = 150000 )
 	call_func( call_buy_resource, cities[1], 15 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
