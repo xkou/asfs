@@ -9,8 +9,8 @@ from email.mime.text import MIMEText
 import random
 
 
-cities = [116399,125463,145742]
-tids = [ -40050 , -34034 , -50256, -50278]
+cities = [116399,125463,145742,57747]
+tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
 	f = '"三国" <hk888@163.com>'
@@ -95,7 +95,7 @@ def call_update_tech():
 		print "当前研究:", tostr(ret[1]), "级别:", ret[2], "剩余时间:", ret[4]
 		return ret[4]
 	techlist=range(16,30) #,13,12,15 #,1,4,3,2,
-	techlist= [11] #,13,12,15 #,1,4,3,2,
+	techlist= [29] #,13,12,15 #,1,4,3,2,
 	alltech = sg.get_all_tech()['list']
 	alltech = filter( lambda x: x[0] in techlist, alltech)
 	alltech = filter( lambda x: x[2] < top_level, alltech)
@@ -113,8 +113,11 @@ def call_update_tech():
 def call_yz_update_building( pids ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
-	if len( tasklist) == 3:
-		m = min( tasklist.values() )
+	l  = len( tasklist )
+	m = 5
+	if l: m = min( tasklist.values() )
+	if l == 3:
+		
 		print sg.tname, tasklist
 		return m
 	bs = filter( lambda x: x[1] not in tasklist.keys(), bs )
@@ -126,8 +129,8 @@ def call_yz_update_building( pids ):
 		if ret['ret'] == 0:
 			break
 	else:
-		print "营寨无法升级成功任何建筑"
-		return 300
+		print sg.tname,"营寨无法升级成功任何建筑"
+		return m if l else 300
 	
 	return 5
 
@@ -139,10 +142,12 @@ def call_update_res_number():
 def call_update_building( gid ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
-
-	if len(tasklist) >= 3:
-		ts = tasklist.values()
-		m = min(ts)
+	l = len(tasklist)
+	ts = tasklist.values()
+	m = 0
+	if l: m = min(ts)
+	if l >= 3:
+		
 		print sg.cname
 		for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , bs )[0][3], "剩余时间:", tasklist[e]
 		print sg.cname, m, "秒后重试"
@@ -159,8 +164,8 @@ def call_update_building( gid ):
 		if ret['ret'] == 0:
 			break
 	else:
-		print "无法升级成功任何建筑"
-		return 600
+		print  sg.cname, "无法升级成功任何建筑"
+		return m if m else 300
 	
 	return 5
 	
@@ -312,13 +317,13 @@ def call_many( fun, ls , *args, **awk ):
 	for l in  ls:
 		call_func( fun, cities[l], * args, **awk )
 
-def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000 ):
+def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000, num = 10000, timeout=200 ):
 	res = sg.get_res_number(dest)
 	for e in res:
 		if res[e] < eval(e):
-			cmd = "sg.do_trans( dest, %s=10000 )" % e
+			cmd = "sg.do_trans( dest, %s=%d )" % (e, num)
 			eval(cmd)
-	return 200
+	return timeout
 
 def call_trans_res( dest,  stone=0, wood=0, iron = 0, food = 0 ):
 	info = sg.get_trader_info()
@@ -397,32 +402,47 @@ def call_up_shiqi( gs ):
 		return infos[0][8]
 	return 5
 
+
+def call_beat_city( target ):
+	ts = sg.get_max_time()
+	ts.sort( key = lambda x: x[1] )
+	if ts[-1][1] != 0: return ts[-1][1]
+	if len( sg.get_useable_gens() ) == 0 : return 20
+	sg.do_beat_city( target )
+	return 5
+
 def call_check_giving( dest, supid, count ):
 	sg.set_giving( dest, count, supid )
 	return 60
 
 def main():
 	
+#	call_func( call_beat_city, tids[3] , 13 )
 
 	#call_make_weapon()
 	call_func( call_yz_update_building, tids[0], [0] )
 	call_func( call_yz_update_building, tids[1], [0] )
 	call_func( call_yz_update_building, tids[2], [0] )
 	call_func( call_yz_update_building, tids[3], [0] )
+	call_func( call_yz_update_building, tids[4], [2,0,1] )
+	call_func( call_yz_update_building, tids[5], [2,0,1] )
 
 	call_func( call_build_wall, tids[0] )
 	call_func( call_build_wall, tids[2] )
 	call_func( call_build_wall, tids[3] )
 	call_func( call_build_wall, tids[1] )
+	call_func( call_build_wall, tids[4] )
 	
 	call_func( check_skill_point, tids[0] )
 	call_func( check_skill_point, tids[2] )
 	call_func( check_skill_point, tids[3] )
 	call_func( check_skill_point, tids[1] )
+	call_func( check_skill_point, tids[4] )
 	
-	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000, stone = 150000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000, stone = 150000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000, stone = 150000, iron = 150000 , food = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000, stone = 400000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000, stone = 400000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000, stone = 400000, iron = 150000 , food = 150000 )
+	
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
@@ -432,7 +452,8 @@ def main():
 
 #	call_func( call_check_giving, cities[0], tids[1], 	145422, 0)
 #	call_func( call_check_giving, cities[0], tids[0], 	145321, 0)
-
+	
+	
 	call_many( check_general, (0,1,2) )
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
@@ -443,14 +464,15 @@ def main():
 	call_func( call_make_new_weapon, cities[0], 15,  501, 501, 1 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cities[0] )
-
-#	call_func( call_do_task, cities[0], 1, [363930,364214] ) #326572
+#	call_func( call_do_task, cities[0], 1 ,[ 	326572, 	363930] )
+	call_func( call_do_task, cities[0], 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cities[0])
 #	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
 	
 	call_func( call_check_yz_res, cities[1], tids[2], wood= 300000, stone = 150000, iron = 150000 )
+	call_func( call_check_yz_res, cities[1], tids[4], wood= 50000, stone = 50000, iron = 50000, food = 30000 )
 	call_func( call_buy_resource, cities[1], 15 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,2 )
@@ -480,8 +502,12 @@ def main():
 #	call_func( call_update_store, cities[1] )
 
 	
-	
-	
+	call_func( call_build_wall, cities[3] )
+	call_func( call_buy_resource, cities[3], 10 )
+	call_func( call_update_all, cities[3]  )
+	call_func( check_skill_point, cities[3])
+	call_func( check_minxin, cities[3] )
+	call_func( call_check_yz_res, cities[3], tids[5], wood= 5000, stone = 5000, iron = 5000, food = 5000, num= 5000, timeout=400 )
 
 	#call_update_tech()
 	#call_update_build()

@@ -23,35 +23,38 @@ import socket
 # 铁矿  4
 
 
+"""
+种植技巧 1
+冶炼技巧 2
+挖掘技巧 3
+伐木技巧 4
+谋略技巧 5
+侦察技巧 6
+统帅技巧 7
+阵法技巧 8
+拔营技巧 9
+储藏技巧 10
+城建技巧 11
+战马驯服术 12
+盔甲制造术 13
+弓弩制造术 14
+武器制造术 15
+弓手行军术 16
+弓手协作力 17
+弓手防御术 18
+弓手熟练度  19
+骑兵行军术 20
+骑兵协作力 21
+骑兵防御术 22
+骑兵熟练度 23
+步兵行军术 24
+步兵协作力 25
+步兵防御术 26
+步兵熟练度 27
+抚民技巧 28
+城防技巧 29
+"""
 
-# 种植技巧 1
-# 冶炼技巧 2
-# 挖掘技巧 3
-# 伐木技巧 4
-# 谋略技巧 5
-# 侦察技巧 6
-# 统帅技巧 7
-# 阵法技巧 8
-# 拔营技巧 9
-# 储藏技巧 10
-# 城防技巧 11
-# 战马驯服术 12
-# 盔甲制造术 13
-# 弓弩制造术 14
-# 武器制造术 15
-# 弓手行军术 16
-# 弓手协作力 17
-# 弓手防御术 18
-# 弓手熟练度 19
-# 骑兵行军术 20
-# 骑兵协作力 21
-# 骑兵防御术 22
-# 骑兵熟练度 23
-# 步兵行军术 24
-# 步兵协作力 25
-# 步兵防御术 26
-# 步兵熟练度 27
-# 抚民技巧 28
 
 def tostr(s):
 	return s.decode("utf8").encode("gbk")
@@ -375,7 +378,7 @@ class SG:
 		# 1: 名称
 		# 2: level
 		for e in ret['list']:
-			#print tostr(e[1]), e
+			#print tostr(e[1]), e[0]
 			pass
 		
 		return ret
@@ -625,12 +628,20 @@ class SG:
 		if cid == 0: cid = self.cid
 		r= self.post("/GateWay/Common.ashx?id=29")['city']
 		return filter( lambda x:x[0] == cid, r )[0]
+	
+	def get_useable_gens(self):
+		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=19&tab=4&tid=%d" % self.tid )["generals"]
+	
+	def do_beat_city(self, target):
+		return self.post("/GateWay/OPT.ashx?id=53","lDestID=57747&lType=1&lGeneralID1=364214&lGeneralID2=326572&lGeneralID3=363930&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=-50278" % (target, target, target) )
 
+	def get_max_time(self):
+		return self.post("/GateWay/Build.ashx?id=2","pid=4&gid=19&tab=1&tid=%d" % self.tid )['move']
 
 if __name__ == "__main__":
 	sg = SG()
-	print sg.change_city( 125463 )
-	#print sg.change_city( -40050 )
+	#print sg.change_city( 125463 )
+	print sg.change_city( -50278 )
 	print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -666,7 +677,8 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	print sg.get_best_tax()
+	print sg.get_all_tech()
+	
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "空闲:",sg.get_people_info()[5]
