@@ -452,9 +452,9 @@ def main():
 	
 	call_func( call_check_yz_res, cities[1], tids[2], wood= 300000, stone = 150000, iron = 150000 )
 	call_func( call_buy_resource, cities[1], 15 )
-	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
-	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
-	call_func( call_make_new_weapon, cities[1], 15,  405, 405,1 )
+	call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
+	call_func( call_make_new_weapon, cities[1], 14,  305, 305,2 )
+	call_func( call_make_new_weapon, cities[1], 15,  405, 405,2 )
 	call_func( call_update_hourse, cities[1] )
 #	call_func( call_update_all, cities[1] )
 	call_func( call_build_wall, cities[1] )
