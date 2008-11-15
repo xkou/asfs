@@ -422,7 +422,7 @@ def main():
 	
 	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000, stone = 150000, iron = 150000 )
 	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000, stone = 150000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000, stone = 150000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000, stone = 150000, iron = 150000 , food = 150000 )
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
