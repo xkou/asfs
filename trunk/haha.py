@@ -449,19 +449,14 @@ def main():
 	call_func( check_skill_point, tids[4] )
 	call_func( check_skill_point, tids[5] )
 	
-	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[3], wood= 400000, stone = 400000, iron = 150000 , food = 150000 )
+#	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
+#	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
+#	call_func( call_check_yz_res, cities[0], tids[3], wood= 400000, stone = 400000, iron = 150000 , food = 150000 )
 	
 	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
-	
-#	call_func( call_trans_res, cities[0], tids[0],  wood=20000, stone=10000, food=10000, iron = 10000 )
-#	call_func( call_trans_res, cities[0], tids[1],  wood=30000, stone=10000, food=10000, iron = 0 )
 
-#	call_func( call_check_giving, cities[0], tids[1], 	145422, 0)
-#	call_func( call_check_giving, cities[0], tids[0], 	145321, 0)
 	
 	
 	call_many( check_general, (0,1,2) )
@@ -481,8 +476,8 @@ def main():
 	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
 	
-	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
-	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
+#	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
+#	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
 	call_func( call_buy_resource, cities[1], 15 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,2 )
@@ -517,7 +512,7 @@ def main():
 	call_func( call_update_all, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
-	call_func( call_check_yz_res, cities[3], tids[5], wood= 50000, stone = 50000, iron = 50000, food = 50000 )
+#	call_func( call_check_yz_res, cities[3], tids[5], wood= 50000, stone = 50000, iron = 50000, food = 50000 )
 
 	#call_update_tech()
 	#call_update_build()
