@@ -458,7 +458,7 @@ def main():
 
 	
 	
-	call_many( check_general, (0,1,2) )
+	call_many( check_general, (0,1,2,3) )
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
