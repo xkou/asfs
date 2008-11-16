@@ -428,12 +428,12 @@ def main():
 #	call_func( call_beat_city, tids[3] , 13 )
 
 	#call_make_weapon()
-	call_func( call_yz_update_building, tids[0], [0] )
-	call_func( call_yz_update_building, tids[1], [0] )
-	call_func( call_yz_update_building, tids[2], [0] )
-	call_func( call_yz_update_building, tids[3], [0] )
-	call_func( call_yz_update_building, tids[4], [2,0,1] )
-	call_func( call_yz_update_building, tids[5], [2,0,1] )
+#	call_func( call_yz_update_building, tids[0], [0] )
+#	call_func( call_yz_update_building, tids[1], [0] )
+#	call_func( call_yz_update_building, tids[2], [0] )
+#	call_func( call_yz_update_building, tids[3], [0] )
+#	call_func( call_yz_update_building, tids[4], [2,0,1] )
+#	call_func( call_yz_update_building, tids[5], [2,0,1] )
 
 	call_func( call_build_wall, tids[0] )
 	call_func( call_build_wall, tids[2] )
