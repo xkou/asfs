@@ -473,7 +473,7 @@ def main():
 	call_func( call_do_task, cities[0], 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cities[0])
-	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
+#	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
 	
 #	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
