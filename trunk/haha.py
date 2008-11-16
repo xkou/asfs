@@ -434,6 +434,7 @@ def main():
 #	call_func( call_yz_update_building, tids[4], [2,0,1] )
 #	call_func( call_yz_update_building, tids[5], [2,0,1] )
 
+# 营寨
 	call_func( call_build_wall, tids[0] )
 	call_func( call_build_wall, tids[2] )
 	call_func( call_build_wall, tids[3] )
@@ -451,8 +452,7 @@ def main():
 #	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[3], wood= 400000, stone = 400000, iron = 150000 , food = 150000 )
-	
-	
+# 主城	
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
 
@@ -474,7 +474,7 @@ def main():
 	call_func( check_skill_point, cities[0])
 #	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
-	
+# 新城	
 #	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
 	call_func( call_buy_resource, cities[1], 10, low = 10000 )
@@ -491,12 +491,13 @@ def main():
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
-
+#新城2
 	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2], 2 ) 
 	call_func( call_update_store, cities[2] )
 	call_func( call_update_base, cities[2] )
+	call_func( call_update_wall, cities[2] )
 	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
@@ -506,7 +507,7 @@ def main():
 #	call_func( call_update_store, cities[2] )
 #	call_func( call_update_store, cities[1] )
 
-	
+# 谁与争锋	
 	call_func( call_build_wall, cities[3] )
 	call_func( call_buy_resource, cities[3], 10 )
 	call_func( call_update_base, cities[3]  )
