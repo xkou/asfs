@@ -164,8 +164,9 @@ def call_update_building( gid ):
 		if ret['ret'] == 0:
 			break
 	else:
-		print  sg.cname, "无法升级成功任何建筑"
-		return m if m else 300
+		t = m if m else 300
+		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
+		return t
 	
 	return 5
 	
@@ -181,6 +182,7 @@ def call_func( func, cid, *args, **awk ):
 	try:
 		sg.change_city( cid )
 		r = func( *args, **awk )
+		
 	except Exception , err:
 		print func, sg.cid, args ,err
 		reactor.callLater( 10, call_func, func, cid, *args, **awk )
@@ -202,7 +204,9 @@ def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 	n = 6
 	
 	c = sg.get_build( btype )
-	if len(c) == 2:
+	
+	
+	if len(c) >= 2:
 		ts = [ x[3] for x in c ]
 		return min(ts)
 	if len(c) == 1:
@@ -213,7 +217,7 @@ def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 		return c[0][3]
 	
 	sg.make( n, wtype,speed )
-	return 5
+	return 20
 
 def check_minxin():
 	v = sg.get_minyuan()
@@ -432,16 +436,18 @@ def main():
 	call_func( call_build_wall, tids[3] )
 	call_func( call_build_wall, tids[1] )
 	call_func( call_build_wall, tids[4] )
+	call_func( call_build_wall, tids[5] )
 	
 	call_func( check_skill_point, tids[0] )
 	call_func( check_skill_point, tids[2] )
 	call_func( check_skill_point, tids[3] )
 	call_func( check_skill_point, tids[1] )
 	call_func( check_skill_point, tids[4] )
+	call_func( check_skill_point, tids[5] )
 	
-	call_func( call_check_yz_res, cities[0], tids[0], wood= 300000, stone = 400000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[1], wood= 300000, stone = 400000, iron = 150000 )
-	call_func( call_check_yz_res, cities[0], tids[3], wood= 300000, stone = 400000, iron = 150000 , food = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], tids[3], wood= 400000, stone = 400000, iron = 150000 , food = 150000 )
 	
 	
 	call_func( call_get_newb_general, cities[0], 7 )
@@ -468,18 +474,18 @@ def main():
 	call_func( call_do_task, cities[0], 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cities[0])
-#	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
+	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
 	
-	call_func( call_check_yz_res, cities[1], tids[2], wood= 300000, stone = 150000, iron = 150000 )
-	call_func( call_check_yz_res, cities[1], tids[4], wood= 50000, stone = 50000, iron = 50000, food = 30000 )
+	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
+	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
 	call_func( call_buy_resource, cities[1], 15 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,2 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405,2 )
 #	call_func( call_update_hourse, cities[1] )
-	call_func( call_update_wall, cities[1] )
-#	call_func( call_update_all, cities[1] )
+#	call_func( call_update_wall, cities[1] )
+	call_func( call_update_all, cities[1] )
 	call_func( call_build_wall, cities[1] )
 	call_func( check_minxin, cities[1] )
 	call_func( check_skill_point, cities[1])
@@ -487,7 +493,7 @@ def main():
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
-	
+	call_func( call_update_base, cities[2] )
 	call_func( call_update_hourse, cities[2] )
 	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 	call_func( call_sell_weapon,  cities[2], (103,) )
@@ -507,7 +513,7 @@ def main():
 	call_func( call_update_all, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
-	call_func( call_check_yz_res, cities[3], tids[5], wood= 5000, stone = 5000, iron = 5000, food = 5000, num= 5000, timeout=400 )
+	call_func( call_check_yz_res, cities[3], tids[5], wood= 50000, stone = 50000, iron = 50000, food = 50000 )
 
 	#call_update_tech()
 	#call_update_build()
@@ -519,7 +525,7 @@ if __name__ == "__main__":
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
 	#check_skill_point()
-	#call_func( call_make_new_weapon, cities[0], 14,  306, 306, 1 )
+	#call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 

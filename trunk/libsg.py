@@ -162,7 +162,7 @@ class SG:
 		p[5]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
-		return self.send( self.geturl("/GateWay/OPT.ashx?id=38") ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, speed) )
+		return self.post("/GateWay/OPT.ashx?id=38" ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, speed) )
 	
 	def show_weapon(self):
 		#http://sg2.dipan.com/GateWay/Common.ashx?id=27&0.6599525046579348
@@ -640,8 +640,8 @@ class SG:
 
 if __name__ == "__main__":
 	sg = SG()
-	#print sg.change_city( 125463 )
-	print sg.change_city( -50278 )
+	print sg.change_city( 125463 )
+	#print sg.change_city( -50278 )
 	print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -677,7 +677,7 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	print sg.get_all_tech()
+	print sg.make( 1, 205,2 )
 	
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
