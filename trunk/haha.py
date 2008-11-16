@@ -511,6 +511,7 @@ def main():
 	call_func( call_build_wall, cities[3] )
 	call_func( call_buy_resource, cities[3], 10 )
 	call_func( call_update_base, cities[3]  )
+	call_func( call_update_wall, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
 	call_func( call_update_hourse, cities[3] )
