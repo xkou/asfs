@@ -180,6 +180,7 @@ call_update_all =  functools.partial( call_update_building, gid = 0)
 
 call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
+	global call_func_error_no
 	try:
 		sg.change_city( cid )
 		r = func( *args, **awk )
