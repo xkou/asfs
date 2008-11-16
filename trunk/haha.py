@@ -178,13 +178,16 @@ call_update_base =  functools.partial( call_update_building, gid = 1)
 call_update_wall =  functools.partial( call_update_building, gid = 2)
 call_update_all =  functools.partial( call_update_building, gid = 0)
 
+call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
 	try:
 		sg.change_city( cid )
 		r = func( *args, **awk )
-		
+		call_func_error_no = 0
 	except Exception , err:
 		print func, sg.cid, args ,err
+		call_func_error_no += 1
+		if call_func_error_no > 100 : threads.deferToThread( sendemail, "Á¬½Ó³ö´í.." )
 		reactor.callLater( 10, call_func, func, cid, *args, **awk )
 		return
 	reactor.callLater( r, call_func, func, cid, *args, **awk )
