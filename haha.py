@@ -65,9 +65,8 @@ def call_sell_weapon( ws =(206,306,406) ):
 	
 	return 20
 
-def call_buy_resource( num = 5):
+def call_buy_resource( num = 5, low=50000):
 	res = sg.get_resouce_number( )
-	low = 50000 
 	def check( name, id ):
 		if res[name] < low - 12 * (res["-"+name] if res["-"+name]<0 else 0) :
 			print sg.cname, "买入", name
@@ -164,7 +163,7 @@ def call_update_building( gid ):
 		if ret['ret'] == 0:
 			break
 	else:
-		t = m if m else 300
+		t = m if m > 0 and m < 300 else 300
 		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
 		return t
 	
@@ -478,7 +477,7 @@ def main():
 	
 #	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
-	call_func( call_buy_resource, cities[1], 15 )
+	call_func( call_buy_resource, cities[1], 10, low = 10000 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,2 )
 	call_func( call_make_new_weapon, cities[1], 15,  405, 405,2 )
@@ -492,11 +491,12 @@ def main():
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
-	call_func( call_update_base, cities[2] )
-	call_func( call_update_hourse, cities[2] )
+
 	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2], 2 ) 
+	call_func( call_update_store, cities[2] )
+	call_func( call_update_base, cities[2] )
 	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
@@ -509,9 +509,10 @@ def main():
 	
 	call_func( call_build_wall, cities[3] )
 	call_func( call_buy_resource, cities[3], 10 )
-	call_func( call_update_all, cities[3]  )
+	call_func( call_update_base, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
+	call_func( call_update_hourse, cities[3] )
 #	call_func( call_check_yz_res, cities[3], tids[5], wood= 50000, stone = 50000, iron = 50000, food = 50000 )
 
 	#call_update_tech()
