@@ -138,17 +138,46 @@ def call_update_res_number():
 	return 60
 
 
+def call_update_building2( gids = [] ):
+	tasklist = sg.get_current_update()
+	bs = sg.get_all_building()
+	
+	l = len( tasklist)
+	ts = tasklist.values()
+	print sg.cname
+	for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , bs )[0][3], "剩余时间:", tasklist[e]
+	if len(ts) == 3 : return min(ts)
+	if gids: bs = filter( lambda x:x[0] in gids , bs )
+	m = min(ts) if l else 0
+	bdings = filter( lambda x:x[1] in tasklist.keys(), bs )
+	bs = filter( lambda x:x[1] not in tasklist.keys(), bs )
+	if len(bs) == 0 :
+		print  sg.cname, "无法升级成功任何建筑",min(ts),"秒后重试"
+		return min(ts)
+	bs.sort( key = lambda x:x[3] )
+	for obj in bs:
+		ret = sg.force_update_building( obj[1] )
+		print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+		if ret['ret'] == 0:
+			return 5
+	else:
+		t = m if m > 0 and m < 300 else random.randint( 280, 320 )
+		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
+		return t
+
+
+
 def call_update_building( gid ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
 	l = len(tasklist)
 	ts = tasklist.values()
 	m = 0
-	if l: m = min(ts)
-	if l >= 3:
-		
+	if l:
+		m = min(ts)
 		print sg.cname
 		for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , bs )[0][3], "剩余时间:", tasklist[e]
+	if l >= 3:
 		print sg.cname, m, "秒后重试"
 		return m
 	
@@ -422,6 +451,22 @@ def call_check_giving( dest, supid, count ):
 	sg.set_giving( dest, count, supid )
 	return 60
 
+def call_destroy_building( gids ):
+	tasklist = sg.get_current_update()
+	if len(tasklist) == 3 :
+		vs = tasklist.values()
+		return min(vs)
+	ts = []
+	bs = filter( lambda x: x[0] in gids , sg.buildings)
+	for e in bs:
+		if e[1] in tasklist.keys():
+			ts.append( tasklist[e[1]] )
+		r = sg.destroy_building( e[0] )
+		if r['ret'] == 0 : 
+			return 5
+	else:
+		return min(ts) if ts else 300
+
 def main():
 	
 #	call_func( call_beat_city, tids[3] , 13 )
@@ -442,12 +487,12 @@ def main():
 	call_func( call_build_wall, tids[4] )
 	call_func( call_build_wall, tids[5] )
 	
-	call_func( check_skill_point, tids[0] )
-	call_func( check_skill_point, tids[2] )
-	call_func( check_skill_point, tids[3] )
-	call_func( check_skill_point, tids[1] )
-	call_func( check_skill_point, tids[4] )
-	call_func( check_skill_point, tids[5] )
+#	call_func( check_skill_point, tids[0] )
+#	call_func( check_skill_point, tids[2] )
+#	call_func( check_skill_point, tids[3] )
+#	call_func( check_skill_point, tids[1] )
+#	call_func( check_skill_point, tids[4] )
+#	call_func( check_skill_point, tids[5] )
 	
 #	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
@@ -492,8 +537,8 @@ def main():
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
 #新城2
-	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
-	call_func( call_sell_weapon,  cities[2], (103,) )
+#	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
+#	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2], 2 ) 
 #	call_func( call_update_store, cities[2] )
 #	call_func( call_update_base, cities[2] )
@@ -501,6 +546,8 @@ def main():
 	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
+#	call_func( call_destroy_building, cities[2], [13])
+	call_func( call_update_building2, cities[2], [7,6,11])
 
 #	call_func( call_update_base, cities[0] )
 #	call_func( call_update_wall, cities[0] )

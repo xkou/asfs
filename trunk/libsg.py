@@ -337,6 +337,9 @@ class SG:
 		ret= self.post("/GateWay/OPT.ashx?id=65", "gid=%d&pid=%d&tid=%d&type=1" % (gid, pid, self.tid))
 		return ret
 	
+	def destroy_building( self, gid , pid = -1 ):
+		return self.post("/GateWay/OPT.ashx?id=65", "gid=%d&pid=%d&tid=%d&type=2" % (gid, pid, self.tid) )
+	
 	def get_money_number(self):
 		ret= self.post("/GateWay/Common.ashx?id=29")['city']
 		ret = filter( lambda x:x[0] == self.cid , ret )
@@ -640,7 +643,7 @@ class SG:
 
 if __name__ == "__main__":
 	sg = SG()
-	print sg.change_city( 125463 )
+	print sg.change_city( 145742 )
 	#print sg.change_city( -50278 )
 	print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
@@ -677,8 +680,8 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	print sg.make( 1, 205,2 )
-	
+	#print sg.make( 1, 205,2 )
+	print sg.destroy_building( 13 )
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "ø’œ–:",sg.get_people_info()[5]
