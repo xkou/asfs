@@ -218,7 +218,7 @@ def call_func( func, cid, *args, **awk ):
 		call_func_error_no += 1
 		if call_func_error_no == 100 : threads.deferToThread( sendemail, "连接出错.." )
 		if call_func_error_no == 150 : threads.deferToThread( sendemail, "连接出错.." )
-			if call_func_error_no == 150 : reactor.stop()
+		if call_func_error_no == 150 : reactor.stop()
 		reactor.callLater( 10, call_func, func, cid, *args, **awk )
 		return
 	reactor.callLater( r, call_func, func, cid, *args, **awk )
