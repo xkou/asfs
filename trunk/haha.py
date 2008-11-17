@@ -216,7 +216,9 @@ def call_func( func, cid, *args, **awk ):
 	except Exception , err:
 		print func, sg.cid, args ,err
 		call_func_error_no += 1
-		if call_func_error_no > 100 : threads.deferToThread( sendemail, "连接出错.." )
+		if call_func_error_no == 100 : threads.deferToThread( sendemail, "连接出错.." )
+		if call_func_error_no == 150 : threads.deferToThread( sendemail, "连接出错.." )
+			if call_func_error_no == 150 : reactor.stop()
 		reactor.callLater( 10, call_func, func, cid, *args, **awk )
 		return
 	reactor.callLater( r, call_func, func, cid, *args, **awk )
@@ -561,7 +563,7 @@ def main():
 #	call_func( call_update_wall, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
-	call_func( call_update_hourse, cities[3] )
+#	call_func( call_update_hourse, cities[3] )
 #	call_func( call_check_yz_res, cities[3], tids[5], wood= 50000, stone = 50000, iron = 50000, food = 50000 )
 
 	#call_update_tech()
