@@ -163,7 +163,7 @@ def call_update_building( gid ):
 		if ret['ret'] == 0:
 			break
 	else:
-		t = m if m > 0 and m < 300 else 300
+		t = m if m > 0 and m < 300 else random.randint( 280, 320 )
 		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
 		return t
 	
@@ -478,9 +478,9 @@ def main():
 #	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
 	call_func( call_buy_resource, cities[1], 10, low = 10000 )
-	call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
-	call_func( call_make_new_weapon, cities[1], 14,  305, 305,2 )
-	call_func( call_make_new_weapon, cities[1], 15,  405, 405,2 )
+	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
+	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
+	call_func( call_make_new_weapon, cities[1], 15,  405, 405,1 )
 	call_func( call_update_hourse, cities[1] )
 #	call_func( call_update_wall, cities[1] )
 #	call_func( call_update_all, cities[1] )
@@ -495,9 +495,9 @@ def main():
 	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cities[2], 2 ) 
-	call_func( call_update_store, cities[2] )
-	call_func( call_update_base, cities[2] )
-	call_func( call_update_wall, cities[2] )
+#	call_func( call_update_store, cities[2] )
+#	call_func( call_update_base, cities[2] )
+#	call_func( call_update_wall, cities[2] )
 	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
@@ -510,8 +510,8 @@ def main():
 # 谁与争锋	
 	call_func( call_build_wall, cities[3] )
 	call_func( call_buy_resource, cities[3], 10 )
-	call_func( call_update_base, cities[3]  )
-	call_func( call_update_wall, cities[3]  )
+#	call_func( call_update_base, cities[3]  )
+#	call_func( call_update_wall, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
 	call_func( call_update_hourse, cities[3] )
