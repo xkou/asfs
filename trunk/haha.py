@@ -2,11 +2,11 @@
 from twisted.internet import reactor, defer
 from twisted.internet import threads
 from libsg import SG, tostr
-import random, time
+import  time
 import functools
 from smtplib import SMTP
 from email.mime.text import MIMEText
-import random
+from random import randint
 
 
 cities = [116399,125463,145742,57747]
@@ -78,9 +78,10 @@ def call_buy_resource( num = 5, low=50000):
 	check("wood", SG._wood )
 	
 	tasklist = sg.get_current_update()
-	print  time.asctime(), sg.cname, ", 铜钱:", sg.get_money_number(),"当前任务数:",len(tasklist)
+	m = sg.get_money_number()
+	print  time.asctime(), sg.cname, ", 铜钱:", m,"当前任务数:",len(tasklist)
 
-	return random.randint(30, 60)
+	return randint(30, 60)
 
 
 
@@ -133,11 +134,6 @@ def call_yz_update_building( pids ):
 	
 	return 5
 
-def call_update_res_number():
-	sg.update_self_res()
-	return 60
-
-
 def call_update_building2( gids = [] ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
@@ -161,7 +157,7 @@ def call_update_building2( gids = [] ):
 		if ret['ret'] == 0:
 			return 5
 	else:
-		t = m if m > 0 and m < 300 else random.randint( 280, 320 )
+		t = m if m > 0 and m < 300 else randint( 280, 320 )
 		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
 		return t
 
@@ -192,7 +188,7 @@ def call_update_building( gid ):
 		if ret['ret'] == 0:
 			break
 	else:
-		t = m if m > 0 and m < 300 else random.randint( 280, 320 )
+		t = m if m > 0 and m < 300 else randint( 280, 320 )
 		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
 		return t
 	
@@ -336,7 +332,7 @@ def check_skill_point():
 		sg.add_point( l['id'], newlist[1][0], addpt2   )
 		sg.add_point( l['id'], newlist[2][0], addpt1   )
 		
-		return 900
+		return randint( 800, 1000 )
 		# add point
 
 		
@@ -356,9 +352,14 @@ def call_many( fun, ls , *args, **awk ):
 		call_func( fun, cities[l], * args, **awk )
 
 def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000, num = 10000, timeout=200 ):
+	info = sg.get_trader_info()
+	gotores = filter( lambda x: x[3] == dest, info['goto'] )
 	res = sg.get_res_number(dest)
+	del res['money']
+	seqs = dict( food=6, wood=7,stone=8,iron=9 )
 	for e in res:
-		if res[e] < eval(e):
+		total = sum( [ x[seqs[e]] for x in gotores ] )
+		if res[e] + total < eval(e):
 			cmd = "sg.do_trans( dest, %s=%d )" % (e, num)
 			eval(cmd)
 	return timeout
@@ -495,7 +496,17 @@ def main():
 #	call_func( check_skill_point, tids[1] )
 #	call_func( check_skill_point, tids[4] )
 #	call_func( check_skill_point, tids[5] )
-	
+
+
+
+
+
+# 公共函数
+
+	call_many( check_general, (0,1,2,3) )
+
+
+
 #	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[3], wood= 400000, stone = 400000, iron = 150000 , food = 150000 )
@@ -505,7 +516,7 @@ def main():
 
 	
 	
-	call_many( check_general, (0,1,2,3) )
+	
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
@@ -521,9 +532,9 @@ def main():
 	call_func( check_skill_point, cities[0])
 #	call_func( call_up_shiqi, cities[0], [ 363930, 326572,364214,442487,442097 ] )
 	
-# 新城	
-#	call_func( call_check_yz_res, cities[1], tids[2], wood= 400000, stone = 150000, iron = 150000 )
-#	call_func( call_check_yz_res, cities[1], tids[4], wood= 200000, stone = 150000, iron = 50000, food = 30000 )
+# 新城	营寨5: tid = 4
+	call_func( call_check_yz_res, cities[1], tids[2], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
+	call_func( call_check_yz_res, cities[1], tids[4], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( call_buy_resource, cities[1], 10, low = 10000 )
 	call_func( call_make_new_weapon, cities[1], 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cities[1], 14,  305, 305,1 )
@@ -538,10 +549,10 @@ def main():
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
-#新城2
+#新城2, 
 #	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 #	call_func( call_sell_weapon,  cities[2], (103,) )
-	call_func( call_buy_resource, cities[2], 2 ) 
+	call_func( call_buy_resource, cities[2], 10 ) 
 #	call_func( call_update_store, cities[2] )
 #	call_func( call_update_base, cities[2] )
 #	call_func( call_update_wall, cities[2] )
@@ -549,7 +560,7 @@ def main():
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
 #	call_func( call_destroy_building, cities[2], [13])
-	call_func( call_update_building2, cities[2], [7,6,11])
+	call_func( call_update_building2, cities[2], [9,6])
 
 #	call_func( call_update_base, cities[0] )
 #	call_func( call_update_wall, cities[0] )
@@ -559,12 +570,12 @@ def main():
 # 谁与争锋	
 	call_func( call_build_wall, cities[3] )
 	call_func( call_buy_resource, cities[3], 10 )
-	call_func( call_update_base, cities[3]  )
+#	call_func( call_update_base, cities[3]  )
 #	call_func( call_update_wall, cities[3]  )
 	call_func( check_skill_point, cities[3])
 	call_func( check_minxin, cities[3] )
-#	call_func( call_update_hourse, cities[3] )
-#	call_func( call_check_yz_res, cities[3], tids[5], wood= 50000, stone = 50000, iron = 50000, food = 50000 )
+	call_func( call_update_hourse, cities[3] )
+	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 
 	#call_update_tech()
 	#call_update_build()

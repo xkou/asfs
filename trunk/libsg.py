@@ -106,14 +106,16 @@ class SG:
 		r = self.post("/GateWay/City.ashx?id=7")
 		return r
 	
-	def get_res_number( self, cid ):
+	def get_res_number( self, cid = 0 ):
 		r = self.post("/GateWay/Common.ashx?id=31")
-		l = filter( lambda x: x[0] == cid, r['list'] )[0]
+		cid = cid if cid else self.cid
+		l = filter( lambda x: x[0] == cid , r['list'] )[0]
 		k = {}
 		k['food'] = l[5]
 		k['wood'] = l[6]
 		k['stone'] = l[7]
-		k['iron'] =l[8] 
+		k['iron'] =l[8]
+		k['money'] = l[4]
 		return k
 
 	def init_building(self, cid ):
@@ -340,9 +342,10 @@ class SG:
 	def destroy_building( self, gid , pid = -1 ):
 		return self.post("/GateWay/OPT.ashx?id=65", "gid=%d&pid=%d&tid=%d&type=2" % (gid, pid, self.tid) )
 	
-	def get_money_number(self):
+	def get_money_number(self, cid = 0):
 		ret= self.post("/GateWay/Common.ashx?id=29")['city']
-		ret = filter( lambda x:x[0] == self.cid , ret )
+		cid = cid if cid else self.cid
+		ret = filter( lambda x:x[0] == cid , ret )
 		return ret[0][2]
 	
 	def get_tech_level(self, techid):
@@ -681,7 +684,7 @@ if __name__ == "__main__":
 	#sg.force_update_building(12)
 	#sg.show_all_building()
 	#print sg.make( 1, 205,2 )
-	print sg.destroy_building( 13 )
+	print sg.get_resouce_number(  )
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "ø’œ–:",sg.get_people_info()[5]
