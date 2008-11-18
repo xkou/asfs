@@ -94,7 +94,7 @@ def call_update_tech():
 		print "当前研究:", tostr(ret[1]), "级别:", ret[2], "剩余时间:", ret[4]
 		return ret[4]
 	techlist=range(16,30) #,13,12,15 #,1,4,3,2,
-	techlist= [29] #,13,12,15 #,1,4,3,2,
+	techlist= [16,20,24] #,13,12,15 #,1,4,3,2,
 	alltech = sg.get_all_tech()['list']
 	alltech = filter( lambda x: x[0] in techlist, alltech)
 	alltech = filter( lambda x: x[2] < top_level, alltech)
