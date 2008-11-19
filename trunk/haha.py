@@ -21,7 +21,7 @@ def sendemail( content ):
 
 	msg = MIMEText(content)
 	msg['subject']='三国之兵临城下'
-	msg['Content-Type']= 'text/plain; charset="gbk"'
+	msg.set_charset('gbk')
 	msg['From'] = f
 
 	smtp.sendmail( f,t, msg.as_string( ) )
@@ -96,6 +96,7 @@ def call_update_tech():
 		return ret[4]
 	techlist=range(16,30) #,13,12,15 #,1,4,3,2,
 	techlist= [16,20,24] #,13,12,15 #,1,4,3,2,
+	techlist = [28]
 	alltech = sg.get_all_tech()['list']
 	alltech = filter( lambda x: x[0] in techlist, alltech)
 	alltech = filter( lambda x: x[2] < top_level, alltech)
@@ -559,8 +560,8 @@ def main():
 	call_func( call_build_wall, cities[2] )
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
-#	call_func( call_destroy_building, cities[2], [13])
-	call_func( call_update_building2, cities[2], [9,6])
+	call_func( call_destroy_building, cities[2], [6])
+#	call_func( call_update_building2, cities[2], [9,6])
 
 #	call_func( call_update_base, cities[0] )
 #	call_func( call_update_wall, cities[0] )
