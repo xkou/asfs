@@ -583,6 +583,8 @@ def main():
 	call_func( call_update_hourse, cities[3] )
 	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( check_city_money, cities[3], cities[0] )
+	
+	print "Started.."
 
 	#call_update_tech()
 	#call_update_build()
