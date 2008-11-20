@@ -348,6 +348,12 @@ class SG:
 		ret = filter( lambda x:x[0] == cid , ret )
 		return ret[0][2]
 	
+	def get_money_info(self, cid = 0 ):
+		ret= self.post("/GateWay/Common.ashx?id=29")['city']
+		cid = cid if cid else self.cid
+		ret = filter( lambda x:x[0] == cid , ret )
+		return ret[0]
+	
 	def get_tech_level(self, techid):
 		return filter(lambda x: x[0]==techid, self.get_all_tech()['list'])[0][2]
 	
@@ -643,12 +649,15 @@ class SG:
 
 	def get_max_time(self):
 		return self.post("/GateWay/Build.ashx?id=2","pid=4&gid=19&tab=1&tid=%d" % self.tid )['move']
+	
+
+
 
 if __name__ == "__main__":
 	sg = SG()
 	print sg.change_city( 145742 )
-	#print sg.change_city( -50278 )
-	print sg.cname #, sg.tname
+	print sg.change_city( -50278 )
+	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
 	#print sg.get_build_detail(19,1)
@@ -684,7 +693,7 @@ if __name__ == "__main__":
 	#sg.force_update_building(12)
 	#sg.show_all_building()
 	#print sg.make( 1, 205,2 )
-	print sg.get_resouce_number(  )
+	print sg.get_money_info(  )
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "ø’œ–:",sg.get_people_info()[5]

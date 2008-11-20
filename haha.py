@@ -365,13 +365,13 @@ def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000, n
 			eval(cmd)
 	return timeout
 
-def call_trans_res( dest,  stone=0, wood=0, iron = 0, food = 0 ):
+def call_trans_res( dest,  stone=0, wood=0, iron = 0, food = 0, money = 0 ):
 	info = sg.get_trader_info()
 	
 	n = (stone+wood+iron+food)/10000
 	
 	if info['trader'] > n:
-		sg.do_trans( dest, stone = stone, wood=wood, iron=iron, food=food )
+		sg.do_trans( dest, stone = stone, wood=wood, iron=iron, food=food, money = money )
 		return 30*60
 	
 	if info['back']:
@@ -442,6 +442,11 @@ def call_up_shiqi( gs ):
 		return infos[0][8]
 	return 5
 
+def check_city_money( cid ):
+	num = sg.get_money_number()
+	if num > 2000000:
+		call_trans_res( cid, money = 10000 )
+	return 60*10
 
 def call_beat_city( target ):
 	ts = sg.get_max_time()
@@ -577,6 +582,7 @@ def main():
 	call_func( check_minxin, cities[3] )
 	call_func( call_update_hourse, cities[3] )
 	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
+	call_func( check_city_money, cities[3], cities[0] )
 
 	#call_update_tech()
 	#call_update_build()
