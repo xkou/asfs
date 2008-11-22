@@ -591,13 +591,14 @@ def main():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	print sg.change_city( tids[0] )
+	print sg.change_city( cities[0] )
 	#call_make_new_weapon( 13, 103,103)
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
 	#check_skill_point()
+	call_buy_resource()
 	#call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
-	main()
+	#main()
 	#print call_make_new_weapon(13, 205, 105 )
 
 	

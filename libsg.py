@@ -276,11 +276,12 @@ class SG:
 
 	def get_current(self):
 		# http://sg2.dipan.com/GateWay/Common.ashx?id=41&0.6108996970752234
-		ret = self.post("/GateWay/City.ashx?id=37","ttid=%d" % (-1 if self.tid == 0 else self.tid) )
+		ret = self.post("/GateWay/City.ashx?id=37","ttid=%d" % (0 if self.tid == 0 else self.tid) )
 		return ret
 	
 	def get_current_update(self):
-		r= map( lambda x:[x[0],x[-1]] ,self.get_current()['list'][0][4] )
+		krt = self.get_current()
+		r= map( lambda x:[x[0],x[-1]] ,krt['list'][0][4] )
 		ret={}
 		for e in r:
 			ret[e[0]] = e[1]
@@ -656,7 +657,7 @@ class SG:
 if __name__ == "__main__":
 	sg = SG()
 	print sg.change_city( 145742 )
-	print sg.change_city( -50278 )
+	print sg.change_city( 116399 )
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -671,8 +672,8 @@ if __name__ == "__main__":
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
-	#print sg.get_resouce_number()
-	#print "买入:", sg.buy( 10, sg._iron )
+	print sg.get_current_update()
+	#print "买入:", sg.buy( 1, sg._iron )
 	#print "买入:", sg.buy( 20, sg._stone )
 	#print "买入:", sg.buy( 8, sg._wood )
 	#print sg.get_resouce_number()
@@ -693,7 +694,7 @@ if __name__ == "__main__":
 	#sg.force_update_building(12)
 	#sg.show_all_building()
 	#print sg.make( 1, 205,2 )
-	print sg.get_money_info(  )
+	#print sg.get_money_info(  )
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
 	#print "空闲:",sg.get_people_info()[5]
