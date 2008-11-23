@@ -1,7 +1,7 @@
 #! coding:utf-8
 import urllib2, time, random, urllib, re
 import json
-import socket
+import socket, math
 
 # ÌúÌ¥¹­ 201
 # Í¸¼×Ç¹ 101
@@ -651,7 +651,26 @@ class SG:
 	def get_max_time(self):
 		return self.post("/GateWay/Build.ashx?id=2","pid=4&gid=19&tab=1&tid=%d" % self.tid )['move']
 	
+	def lookup_map(self, mid ):
+		return self.post("/GateWay/Map.ashx?id=6", "mid=%d" % mid )
+	
+	def lookup_xy( self, x , y, mid = 1623763 ):
+		nmid = self.calc_mid(x,y, mid)
+		return self.post("/GateWay/Map.ashx?id=6", "mid=%d" % nmid )
+	
+	def calc_mid( self, x,y , mid = 1623763):
+		nmid = mid - x*1313 - y
+		return nmid
 
+	def calc_xy( self, mid , abmid = 1623763):
+		t = abmid - mid
+		basenum = 0
+		if abs(t)%1313 > 656: basenum += 1
+		s_x = 1 if t > 0 else -1
+		s_y = 1
+		x = abs(t)/1313 + basenum
+		y = abs(t) - x*1313
+		return x*s_x, y*s_x
 
 
 if __name__ == "__main__":
