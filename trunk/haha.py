@@ -442,11 +442,11 @@ def call_up_shiqi( gs ):
 		return infos[0][8]
 	return 5
 
-def check_city_money( cid ):
+def check_city_money( cid, timeout = 300 ):
 	num = sg.get_money_number()
 	if num > 2000000:
 		call_trans_res( cid, money = 10000 )
-	return 60*10
+	return timeout
 
 def call_beat_city( target ):
 	ts = sg.get_max_time()
@@ -582,7 +582,7 @@ def main():
 	call_func( check_minxin, cities[3] )
 	call_func( call_update_hourse, cities[3] )
 	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
-	call_func( check_city_money, cities[3], cities[0] )
+	call_func( check_city_money, cities[3], cities[0] , timeout)
 	
 	print "Started.."
 
