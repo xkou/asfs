@@ -476,6 +476,104 @@ def call_destroy_building( gids ):
 	else:
 		return min(ts) if ts else 300
 
+def do_task2( gens ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
+	genids = [ y[0] for y in gens ]
+	infos = sg.get_generals_info()
+	generals = infos['generals']
+	allname = []
+	bok = 1
+	for gen in gens:
+		genid = gen[0]
+		geninfo = filter( lambda x:x[0] == genid, generals )
+		if geninfo:
+			geninfo=geninfo[0]
+			name = geninfo[1]
+			allname.append(name)
+		else: 
+			bok =0
+			continue
+		# 人数
+		t1,t2,t3 = geninfo[4][0],geninfo[5][0],geninfo[6][0]
+		print tostr(name), t1, t2, t3, gen
+		for e in [1,2,3]:
+			need = gen[e] - eval("t%d" % e )
+			if  need > 0 :
+				sg.add_soldier( need )
+				sg.add_to_gen( genid, e, need )
+	
+	# 检查士气
+	infos = sg.get_soldier_info()
+	
+	infos = filter( lambda x:x[1] in genids, infos )
+
+	if infos:
+		nfs = filter( lambda x: x[7] < 100 and x[8] == -1, infos )
+		if nfs:
+			bok *= 0
+			n = call_up_shiqi( genids )
+			return 5
+		nfs = filter( lambda x:  x[7] < 90 and x[8] > -1, infos )
+		
+		if nfs:
+			t = min( [ x[8] for x in nfs ])
+			print "正在练士气" ,t,"秒后重试"
+			return  t
+	else:
+		bok = 0
+	
+	
+	if len(allname) < len(genids):
+		bok = 0
+		infos  = sg.get_mili_info()
+		ts = []
+		for  info in  infos['come']:
+			for gen in info[7]:
+				if gen[0] in genids:
+					ts.append( info[-1] )
+		
+		for  info in  infos['goto']:
+			print info
+			for gen in info[8]:
+				if gen[0] in genids:
+					ts.append( info[-2] )
+		if ts:
+			print "出征中,",min(ts),"秒后重试."
+			return min(ts)
+		else:
+			bok = 1
+	
+
+	
+	
+	if bok == 0:
+		return 400
+	
+	print "军队已就绪."
+	for e in allname: print tostr(e)
+		
+	from libsgmap import MapInfo
+	mi = MapInfo()
+	best = mi.getbest()
+	dest = 0
+	for b in best:
+		for e in  sg.lookup_map(b[1])['npc_tent']:
+			if e[2] == b[1]:
+				dest = b
+				break
+		else:
+			mi.remove(b[1])
+			continue
+		break
+	print dest
+	
+	r = sg.do_beat_city( genids, dest[1] )
+	print "进攻" , r['ret'] == 0
+		
+	return 100
+	
+	
+	
+
 def main():
 	
 #	call_func( call_beat_city, tids[3] , 13 )
@@ -520,16 +618,16 @@ def main():
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
 
-	
+	call_func( do_task2, cities[0], [ [442487,0,0,10000  ], [470182, 5000,0,5000], [442097, 5000,0,5000 ] ] )
 	
 	
 	call_func( call_update_tech, cities[0] )
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  205, 105, 1 )
-	call_func( call_make_new_weapon, cities[0], 14,  305, 305, 1 )
-	call_func( call_make_new_weapon, cities[0], 15,  405, 405, 1 )
+	call_func( call_make_new_weapon, cities[0], 13,  205, 105, 2 )
+	call_func( call_make_new_weapon, cities[0], 14,  305, 305, 2 )
+	call_func( call_make_new_weapon, cities[0], 15,  405, 405, 2 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cities[0] )
 #	call_func( call_do_task, cities[0], 1 ,[ 	326572, 	363930] )
@@ -598,6 +696,7 @@ if __name__ == "__main__":
 	#check_skill_point()
 	#call_buy_resource()
 	#call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
+	
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 

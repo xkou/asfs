@@ -645,18 +645,35 @@ class SG:
 	def get_useable_gens(self):
 		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=19&tab=4&tid=%d" % self.tid )["generals"]
 	
-	def do_beat_city(self, target):
-		return self.post("/GateWay/OPT.ashx?id=53","lDestID=57747&lType=1&lGeneralID1=364214&lGeneralID2=326572&lGeneralID3=363930&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=-50278" % (target, target, target) )
-
+	def do_beat_city(self, genids, dest , target = 0):
+		return self.post("/GateWay/OPT.ashx?id=53","lDestID=%d&lType=1&lGeneralID1=364214&lGeneralID2=326572&lGeneralID3=363930&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=-50278" % (target, target, target) )
+	
+	def do_beat_city(self, genids, dest , target = 0):
+		return self.post("/GateWay/OPT.ashx?id=53","lDestID=%d&lType=1&lGeneralID1=%d&lGeneralID2=%d&lGeneralID3=%d&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=%d" % ( dest, genids[0], genids[1], genids[2],target, target, target, self.tid ) )
+	
 	def get_max_time(self):
 		return self.post("/GateWay/Build.ashx?id=2","pid=4&gid=19&tab=1&tid=%d" % self.tid )['move']
 	
 	def lookup_map(self, mid ):
 		return self.post("/GateWay/Map.ashx?id=6", "mid=%d" % mid )
 	
+	def get_generals_info(self):
+		# [442487,"沈般瀛",16670,9842,[0,305,"千户甲",105,"大砍刀",405,"越影马"],[0,405,"越影马",105,"大砍刀",0,""],[9842,205,"玉角弓",305,"千户甲",405,"越影马"],[501,"轻型投石车",0],100,19684,19684,9842]
+		return self.post("/GateWay/Build.ashx?id=2", "pid=-1&gid=16&tab=2&tid=0" )
+	
+	def add_soldier(self, n ):
+		return self.post("/GateWay/OPT.ashx?id=41","lAmount=%d&tid=0" % n )
+	
+	def add_to_gen(self, genid, t, n ):
+		return self.post("/GateWay/OPT.ashx?id=6","lGeneralID=%d&lSoldierType=%d&lAmount=%d&tid=0" % (genid, t ,n) )
+
 	def lookup_xy( self, x , y, mid = 1623763 ):
 		nmid = self.calc_mid(x,y, mid)
-		return self.post("/GateWay/Map.ashx?id=6", "mid=%d" % nmid )
+		return self.lookup_map( nmid )
+	
+	
+	def get_mili_info( self ):
+		return  self.post("/GateWay/Common.ashx?id=40", "tid=%d" % self.tid )
 	
 	def calc_mid( self, x,y , mid = 1623763):
 		nmid = mid - x*1313 - y
@@ -691,7 +708,7 @@ if __name__ == "__main__":
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
-	print sg.get_current_update()
+	print sg.get_mili_info()
 	#print "买入:", sg.buy( 1, sg._iron )
 	#print "买入:", sg.buy( 20, sg._stone )
 	#print "买入:", sg.buy( 8, sg._wood )
