@@ -546,7 +546,10 @@ def do_task2( gens ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	
 	
 	if bok == 0:
-		return 400
+		return 100
+		
+	infos = sg.get_soldier_info()
+	infos = filter( lambda x:x[1] in genids and x
 	
 	print "军队已就绪."
 	for e in allname: print tostr(e)
