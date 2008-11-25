@@ -622,7 +622,7 @@ def main():
 	call_func( call_get_newb_general, cities[0], 7 )
 	call_func( call_get_newb_general, cities[0], 8 )
 
-	call_func( do_task2, cities[0], [ [442487,0,0,10000  ], [470182, 5000,0,5000], [442097, 5000,0,5000 ] ] )
+#	call_func( do_task2, cities[0], [ [442487,0,0,10000  ], [470182, 5000,0,5000], [442097, 5000,0,5000 ] ] )
 	
 	
 	call_func( call_update_tech, cities[0] )
@@ -668,6 +668,7 @@ def main():
 	call_func( check_minxin, cities[2] )
 	call_func( check_skill_point, cities[2])
 	call_func( call_destroy_building, cities[2], [6])
+	call_func( check_city_money, cities[2], cities[0] , timeout = 600)
 #	call_func( call_update_building2, cities[2], [9,6])
 
 #	call_func( call_update_base, cities[0] )
@@ -684,7 +685,7 @@ def main():
 	call_func( check_minxin, cities[3] )
 	call_func( call_update_hourse, cities[3] )
 	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
-	call_func( check_city_money, cities[3], cities[0] , timeout = 300)
+	call_func( check_city_money, cities[3], cities[0] , timeout = 180)
 	
 	print "Started.."
 
