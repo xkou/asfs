@@ -402,7 +402,23 @@ def call_do_task( tid, gs ):
 		print "任务完成，正在返回", t,"秒后重试"
 	if s != 0:
 		return t
-	
+
+	# 人数
+	n =[0,3700,500, 3700]
+	infos = sg.get_generals_info()
+	generals = infos['generals']
+	for geninfo in generals:
+		genid = geninfo[0]
+		if genid not in gs: continue
+		t1,t2,t3 = geninfo[4][0],geninfo[5][0],geninfo[6][0]
+		print tostr(geninfo[1]), t1, t2, t3
+		for e in [1,2,3]:
+			need = n[e] - eval("t%d" % e )
+			if  need > 0 :
+				sg.add_soldier( need )
+				sg.add_to_gen( genid, e, need )
+				return 1
+
 	infos = sg.get_soldier_info()
 	infos = filter( lambda x:x[1] in gs, infos )
 	infos = filter( lambda x:x[7] < 100, infos )
@@ -569,8 +585,8 @@ def do_task2( gens ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 			continue
 		break
 	print dest
-	
-	r = sg.do_beat_city( genids, dest[1] )
+	if dest:
+		r = sg.do_beat_city( genids, dest[1] )
 	print "进攻" , r['ret'] == 0
 		
 	return 100
@@ -623,6 +639,7 @@ def main():
 	call_func( call_get_newb_general, cities[0], 8 )
 
 #	call_func( do_task2, cities[0], [ [442487,0,0,10000  ], [470182, 5000,0,5000], [442097, 5000,0,5000 ] ] )
+	call_func( do_task2, cities[0], [ [442487,0,0,5000  ], [470182, 1000,0,3500] ] )
 	
 	
 	call_func( call_update_tech, cities[0] )
@@ -701,7 +718,7 @@ if __name__ == "__main__":
 	#check_skill_point()
 	#call_buy_resource()
 	#call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
-	
+	#do_task2( [ [442487,0,0,5000  ], [470182, 1000,0,3500] ] )
 	main()
 	#print call_make_new_weapon(13, 205, 105 )
 
