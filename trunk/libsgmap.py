@@ -54,7 +54,7 @@ def getmapinfo(s = None):
 	print "start get map info "
 	if not os.path.exists(fn): 
 		open(fn,"wb").write("0")
-	lasttime = int(open(fn).read())
+	lasttime = float(open(fn).read())
 	if time.time() - lasttime > 600:
 		m = MapInfo()
 		print m.findall( )
