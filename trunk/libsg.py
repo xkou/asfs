@@ -649,6 +649,7 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=53","lDestID=%d&lType=1&lGeneralID1=364214&lGeneralID2=326572&lGeneralID3=363930&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=-50278" % (target, target, target) )
 	
 	def do_beat_city(self, genids, dest , target = 0):
+		genids += [0,0,0,0]
 		return self.post("/GateWay/OPT.ashx?id=53","lDestID=%d&lType=1&lGeneralID1=%d&lGeneralID2=%d&lGeneralID3=%d&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=%d" % ( dest, genids[0], genids[1], genids[2],target, target, target, self.tid ) )
 	
 	def get_max_time(self):
@@ -665,6 +666,7 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=41","lAmount=%d&tid=0" % n )
 	
 	def add_to_gen(self, genid, t, n ):
+		
 		return self.post("/GateWay/OPT.ashx?id=6","lGeneralID=%d&lSoldierType=%d&lAmount=%d&tid=0" % (genid, t ,n) )
 
 	def lookup_xy( self, x , y, mid = 1623763 ):
