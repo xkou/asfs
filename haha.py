@@ -411,13 +411,16 @@ def call_do_task( tid, gs ):
 		genid = geninfo[0]
 		if genid not in gs: continue
 		t1,t2,t3 = geninfo[4][0],geninfo[5][0],geninfo[6][0]
-		print tostr(geninfo[1]), t1, t2, t3
+		isneed = 0
 		for e in [1,2,3]:
 			need = n[e] - eval("t%d" % e )
+			
 			if  need > 0 :
+				isneed+=need
+				print tostr(geninfo[1]), t1, t2, t3
 				sg.add_soldier( need )
 				sg.add_to_gen( genid, e, need )
-				return 1
+		if isneed > 0 : return 1
 
 	infos = sg.get_soldier_info()
 	infos = filter( lambda x:x[1] in gs, infos )
@@ -639,7 +642,7 @@ def main():
 	call_func( call_get_newb_general, cities[0], 8 )
 
 #	call_func( do_task2, cities[0], [ [442487,0,0,10000  ], [470182, 5000,0,5000], [442097, 5000,0,5000 ] ] )
-	call_func( do_task2, cities[0], [ [442487,0,0,5000  ], [470182, 1000,0,3500] ] )
+	call_func( do_task2, cities[0], [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ] )
 	
 	
 	call_func( call_update_tech, cities[0] )
@@ -704,10 +707,23 @@ def main():
 	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( check_city_money, cities[3], cities[0] , timeout = 180)
 	
+	
 	print "Started.."
 
 	#call_update_tech()
 	#call_update_build()
+from libsgmap import getmapinfo
+def done(n, r ):
+	print r
+	if r:
+		print n
+	reactor.callLater(600, getmap )
+
+def getmap():
+	threads.deferToThread(getmapinfo, sg).addCallback( done, 0 ).addErrback(done, 1)
+
+
+
 
 if __name__ == "__main__":
 	#print check_minxin()
@@ -719,7 +735,10 @@ if __name__ == "__main__":
 	#call_buy_resource()
 	#call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	#do_task2( [ [442487,0,0,5000  ], [470182, 1000,0,3500] ] )
+	#print call_do_task(1,[363930,364214 ,326572 ])
+	getmap()
 	main()
+	#threads.deferToThread(execfile, "libsgmap.py").addCallback( main.done ).addErrback(main.done)
 	#print call_make_new_weapon(13, 205, 105 )
 
 	

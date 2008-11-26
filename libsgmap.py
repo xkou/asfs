@@ -13,9 +13,10 @@ class MapInfo:
 	
 	def insert(self, type, pos, x, y, distance ):
 		row = self.getinfo(pos)
-		if row and row[0]!= type:
-			print "update", pos, type
-			self.cursor.execute("update npc set type = %d where pos=%d" % (type, pos) )
+		if row :
+			if row[0]!= type:
+				print "update", pos, type
+				self.cursor.execute("update npc set type = %d where pos=%d" % (type, pos) )
 			return
 		self.cursor.execute("insert into npc ( type, pos, x,y, distance, status ) values (%d,%d,%d,%d,%f,%d)" % (type, pos, x,y, distance, 0 ))
 		self.conn.commit()
@@ -34,7 +35,7 @@ class MapInfo:
 		self.cursor.execute("delete from npc where pos = %d " % pos )
 		self.conn.commit()
 	
-	def findall(self, ts = [1] ):
+	def findall(self, ts = [1,2] ):
 		n = 80
 		for x  in range(-n, n, 8 ):
 			for y in range( -n, n, 8 ):
@@ -45,7 +46,20 @@ class MapInfo:
 						self.insert( npc[1], npc[2], a, b, math.sqrt(a**2 + b**2) )
 					print npc, a, b ,"distans:" ,math.sqrt(a**2 + b**2)
 
-
+import os,time
+def getmapinfo(s = None):
+	global sg
+	if sg == None: sg = s
+	fn = "lasttime"
+	print "start get map info "
+	if not os.path.exists(fn): 
+		open(fn,"wb").write("0")
+	lasttime = int(open(fn).read())
+	if time.time() - lasttime > 600:
+		m = MapInfo()
+		print m.findall( )
+	
+		open(fn,"wb").write(str(time.time()))
+	print "end get map info."
 if __name__ == "__main__":
-	m = MapInfo()
-	print m.findall(  )
+	getmapinfo()
