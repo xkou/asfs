@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747]
+cities = [116399,125463,145742,57747,63829]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -260,7 +260,7 @@ def check_minxin():
 		else:
 			sg.buy( r['population'] * 3 /1000, SG._food )
 			sg.anfu()
-	return 315
+	return randint(315,400)
 	
 def call_get_newb_general( tid ):# 7,8
 	global sg
@@ -281,7 +281,7 @@ def call_get_newb_general( tid ):# 7,8
 	else:
 		threads.deferToThread( sendemail, "找到名将 " + tostr(w[3]) )
 		sg.dofind(w[0])
-	return 125
+	return randint(300,400)
 
 def call_build_wall( ):
 	i = sg.get_wall_info()
@@ -297,7 +297,7 @@ def call_build_wall( ):
 		return 10
 	else:
 		v = sg.get_wall_value()
-		if  v[3] >= v[4] : return 600
+		if  v[3]+1 >= v[4] : return randint(600,700)
 		return 30
 
 def check_general():
@@ -630,7 +630,7 @@ def main():
 
 # 公共函数
 
-	call_many( check_general, (0,1,2,3) )
+	call_many( check_general, (0,1,2,3,4) )
 
 
 
@@ -649,9 +649,9 @@ def main():
 	call_func( call_buy_resource, cities[0], 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cities[0] )
-	call_func( call_make_new_weapon, cities[0], 13,  205, 105, 1 )
-	call_func( call_make_new_weapon, cities[0], 14,  305, 305, 1 )
-	call_func( call_make_new_weapon, cities[0], 15,  405, 405, 1 )
+	call_func( call_make_new_weapon, cities[0], 13,  205, 105, 2 )
+	call_func( call_make_new_weapon, cities[0], 14,  305, 305, 2 )
+	call_func( call_make_new_weapon, cities[0], 15,  405, 405, 2 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cities[0] )
 #	call_func( call_do_task, cities[0], 1 ,[ 	326572, 	363930] )
@@ -696,16 +696,26 @@ def main():
 #	call_func( call_update_store, cities[2] )
 #	call_func( call_update_store, cities[1] )
 
-# 谁与争锋	
-	call_func( call_build_wall, cities[3] )
-	call_func( call_buy_resource, cities[3], 10 )
+# 谁与争锋
+	cid = cities[3]
+	call_func( call_build_wall, cid )
+	call_func( call_buy_resource, cid, 10 )
 #	call_func( call_update_base, cities[3]  )
 #	call_func( call_update_wall, cities[3]  )
-	call_func( check_skill_point, cities[3])
-	call_func( check_minxin, cities[3] )
-	call_func( call_update_hourse, cities[3] )
-	call_func( call_check_yz_res, cities[3], tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
-	call_func( check_city_money, cities[3], cities[0] , timeout = 180)
+	call_func( check_skill_point, cid)
+	call_func( check_minxin, cid )
+	call_func( call_update_hourse, cid )
+	call_func( call_check_yz_res, cid, tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
+	call_func( check_city_money, cid, cities[0] , timeout = 100)
+
+# 东陵
+	cid = cities[4]
+	call_func( call_build_wall, cid )
+	call_func( call_buy_resource, cid, 2 )
+	call_func( call_update_all, cid  )
+	call_func( check_skill_point,cid)
+	call_func( check_minxin, cid )
+	
 	
 	
 	print "Started.."
