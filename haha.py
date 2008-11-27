@@ -404,7 +404,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# ÈËÊı
-	n =[0,3700,500, 3700]
+	n =[0,4100,500, 4100]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
