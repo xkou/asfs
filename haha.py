@@ -404,7 +404,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# ÈËÊý
-	n =[0,4200,500, 4200]
+	n =[0,5000,500, 5000]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
@@ -667,7 +667,7 @@ def main():
 	call_func( call_check_yz_res, cid, tids[2], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( call_check_yz_res, cid, tids[4], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( call_buy_resource, cid, 10, low = 10000 )
-	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
+	call_func( call_make_new_weapon, cid, 13,  205, 105,3 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,2 )
 	call_func( call_update_hourse, cid )
