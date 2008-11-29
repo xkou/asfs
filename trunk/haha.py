@@ -201,7 +201,7 @@ call_update_store = functools.partial( call_update_building, gid = 4)
 call_update_rest =  functools.partial( call_update_building, gid = 8)
 call_update_base =  functools.partial( call_update_building, gid = 1)	
 call_update_wall =  functools.partial( call_update_building, gid = 2)
-call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11] )
+call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14] )
 
 call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
