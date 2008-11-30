@@ -693,6 +693,7 @@ def main():
 	call_func( check_skill_point, cid)
 	call_func( check_city_money, cid, cities[0] , timeout = 600)
 	call_func( call_destroy_building, cid, [[6,9],[9,11],[11,6]] )
+	call_func( check_city_money, cid, cities[4] , timeout = 300)
 #	call_func( call_update_building2, cities[2], [9,6])
 
 #	call_func( call_update_base, cities[0] )
