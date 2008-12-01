@@ -716,7 +716,7 @@ def main():
 # ЖЋСъ
 	cid = cities[4]
 	call_func( call_build_wall, cid )
-	call_func( call_buy_resource, cid, 2 )
+	call_func( call_buy_resource, cid, 10 )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 	call_func( call_update_all, cid )
