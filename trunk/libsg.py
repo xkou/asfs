@@ -3,56 +3,56 @@ import urllib2, time, random, urllib, re
 import json
 import socket, math
 
-# é“èƒŽå¼“ 201
-# é€ç”²æžª 101
-# åŽšèƒŒåˆ€ 102
-# éœ¸çŽ‹é©½ 202
-# ç²¾é’¢ç”²	302 24
-# ç¿»ç¾½é©¬ 402
-# ç¦»ç§¦å¼“ 203
-# å®é›•å¼“ 204
-# æ˜Žå…‰æˆ˜ç”² 303
-# å¥”å®µé©¬  403
-# é‡Žè¡Œé©¬  404
+# ÌúÌ¥¹­ 201
+# Í¸¼×Ç¹ 101
+# ºñ±³µ¶ 102
+# °ÔÍõæå 202
+# ¾«¸Ö¼×	302 24
+# ·­ÓðÂí 402
+# ÀëÇØ¹­ 203
+# ±¦µñ¹­ 204
+# Ã÷¹âÕ½¼× 303
+# ±¼ÏüÂí  403
+# Ò°ÐÐÂí  404
 # 
 
 
-# çŸ³æ–™  3
-# ç²®é£Ÿ  1
-# æœ¨æ  2
-# é“çŸ¿  4
+# Ê¯ÁÏ  3
+# Á¸Ê³  1
+# Ä¾²Ä  2
+# Ìú¿ó  4
 
 
 """
-ç§æ¤æŠ€å·§ 1
-å†¶ç‚¼æŠ€å·§ 2
-æŒ–æŽ˜æŠ€å·§ 3
-ä¼æœ¨æŠ€å·§ 4
-è°‹ç•¥æŠ€å·§ 5
-ä¾¦å¯ŸæŠ€å·§ 6
-ç»Ÿå¸…æŠ€å·§ 7
-é˜µæ³•æŠ€å·§ 8
-æ‹”è¥æŠ€å·§ 9
-å‚¨è—æŠ€å·§ 10
-åŸŽå»ºæŠ€å·§ 11
-æˆ˜é©¬é©¯æœæœ¯ 12
-ç›”ç”²åˆ¶é€ æœ¯ 13
-å¼“å¼©åˆ¶é€ æœ¯ 14
-æ­¦å™¨åˆ¶é€ æœ¯ 15
-å¼“æ‰‹è¡Œå†›æœ¯ 16
-å¼“æ‰‹åä½œåŠ› 17
-å¼“æ‰‹é˜²å¾¡æœ¯ 18
-å¼“æ‰‹ç†Ÿç»ƒåº¦  19
-éª‘å…µè¡Œå†›æœ¯ 20
-éª‘å…µåä½œåŠ› 21
-éª‘å…µé˜²å¾¡æœ¯ 22
-éª‘å…µç†Ÿç»ƒåº¦ 23
-æ­¥å…µè¡Œå†›æœ¯ 24
-æ­¥å…µåä½œåŠ› 25
-æ­¥å…µé˜²å¾¡æœ¯ 26
-æ­¥å…µç†Ÿç»ƒåº¦ 27
-æŠšæ°‘æŠ€å·§ 28
-åŸŽé˜²æŠ€å·§ 29
+ÖÖÖ²¼¼ÇÉ 1
+Ò±Á¶¼¼ÇÉ 2
+ÍÚ¾ò¼¼ÇÉ 3
+·¥Ä¾¼¼ÇÉ 4
+Ä±ÂÔ¼¼ÇÉ 5
+Õì²ì¼¼ÇÉ 6
+Í³Ë§¼¼ÇÉ 7
+Õó·¨¼¼ÇÉ 8
+°ÎÓª¼¼ÇÉ 9
+´¢²Ø¼¼ÇÉ 10
+³Ç½¨¼¼ÇÉ 11
+Õ½ÂíÑ±·þÊõ 12
+¿ø¼×ÖÆÔìÊõ 13
+¹­åóÖÆÔìÊõ 14
+ÎäÆ÷ÖÆÔìÊõ 15
+¹­ÊÖÐÐ¾üÊõ 16
+¹­ÊÖÐ­×÷Á¦ 17
+¹­ÊÖ·ÀÓùÊõ 18
+¹­ÊÖÊìÁ·¶È  19
+Æï±øÐÐ¾üÊõ 20
+Æï±øÐ­×÷Á¦ 21
+Æï±ø·ÀÓùÊõ 22
+Æï±øÊìÁ·¶È 23
+²½±øÐÐ¾üÊõ 24
+²½±øÐ­×÷Á¦ 25
+²½±ø·ÀÓùÊõ 26
+²½±øÊìÁ·¶È 27
+¸§Ãñ¼¼ÇÉ 28
+³Ç·À¼¼ÇÉ 29
 """
 
 
@@ -66,9 +66,9 @@ class SG:
 	_food = 1
 	_iron = 4
 
-	_w = 13  # æ­¦å™¨
-	_p = 14  # é˜²å…·
-	_h = 15  # è½¦é©¬
+	_w = 13  # ÎäÆ÷
+	_p = 14  # ·À¾ß
+	_h = 15  # ³µÂí
 
 
 
@@ -252,7 +252,7 @@ class SG:
 		return get_info(3,0),get_info(4,0), get_info(5,0)
 	
 	def update_tech(self, techid ):
-		# å¦‚æžœæ­£åœ¨ç ”ç©¶è¿”å›ž 48
+		# Èç¹ûÕýÔÚÑÐ¾¿·µ»Ø 48
 		if self.get_money_number() - self.get_tech_update_money( techid )  >  10000:
 			return self.post("/GateWay/OPT.ashx?id=44", "techid=%d&tid=0" % techid )
 		return dict(ret=1)
@@ -317,7 +317,7 @@ class SG:
 			return dict(ret=1)
 		restmoney = self.calc_update_money( pid)
 		if restmoney<10000:
-			print "å»ºé€ ", self.get_building_name(pid),pid,"å¤±è´¥", ",rest:", restmoney
+			print "½¨Ôì", self.get_building_name(pid),pid,"Ê§°Ü", ",rest:", restmoney
 			return dict(ret=1)
 
 		res = self.get_resouce_number()
@@ -386,9 +386,9 @@ class SG:
 	def get_all_tech(self):
 		ret= self.post("/GateWay/Build.ashx?id=2", "gid=6&pid=-1&tab=1&tid=0")
 		#print ret['current'][1].decode("utf8")
-		# list è¯´æ˜Ž
+		# list ËµÃ÷
 		# 0: techid
-		# 1: åç§°
+		# 1: Ãû³Æ
 		# 2: level
 		for e in ret['list']:
 			#print tostr(e[1]), e[0]
@@ -566,7 +566,7 @@ class SG:
 		g = ls[0]
 		self.give_job( g[0],0 )
 		r = self.getfind_info(g[0], dest )
-		print tostr(r['offical_name']) , "åŽ»å¯»è®¿", tostr( r['hero_name'] ), "ç”¨æ—¶:", r['duration']
+		print tostr(r['offical_name']) , "È¥Ñ°·Ã", tostr( r['hero_name'] ), "ÓÃÊ±:", r['duration']
 		return self._dofind( r['offical_id'],dest, r['money_percent'] )
 	
 	def train_new(self, num ):
@@ -625,7 +625,7 @@ class SG:
 		return self.post("/GateWay/OPT.ashx?id=64","lDestID=%d&lFood=%d&lIron=%d&lStone=%d&lSupplyID=%d&lWood=%d&tid=%d" % (dest, count, count, count, supid, count, self.tid) )
 
 	def get_trader_info( self ):
-		# {"ret":0,"trader":12,"plus_left":0,"come":[],"back":[],"goto":[[539885,"1å‘¨æ°ä¼¦1",96389,-34034,"æµ‹è¯•",1419863,5000,10000,10000,10000,0,4,938,1,1,0,"",0],[539888,"1å‘¨æ°ä¼¦1",96389,-34034,"æµ‹è¯•",1419863,5000,10000,10000,10000,0,4,943,1,1,0,"",0]]}
+		# {"ret":0,"trader":12,"plus_left":0,"come":[],"back":[],"goto":[[539885,"1ÖÜ½ÜÂ×1",96389,-34034,"²âÊÔ",1419863,5000,10000,10000,10000,0,4,938,1,1,0,"",0],[539888,"1ÖÜ½ÜÂ×1",96389,-34034,"²âÊÔ",1419863,5000,10000,10000,10000,0,4,943,1,1,0,"",0]]}
 		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=11&tab=1&tid=0")
 
 	def do_trans( self, dest, wood = 0, iron= 0, stone =0, food = 0, money = 0 ):
@@ -634,7 +634,7 @@ class SG:
 	def get_best_tax(self):
 		r = self.post("/GateWay/Common.ashx?id=30")
 		peo = r['population']
-		# åˆç†ç¨ŽçŽ‡ï¼50-46*åŠ³åŠ¨äººå£/äººå£ä¸Šé™-50*å†›äº‹äººå£/äººå£ä¸Šé™	
+		# ºÏÀíË°ÂÊ£½50-46*ÀÍ¶¯ÈË¿Ú/ÈË¿ÚÉÏÏÞ-50*¾üÊÂÈË¿Ú/ÈË¿ÚÉÏÏÞ	
 		return 50-46.0*peo[3]/peo[1]-50.0*peo[4]/peo[1]
 	
 	def get_fin_info( self, cid = 0):
@@ -659,7 +659,7 @@ class SG:
 		return self.post("/GateWay/Map.ashx?id=6", "mid=%d" % mid )
 	
 	def get_generals_info(self):
-		# [442487,"æ²ˆèˆ¬ç€›",16670,9842,[0,305,"åƒæˆ·ç”²",105,"å¤§ç åˆ€",405,"è¶Šå½±é©¬"],[0,405,"è¶Šå½±é©¬",105,"å¤§ç åˆ€",0,""],[9842,205,"çŽ‰è§’å¼“",305,"åƒæˆ·ç”²",405,"è¶Šå½±é©¬"],[501,"è½»åž‹æŠ•çŸ³è½¦",0],100,19684,19684,9842]
+		# [442487,"Éò°ãå­",16670,9842,[0,305,"Ç§»§¼×",105,"´ó¿³µ¶",405,"Ô½Ó°Âí"],[0,405,"Ô½Ó°Âí",105,"´ó¿³µ¶",0,""],[9842,205,"Óñ½Ç¹­",305,"Ç§»§¼×",405,"Ô½Ó°Âí"],[501,"ÇáÐÍÍ¶Ê¯³µ",0],100,19684,19684,9842]
 		return self.post("/GateWay/Build.ashx?id=2", "pid=-1&gid=16&tab=2&tid=0" )
 	
 	def add_soldier(self, n ):
@@ -711,17 +711,17 @@ if __name__ == "__main__":
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
 	print sg.show_all_building()
-	#print "ä¹°å…¥:", sg.buy( 1, sg._iron )
-	#print "ä¹°å…¥:", sg.buy( 20, sg._stone )
-	#print "ä¹°å…¥:", sg.buy( 8, sg._wood )
+	#print "ÂòÈë:", sg.buy( 1, sg._iron )
+	#print "ÂòÈë:", sg.buy( 20, sg._stone )
+	#print "ÂòÈë:", sg.buy( 8, sg._wood )
 	#print sg.get_resouce_number()
 	#sg.get_all_tech()
 	#print sg.update_tech(12)
 	#print sg.get_current_update_tech()
-	#print sg.get_need_resouce(14)  # å…µå™¨
-	#print sg.get_need_resouce(14,24,-1)  # é˜²å…·
-	#print sg.get_need_resouce(15,19,-1)  # è½¦é©¬
-	#print sg.get_need_resouce(6,14,-1)  # å¤§å­¦å‡çº§
+	#print sg.get_need_resouce(14)  # ±øÆ÷
+	#print sg.get_need_resouce(14,24,-1)  # ·À¾ß
+	#print sg.get_need_resouce(15,19,-1)  # ³µÂí
+	#print sg.get_need_resouce(6,14,-1)  # ´óÑ§Éý¼¶
 	#print sg.get_current_update()
 	#print sg.get_current_update()
 	#print sg.update_building(15,19)
@@ -735,7 +735,7 @@ if __name__ == "__main__":
 	#print sg.get_money_info(  )
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
-	#print "ç©ºé—²:",sg.get_people_info()[5]
+	#print "¿ÕÏÐ:",sg.get_people_info()[5]
 	#print sg.get_work_people()
 	#print sg.get_tech_update_money(14)
 	#print sg.test_res_to_money(), sg.get_money_number()
