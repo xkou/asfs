@@ -404,7 +404,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# ÈËÊý
-	n =[0,5000,500, 5000]
+	n =[0,6000,500, 6000]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
@@ -685,15 +685,16 @@ def main():
 #	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 #	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cid, 10 )
-#	call_func( call_update_store, cities[2] )
-#	call_func( call_update_base, cities[2] )
-#	call_func( call_update_wall, cities[2] )
+	call_func( call_update_store, cid )
+	call_func( call_update_base, cid )
+	call_func( call_update_wall, cid )
+	call_func( call_update_hourse, cid )
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid)
-	call_func( check_city_money, cid, cities[0] , timeout = 600)
-	call_func( call_destroy_building, cid, [[6,9],[9,11],[11,6]] )
-	call_func( check_city_money, cid, cities[4] , timeout = 300)
+#	call_func( check_city_money, cid, cities[0] , timeout = 600)
+#	call_func( call_destroy_building, cid, [[6,9],[9,11],[11,6]] )
+#	call_func( check_city_money, cid, cities[4] , timeout = 300)
 #	call_func( call_update_building2, cities[2], [9,6])
 
 #	call_func( call_update_base, cities[0] )
@@ -711,7 +712,7 @@ def main():
 	call_func( check_minxin, cid )
 	call_func( call_update_hourse, cid )
 	call_func( call_check_yz_res, cid, tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
-#	call_func( check_city_money, cid, cities[0] , timeout = 80)
+	call_func( check_city_money, cid, cities[0] , timeout = 80)
 
 # ¶«Áê
 	cid = cities[4]
