@@ -684,7 +684,7 @@ def main():
 	cid = cities[2]
 #	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 #	call_func( call_sell_weapon,  cities[2], (103,) )
-	call_func( call_buy_resource, cid, 10 )
+	call_func( call_buy_resource, cid, 10, low=2000 )
 #	call_func( call_update_store, cid )
 #	call_func( call_update_base, cid )
 #	call_func( call_update_all, cid )
