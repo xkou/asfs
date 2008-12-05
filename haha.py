@@ -95,7 +95,7 @@ def call_update_tech():
 		print "当前研究:", tostr(ret[1]), "级别:", ret[2], "剩余时间:", ret[4]
 		return ret[4]
 	techlist=range(16,30) #,13,12,15 #,1,4,3,2,
-	techlist= [16,20,24] #,13,12,15 #,1,4,3,2,
+	#techlist= [16,20,24] #,13,12,15 #,1,4,3,2,
 	#techlist = [28]
 	alltech = sg.get_all_tech()['list']
 	alltech = filter( lambda x: x[0] in techlist, alltech)
@@ -652,7 +652,7 @@ def main():
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105, 2 )
-	call_func( call_make_new_weapon, cid, 14,  305, 305, 2 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305, 3 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405, 1 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
