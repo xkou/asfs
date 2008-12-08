@@ -74,15 +74,14 @@ class SG:
 
 	_tex = 0.072
 
-	def __init__(self, cid=116399 ):
+	def __init__(self, cid=116399, baseurl = "http://sg2.dipan.com" ):
 		socket.setdefaulttimeout(20)
-		self.url = "http://sg2.dipan.com/GateWay/OPT.ashx?id=38&0.2639979069258746"
 		self.headers = {}
 		self.cid = 0
 		self.tid = 0
-		self.cookie=open("cookie","rb").read()
+		self.cookie=open("cookie-" + str(cid),"rb").read()
 		self.headers['Content-Type']="application/x-www-form-urlencoded; charset=UTF-8"
-		self.headers['Referer'] = "http://sg2.dipan.com/city"
+		self.headers['Referer'] = baseurl + "/city"
 		self.headers['X-Requested-With'] = "XMLHttpRequest"
 		self.headers['X-Prototype-Version'] = "1.5.0"
 		self.headers['User-Agent']="Mozilla/5.0 (Windows; U; Windows NT 5.2; zh-CN; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3"
@@ -90,6 +89,7 @@ class SG:
 		self.buildings = None
 		self.building_data = {}
 		self.city_names={}
+		self.baseurl = baseurl
 		citiesinfo = self.get_city_list()['infos']
 		for e in citiesinfo:
 			print tostr(e[2]), e[1]
@@ -132,8 +132,7 @@ class SG:
 		self.headers['Cookie'] = self.cookie
 	
 	def geturl( self, p ):
-		self.url = "http://sg2.dipan.com/GateWay/OPT.ashx?id=38&0.2639979069258746"
-		return "http://sg2.dipan.com" + p + "&0." + str(  random.randint(1639979069258746, 9639979069258746) )
+		return self.baseurl + p + "&0." + str(  random.randint(1639979069258746, 9639979069258746) )
 	
 	def get_building_gid( self, pid ):
 		return filter( lambda x: x[1] == pid, self.buildings)[0][0]
@@ -691,11 +690,17 @@ class SG:
 		y = abs(t) - x*1313
 		return x*s_x, y*s_x
 
+class SG2(SG):
+	def __init__(self, cid ):
+		SG.__init__(self, cid, 'http://s1.bl.txwy.com' )
+		
+
+
 
 if __name__ == "__main__":
-	sg = SG()
+	sg = SG2(18214)
 #	print sg.change_city( 145742 )
-	print sg.change_city( 116399 )
+	#print sg.change_city( 116399 )
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)

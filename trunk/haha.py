@@ -27,7 +27,7 @@ def sendemail( content ):
 	smtp.sendmail( f,t, msg.as_string( ) )
 	
 
-sg = SG(116399)
+sg = SG()
 
 def call_make_weapon():
 	global sg
@@ -667,8 +667,8 @@ def main():
 	call_func( call_check_yz_res, cid, tids[2], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( call_check_yz_res, cid, tids[4], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( call_buy_resource, cid, 20, low = 20000 )
-	call_func( call_make_new_weapon, cid, 13,  205, 105,3 )
-	call_func( call_make_new_weapon, cid, 14,  305, 305,3 )
+	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,1 )
 	call_func( call_update_hourse, cid )
 #	call_func( call_update_wall, cid )
