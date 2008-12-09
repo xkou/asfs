@@ -496,7 +496,7 @@ def call_destroy_building( gid_pids ):
 	else:
 		return min(ts) if ts else min(vs)
 
-def do_task2( gens ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
+def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	genids = [ y[0] for y in gens ]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
@@ -577,7 +577,7 @@ def do_task2( gens ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 		
 	from libsgmap import MapInfo
 	mi = MapInfo()
-	best = mi.getbest()
+	best = mi.getbest( ty )
 	dest = 0
 	for b in best:
 		for e in  sg.lookup_map(b[1])['npc_tent']:
@@ -643,9 +643,8 @@ def main():
 	call_func( call_get_newb_general, cid, 7 )
 	call_func( call_get_newb_general, cid , 8 )
 
-#	call_func( do_task2, cid, [ [442487,0,0,10000  ], [470182, 5000,0,5000], [442097, 5000,0,5000 ] ] )
-	call_func( do_task2, cid, [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ] )
-	
+	call_func( do_task2, cid, [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ], (1,2) )
+	call_func( do_task2, cid, [ [363930,6000,0,6000  ], [364214,6000,0,6000  ], [326572,6000,0,6000  ] ], (3,0) )
 	
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
@@ -657,7 +656,7 @@ def main():
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
 #	call_func( call_do_task, cid, 1 ,[ 	326572, 	363930] )
-	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
+#	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
 #	call_func( call_up_shiqi, cid, [470182,442097,470166,442487] )
@@ -675,7 +674,7 @@ def main():
 #	call_func( call_update_all, cid )
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
-	call_func( check_skill_point, cid)
+	call_func( check_skill_point, cid )
 
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
@@ -720,7 +719,7 @@ def main():
 	call_func( call_buy_resource, cid, 10 )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
-	call_func( call_update_hourse, cid )
+	call_func( call_update_all, cid )
 	
 	
 	

@@ -26,8 +26,8 @@ class MapInfo:
 		row = self.cursor.fetchone()
 		return row
 	
-	def getbest(self):
-		self.cursor.execute("select type, pos , distance from npc where type in (1,2) order by distance limit 10" )
+	def getbest(self, t ):
+		self.cursor.execute("select type, pos , distance from npc where type in %s order by distance limit 10" % ( str(t) ) )
 		rows = self.cursor.fetchall()
 		return rows
 	
@@ -36,14 +36,13 @@ class MapInfo:
 		self.conn.commit()
 	
 	def findall(self, ts = [1,2] ):
-		n = 80
-		for x  in range(-n, n, 8 ):
+		n = 40
+		for x  in range(-n, n, 9 ):
 			for y in range( -n, n, 8 ):
 				npcs = sg.lookup_xy( x, y)['npc_tent']
 				for npc in npcs:
 					a,b = sg.calc_xy(npc[2])
-					if  npc[1] in ts:
-						self.insert( npc[1], npc[2], a, b, math.sqrt(a**2 + b**2) )
+					self.insert( npc[1], npc[2], a, b, math.sqrt(a**2 + b**2) )
 					print npc, a, b ,"distans:" ,math.sqrt(a**2 + b**2)
 
 import os,time
