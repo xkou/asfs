@@ -743,7 +743,7 @@ def getmap():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	print sg.change_city( cities[0] )
+	print sg.change_city( cities[1] )
 	#call_make_new_weapon( 13, 103,103)
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
@@ -752,6 +752,7 @@ if __name__ == "__main__":
 	#call_func( call_make_new_weapon, cities[1], 13,  205, 105,2 )
 	#do_task2( [ [442487,0,0,5000  ], [470182, 1000,0,3500] ] )
 	#print call_do_task(1,[363930,364214 ,326572 ])
+	#print call_up_shiqi([442097])
 	getmap()
 	main()
 	#threads.deferToThread(execfile, "libsgmap.py").addCallback( main.done ).addErrback(main.done)
