@@ -675,6 +675,7 @@ def main():
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
+	call_func( call_up_shiqi, cid, [442097] )
 
 #	call_func( call_sell_weapon,  cities[1], (205,305,405) )
 #	call_func( call_sell_weapon,  cities[0], (206,306,406) )
