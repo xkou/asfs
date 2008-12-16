@@ -685,9 +685,9 @@ def main():
 #	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 #	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cid, 10, low=2000 )
-#	call_func( call_update_store, cid )
-#	call_func( call_update_base, cid )
-#	call_func( call_update_all, cid )
+	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
+	call_func( call_make_new_weapon, cid, 15,  501, 501,1 )
 	call_func( call_update_hourse, cid )
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
@@ -706,7 +706,9 @@ def main():
 	cid = cities[3]
 	call_func( call_build_wall, cid )
 	call_func( call_buy_resource, cid, 10 )
-#	call_func( call_update_base, cities[3]  )
+
+
+
 	call_func( call_update_all, cities[3]  )
 	call_func( check_skill_point, cid)
 	call_func( check_minxin, cid )
@@ -721,7 +723,9 @@ def main():
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 	call_func( call_update_all, cid )
-	
+	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
+	call_func( call_make_new_weapon, cid, 15,  501, 501,1 )
 	
 	
 	print "Started.."
