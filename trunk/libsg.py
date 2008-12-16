@@ -475,7 +475,7 @@ class SG:
 	
 	def get_soldier_info(self):
 		pid=17
-		return self.post("/GateWay/Build.ashx?id=2", "gid=%d&pid=%d&tab=6" %( self.get_building_gid(pid), pid ))['list']
+		return self.post("/GateWay/Build.ashx?id=2", "gid=16&pid=-1&tab=6")['list']
 	
 	def update_shiqi(self, id, addpt = 10):
 		if addpt > 10: addpt = 10
