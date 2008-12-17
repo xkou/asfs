@@ -643,15 +643,15 @@ def main():
 	call_func( call_get_newb_general, cid, 7 )
 	call_func( call_get_newb_general, cid , 8 )
 
-	call_func( do_task2, cid, [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ], (1,2) )
-	call_func( do_task2, cid, [ [363930,6000,0,6000  ], [364214,6000,0,6000  ], [326572,6000,0,6000  ] ], (3,0) )
+#	call_func( do_task2, cid, [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ], (1,2) )
+#	call_func( do_task2, cid, [ [363930,6000,0,6000  ], [364214,6000,0,6000  ], [326572,6000,0,6000  ] ], (3,0) )
 	
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
 #	call_func( call_build_wall, cities[0] )
 	call_func( call_update_hourse, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105, 2 )
-	call_func( call_make_new_weapon, cid, 14,  305, 305, 3 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305, 2 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405, 1 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
@@ -659,7 +659,7 @@ def main():
 #	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
-#	call_func( call_up_shiqi, cid, [470182,442097,470166,442487] )
+	call_func( call_up_shiqi, cid, [470166,363930] )
 	
 # ÐÂ³Ç	ÓªÕ¯5: tid = 4
 	cid = cities[1]
