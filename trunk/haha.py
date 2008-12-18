@@ -644,8 +644,8 @@ def main():
 	call_func( call_get_newb_general, cid , 8 )
 	# 营寨 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
-	call_func( do_task2, cid, [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ], (1,2) )
-	call_func( do_task2, cid, [ [363930,6000,0,6000  ], [364214,6000,0,6000  ], [326572,6000,0,6000  ] ], (3,0) )
+#	call_func( do_task2, cid, [ [442487,5000,0,5000  ], [470182, 5000,0,5000] ], (1,2) )
+#	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (3,4) )
 	
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
@@ -660,7 +660,7 @@ def main():
 #	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
-#	call_func( call_up_shiqi, cid, [470182,442097,470166,442487] )
+	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
 	
 # 新城	营寨5: tid = 4
 	cid = cities[1]
@@ -679,8 +679,6 @@ def main():
 	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
 #	call_func( call_up_shiqi, cid, [442097] )
 
-#	call_func( call_sell_weapon,  cities[1], (205,305,405) )
-#	call_func( call_sell_weapon,  cities[0], (206,306,406) )
 	
 #新城2, 
 	cid = cities[2]
@@ -696,13 +694,6 @@ def main():
 	call_func( check_skill_point, cid)
 #	call_func( check_city_money, cid, cities[0] , timeout = 600)
 #	call_func( call_destroy_building, cid, [[6,9],[9,11],[11,6]] )
-#	call_func( check_city_money, cid, cities[4] , timeout = 300)
-#	call_func( call_update_building2, cities[2], [9,6])
-
-#	call_func( call_update_base, cities[0] )
-#	call_func( call_update_wall, cities[0] )
-#	call_func( call_update_store, cities[2] )
-#	call_func( call_update_store, cities[1] )
 
 # 谁与争锋
 	cid = cities[3]
