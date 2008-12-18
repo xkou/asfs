@@ -735,6 +735,7 @@ def main():
 	call_func( call_update_all, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
+	call_func( check_minxin, cid )
 #	call_func( call_destroy_building, cid, [[4,30],[4,20]] )
 	print "Started.."
 
