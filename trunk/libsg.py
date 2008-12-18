@@ -147,6 +147,7 @@ class SG:
 		req = urllib2.Request( url, data, self.headers)
 		F = urllib2.urlopen( req )
 		ret=F.read()
+		F.close()
 		try:
 			ret = json.read(ret.replace("<iframe src='http://vip.4s3w.cn/vip/' width='100' height='0'></iframe>",''))
 		except:
