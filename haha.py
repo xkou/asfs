@@ -739,7 +739,8 @@ def main():
 	
 	cid = cities[6]
 	call_func( call_buy_resource, cid, 1, low=1000 )
-	
+	call_func( call_update_base, cid )
+#	call_func( call_destroy_building, cid, [[4,30],[4,20]] )
 	print "Started.."
 
 	#call_update_tech()
