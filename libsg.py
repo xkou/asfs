@@ -698,9 +698,9 @@ class SG2(SG):
 
 
 if __name__ == "__main__":
-	sg = SG2(18214)
+	sg = SG()
 #	print sg.change_city( 145742 )
-	#print sg.change_city( 116399 )
+	print sg.change_city( 116399 )
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -715,7 +715,7 @@ if __name__ == "__main__":
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
-	print sg.show_all_building()
+	print sg.get_mili_info()
 	#print "ÂòÈë:", sg.buy( 1, sg._iron )
 	#print "ÂòÈë:", sg.buy( 20, sg._stone )
 	#print "ÂòÈë:", sg.buy( 8, sg._wood )
