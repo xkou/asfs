@@ -689,6 +689,9 @@ class SG:
 		x = abs(t)/1313 + basenum
 		y = abs(t) - x*1313
 		return x*s_x, y*s_x
+	
+	def get_battle_info(self):
+		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=16&tab=1&tid=%d" % self.tid )
 
 class SG2(SG):
 	def __init__(self, cid ):
@@ -715,6 +718,7 @@ if __name__ == "__main__":
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
+	print sg.get_battle_info()
 	print sg.get_mili_info()
 	#print "ÂòÈë:", sg.buy( 1, sg._iron )
 	#print "ÂòÈë:", sg.buy( 20, sg._stone )
