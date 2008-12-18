@@ -389,7 +389,7 @@ def call_trans_res( dest,  stone=0, wood=0, iron = 0, food = 0, money = 0 ):
 
 
 def call_do_task( tid, gs ):
-	at = 900
+	at = 600+tid*300
 
 	tinfo = sg.task_info()
 	s = tinfo['status']
@@ -645,7 +645,7 @@ def main():
 	# Ӫկ 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
 	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
-	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (3, 0) )
+#	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (3, 0) )
 	
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
@@ -657,7 +657,7 @@ def main():
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
 #	call_func( call_do_task, cid, 1 ,[ 	326572, 	363930] )
-#	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
+	call_func( call_do_task, cid, 2, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
 	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
@@ -677,6 +677,7 @@ def main():
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
 	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
+	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442097] )
 
 	
