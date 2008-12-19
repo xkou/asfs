@@ -581,7 +581,7 @@ def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	dest = 0
 	for b in best:
 		for e in  sg.lookup_map(b[1])['npc_tent']:
-			if e[2] == b[1]:
+			if e[2] == b[1] and b[0] in ty:
 				dest = b
 				break
 		else:
