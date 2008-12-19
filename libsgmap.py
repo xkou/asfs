@@ -36,7 +36,7 @@ class MapInfo:
 		self.conn.commit()
 	
 	def findall(self, ts = [1,2] ):
-		n = 40
+		n = 70
 		for x  in range(-n, n, 9 ):
 			for y in range( -n, n, 8 ):
 				npcs = sg.lookup_xy( x, y)['npc_tent']

@@ -12,7 +12,7 @@ sg = SG()
 #		print x,y, sg.calc_mid(x,y), sg.calc_xy(sg.calc_mid(x,y))
 
 
-n = 0
+n = 70
 
 
 
