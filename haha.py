@@ -657,7 +657,7 @@ def main():
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
 #	call_func( call_do_task, cid, 1 ,[ 	326572, 	363930] )
-	call_func( call_do_task, cid, 2, [363930,364214 ,326572 ] )
+	call_func( call_do_task, cid, 3, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
 	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
@@ -726,13 +726,14 @@ def main():
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 	call_func( call_build_wall, cid )
-	call_func( call_buy_resource, cid, 1, low=1000 )
-	call_func( call_update_all, cid )
+	call_func( call_buy_resource, cid, 10, low=1000 )
+#	call_func( call_update_all, cid )
+	call_func( call_destroy_building, cid, [[6,14],[13,16],[14,18]] )
 	
 # 	fly rain
 	cid = cities[6]
 	call_func( call_build_wall, cid )
-	call_func( call_buy_resource, cid, 1, low=1000 )
+	call_func( call_buy_resource, cid, 10, low=1000 )
 	call_func( call_update_all, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
