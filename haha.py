@@ -657,7 +657,7 @@ def main():
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
 #	call_func( call_do_task, cid, 1 ,[ 	326572, 	363930] )
-	call_func( call_do_task, cid, 3, [363930,364214 ,326572 ] )
+	call_func( call_do_task, cid, 2, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
 	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
