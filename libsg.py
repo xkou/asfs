@@ -149,7 +149,7 @@ class SG:
 		ret=F.read()
 		F.close()
 		try:
-			ret = json.read(ret.replace("<iframe src='http://vip.4s3w.cn/vip/' width='100' height='0'></iframe>",''))
+			ret = json.read(ret)
 		except:
 			print "Json error:", ret
 		return ret
@@ -652,6 +652,17 @@ class SG:
 		genids += [0,0,0,0]
 		return self.post("/GateWay/OPT.ashx?id=53","lDestID=%d&lType=1&lGeneralID1=%d&lGeneralID2=%d&lGeneralID3=%d&lBout=-1&lTarget1GID=%d&lTarget2GID=%d&lTarget3GID=%d&lPlusFuncID=0&lPlusDestID=0&tid=%d" % ( dest, genids[0], genids[1], genids[2],target, target, target, self.tid ) )
 	
+	def get_current_wars( self, tid = 0 ):
+		ret = []
+		infos = self.get_mili_info( tid )
+		for gt in infos['goto']:
+			ret.append( self.calc_mid( * self.tomyxy(gt[6], gt[7]) ) )
+		infos = self.get_battle_info( tid )
+		for bt in infos['battle']:
+			ret.append( self.calc_mid( * self.tomyxy(bt[3], bt[4]) ) )
+		
+		return ret
+	
 	def get_max_time(self):
 		return self.post("/GateWay/Build.ashx?id=2","pid=4&gid=19&tab=1&tid=%d" % self.tid )['move']
 	
@@ -674,8 +685,8 @@ class SG:
 		return self.lookup_map( nmid )
 	
 	
-	def get_mili_info( self ):
-		return  self.post("/GateWay/Common.ashx?id=40", "tid=%d" % self.tid )
+	def get_mili_info( self, tid =0 ):
+		return  self.post("/GateWay/Common.ashx?id=40", "tid=%d" % tid )
 	
 	def calc_mid( self, x,y , mid = 1623763):
 		nmid = mid - x*1313 - y
@@ -691,8 +702,16 @@ class SG:
 		y = abs(t) - x*1313
 		return x*s_x, y*s_x
 	
-	def get_battle_info(self):
-		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=16&tab=1&tid=%d" % self.tid )
+	def tomyxy( self, x, y ):
+		# 1588368 27 -56
+		#         294 -553
+		return x-267, y+497
+	
+	def get_battle_info(self, tid=0 ):
+		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=16&tab=1&tid=%d" % tid )
+	
+	def dig_bao(self):
+		return self.post("/GateWay/OPT.ashx?id=100","DestMapID=1632930&HeroID=460057&tid=116399" )
 
 class SG2(SG):
 	def __init__(self, cid ):
@@ -704,7 +723,7 @@ class SG2(SG):
 if __name__ == "__main__":
 	sg = SG()
 #	print sg.change_city( 145742 )
-	print sg.change_city( 116399 )
+#	print sg.change_city( 116399 )
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -719,8 +738,8 @@ if __name__ == "__main__":
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
-	print sg.get_battle_info()
-	print sg.get_mili_info()
+	print sg.dig_bao()
+	#print sg.get_mili_info()
 	#print "¬Ú»Î:", sg.buy( 1, sg._iron )
 	#print "¬Ú»Î:", sg.buy( 20, sg._stone )
 	#print "¬Ú»Î:", sg.buy( 8, sg._wood )
