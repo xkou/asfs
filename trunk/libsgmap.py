@@ -35,7 +35,7 @@ class MapInfo:
 		self.cursor.execute("delete from npc where pos = %d " % pos )
 		self.conn.commit()
 	
-	def findall(self, ts = [1,2] ):
+	def findall(self ):
 		n = 70
 		for x  in range(-n, n, 9 ):
 			for y in range( -n, n, 8 ):

@@ -110,6 +110,20 @@ def call_update_tech():
 		print "所有科技升级完成"
 	return 611
 
+def call_dig_bao():
+	ret = sg.dig_bao()
+	if ret['ret'] == 0:
+		return 5
+	
+	infos = sg.get_mili_info()
+	for gt in infos['goto']:
+		if gt[5] == '\xe7\xbb\xbf\xe6\xb4\xb2':
+			print "正在寻宝", gt[-2], "秒后重试"
+			return gt[-2]
+	else:
+		print "寻宝发生错误", 10, "秒后重试"
+		return 10
+
 
 def call_yz_update_building( pids ):
 	tasklist = sg.get_current_update()
@@ -579,7 +593,15 @@ def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	mi = MapInfo()
 	best = mi.getbest( ty )
 	dest = 0
+	wars = None
 	for b in best:
+		if wars == None:
+			wars=[]
+			for c in [ 116399, 125463 ]:
+				wars += sg.get_current_wars(c)
+		
+		if b[1] in wars: continue
+		
 		for e in  sg.lookup_map(b[1])['npc_tent']:
 			if e[2] == b[1] and b[0] in ty:
 				dest = b
@@ -641,11 +663,12 @@ def main():
 # 主城
 	cid = cities[0]
 	call_func( call_get_newb_general, cid, 7 )
+	call_func( call_dig_bao, cid )
 	call_func( call_get_newb_general, cid , 8 )
 	# 营寨 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
 	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
-#	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (3, 0) )
+	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (1, 2, 3) )
 	
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
@@ -657,7 +680,7 @@ def main():
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
 #	call_func( call_do_task, cid, 1 ,[ 	326572, 	363930] )
-	call_func( call_do_task, cid, 2, [363930,364214 ,326572 ] )
+#	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
 	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
@@ -687,8 +710,8 @@ def main():
 #	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_buy_resource, cid, 10, low=2000 )
 	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
-	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
-	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
+	call_func( call_make_new_weapon, cid, 15,  405, 405,2 )
 	call_func( call_update_hourse, cid )
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
@@ -718,8 +741,8 @@ def main():
 	call_func( check_minxin, cid )
 	call_func( call_update_all, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
-	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
-	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
+	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
+	call_func( call_make_new_weapon, cid, 15,  405, 405,2 )
 
 # 低调的华丽
 	cid = cities[5]
