@@ -614,6 +614,7 @@ def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	if dest:
 		r = sg.do_beat_city( genids, dest[1] )
 		print "进攻" , r['ret'] == 0
+		return 5
 		
 	return 100
 	
@@ -668,8 +669,11 @@ def main():
 	# 营寨 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
 	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
-	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (1, 2, 3) )
-	
+#	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (1, 2, 3) )
+	call_func( do_task2, cid, [ [363930,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
+
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
 #	call_func( call_build_wall, cities[0] )
