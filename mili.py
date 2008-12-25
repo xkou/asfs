@@ -19,7 +19,7 @@ def test():
 	info = sg.get_mili_info( cs[0] )
 	for gt in info['goto']:
 		print gt
-		print tostr( gt[5] ), gt[-2]
+		print tostr( gt[5] ), gt[-2], sg.stand_mid( gt[6], gt[7]) , sg.tomyxy(gt[6], gt[7])
 	
 	
 	for gt in info['come']:

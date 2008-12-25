@@ -691,6 +691,13 @@ class SG:
 	def calc_mid( self, x,y , mid = 1623763):
 		nmid = mid - x*1313 - y
 		return nmid
+	
+	def stand_mid( self, x, y):
+		# 2, 0   861987
+		# 0, 2   859359
+		# -2,0	861983
+		# 0,-2   864611
+		return 861985 + x - y * 1313
 
 	def calc_xy( self, mid , abmid = 1623763):
 		t = abmid - mid
@@ -705,7 +712,7 @@ class SG:
 	def tomyxy( self, x, y ):
 		# 1588368 27 -56
 		#         294 -553
-		return x-267, y+497
+		return self.calc_xy(self.stand_mid(x,y))
 	
 	def get_battle_info(self, tid=0 ):
 		return self.post("/GateWay/Build.ashx?id=2","pid=-1&gid=16&tab=1&tid=%d" % tid )
