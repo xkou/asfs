@@ -738,7 +738,7 @@ if __name__ == "__main__":
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
 	#print sg.get_build(15,19,1)
-	print sg.dig_bao()
+	print sg.get_current_wars( 116399 )
 	#print sg.get_mili_info()
 	#print "ÂòÈë:", sg.buy( 1, sg._iron )
 	#print "ÂòÈë:", sg.buy( 20, sg._stone )
