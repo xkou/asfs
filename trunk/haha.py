@@ -634,12 +634,12 @@ def main():
 #	call_func( call_yz_update_building, tids[5], [2,0,1] )
 
 # 营寨
-	call_func( call_build_wall, tids[0] )
-	call_func( call_build_wall, tids[2] )
-	call_func( call_build_wall, tids[3] )
-	call_func( call_build_wall, tids[1] )
-	call_func( call_build_wall, tids[4] )
-	call_func( call_build_wall, tids[5] )
+#	call_func( call_build_wall, tids[0] )
+#	call_func( call_build_wall, tids[2] )
+#	call_func( call_build_wall, tids[3] )
+#	call_func( call_build_wall, tids[1] )
+#	call_func( call_build_wall, tids[4] )
+#	call_func( call_build_wall, tids[5] )
 	
 #	call_func( check_skill_point, tids[0] )
 #	call_func( check_skill_point, tids[2] )
@@ -654,7 +654,7 @@ def main():
 
 # 公共函数
 
-	call_many( check_general, (0,1,2,3,4,5) )
+	call_many( check_general, (0,1,2,3,4,5,6) )
 
 
 
@@ -694,12 +694,12 @@ def main():
 #	call_func( call_check_yz_res, cid, tids[2], wood= 5000, stone = 5000, iron = 5000, food = 50000 )
 #	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 50000 )
 	call_func( call_buy_resource, cid, 20, low = 20000 )
-	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
-	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
-	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
-#	call_func( call_update_hourse, cid )
+#	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
+#	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
+#	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
+	call_func( call_update_hourse, cid )
 #	call_func( call_update_wall, cid )
-	call_func( call_update_all, cid )
+#	call_func( call_update_all, cid )
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
