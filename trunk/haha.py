@@ -670,10 +670,10 @@ def main():
 	# ÓªÕ¯ 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
 
-#	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
-#	call_func( do_task2, cid, [ [363930,10000,0,10000  ] ], (1,2) )
-#	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
-#	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
+	call_func( do_task2, cid, [ [363930,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
 
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
@@ -704,9 +704,9 @@ def main():
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
 	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
-#	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
+	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 	call_func( call_up_shiqi, cid, [442487] )
-
+	call_func( call_up_shiqi, cid, [557531] )
 	
 #ÐÂ³Ç2, 
 	cid = cities[2]
