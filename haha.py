@@ -367,7 +367,7 @@ def call_many( fun, ls , *args, **awk ):
 	for l in  ls:
 		call_func( fun, cities[l], * args, **awk )
 
-def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000, num = 10000, timeout=200 ):
+def call_check_yz_res( dest, food = 50000, stone=50000, iron=50000,wood=50000, num = 50000, timeout=100 ):
 	info = sg.get_trader_info()
 	gotores = filter( lambda x: x[3] == dest, info['goto'] )
 	res = sg.get_res_number(dest)
@@ -692,7 +692,7 @@ def main():
 	
 # 新城	营寨5: tid = 4
 	cid = cities[1]
-#	call_func( call_check_yz_res, cid, tids[2], wood= 5000, stone = 5000, iron = 5000, food = 50000 )
+	call_func( call_check_yz_res, cid, tids[2], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
 #	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 50000 )
 	call_func( call_buy_resource, cid, 20, low = 20000 )
 #	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
@@ -748,6 +748,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,2 )
+	call_func( check_city_money, cid, cities[1] , timeout = 300)
 
 # 低调的华丽
 	cid = cities[5]
@@ -757,6 +758,8 @@ def main():
 	call_func( call_buy_resource, cid, 10, low=1000 )
 	call_func( call_update_all, cid )
 #	call_func( call_destroy_building, cid, [[6,14],[13,16],[14,18]] )
+	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
+
 	
 # 	fly rain
 	cid = cities[6]
