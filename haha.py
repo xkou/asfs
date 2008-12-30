@@ -65,7 +65,7 @@ def call_sell_weapon( ws =(206,306,406) ):
 	
 	return 20
 
-def call_buy_resource( num = 5, low=50000):
+def call_buy_resource( num = 5, low=1000):
 	res = sg.get_resouce_number( )
 	def check( name, id ):
 		if res[name] < low - 12 * (res["-"+name] if res["-"+name]<0 else 0) :
@@ -216,6 +216,7 @@ call_update_rest =  functools.partial( call_update_building, gid = 8)
 call_update_base =  functools.partial( call_update_building, gid = 1)	
 call_update_wall =  functools.partial( call_update_building, gid = 2)
 call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14] )
+call_update_all2 =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14,16] )
 
 call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
@@ -668,11 +669,11 @@ def main():
 	call_func( call_get_newb_general, cid , 8 )
 	# 营寨 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
-	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
-#	call_func( do_task2, cid, [ [363930,10000,0,10000  ], [364214,10000,0,10000  ], [326572,10000,0,10000  ] ], (1, 2, 3) )
-	call_func( do_task2, cid, [ [363930,10000,0,10000  ] ], (1,2) )
-	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
-	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
+
+#	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
+#	call_func( do_task2, cid, [ [363930,10000,0,10000  ] ], (1,2) )
+#	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
+#	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
 
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
@@ -698,14 +699,13 @@ def main():
 #	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
 #	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
 	call_func( call_update_hourse, cid )
-#	call_func( call_update_wall, cid )
-#	call_func( call_update_all, cid )
+
 	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
 	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
-	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
-#	call_func( call_up_shiqi, cid, [442097] )
+#	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
+	call_func( call_up_shiqi, cid, [442487] )
 
 	
 #新城2, 
@@ -722,6 +722,7 @@ def main():
 	call_func( check_skill_point, cid)
 #	call_func( check_city_money, cid, cities[0] , timeout = 600)
 #	call_func( call_destroy_building, cid, [[6,9],[9,11],[11,6]] )
+	call_func( check_city_money, cid, cities[1] , timeout = 300)
 
 # 谁与争锋
 	cid = cities[3]
