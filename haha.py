@@ -705,8 +705,8 @@ def main():
 	call_func( check_skill_point, cid )
 	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
-	call_func( call_up_shiqi, cid, [442487] )
-	call_func( call_up_shiqi, cid, [557531] )
+#	call_func( call_up_shiqi, cid, [442487] )
+#	call_func( call_up_shiqi, cid, [557531] )
 	
 #ÐÂ³Ç2, 
 	cid = cities[2]
