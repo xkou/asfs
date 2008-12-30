@@ -754,8 +754,8 @@ def main():
 	call_func( check_minxin, cid )
 	call_func( call_build_wall, cid )
 	call_func( call_buy_resource, cid, 10, low=1000 )
-#	call_func( call_update_all, cid )
-	call_func( call_destroy_building, cid, [[6,14],[13,16],[14,18]] )
+	call_func( call_update_all, cid )
+#	call_func( call_destroy_building, cid, [[6,14],[13,16],[14,18]] )
 	
 # 	fly rain
 	cid = cities[6]
