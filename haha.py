@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -419,7 +419,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# 人数
-	n =[0,10000,0, 10000]
+	n =[0,2400,0, 0]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
@@ -665,7 +665,7 @@ def main():
 # 主城
 	cid = cities[0]
 	call_func( call_get_newb_general, cid, 7 )
-	call_func( call_dig_bao, cid )
+#	call_func( call_dig_bao, cid )
 	call_func( call_get_newb_general, cid , 8 )
 	# 营寨 4
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
@@ -684,7 +684,8 @@ def main():
 	call_func( call_make_new_weapon, cid, 15,  405, 501, 1 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
-#	call_func( call_do_task, cid, 1 ,[ 	326572, 	363930] )
+
+	call_func( call_do_task, cid, 0 ,[ 558155 ] )
 #	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
 
 	call_func( check_skill_point, cid )
@@ -692,7 +693,7 @@ def main():
 	
 # 新城	营寨5: tid = 4
 	cid = cities[1]
-	call_func( call_check_yz_res, cid, tids[2], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
+#	call_func( call_check_yz_res, cid, tids[2], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
 #	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 50000 )
 	call_func( call_buy_resource, cid, 20, low = 20000 )
 #	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
@@ -735,7 +736,7 @@ def main():
 	call_func( check_skill_point, cid)
 	call_func( check_minxin, cid )
 #	call_func( call_update_hourse, cid )
-	call_func( call_check_yz_res, cid, tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
+#	call_func( call_check_yz_res, cid, tids[5], wood= 20000, stone = 20000, iron = 20000, food = 20000 )
 	call_func( check_city_money, cid, cities[0] , timeout = 80)
 
 # 东陵
@@ -758,7 +759,7 @@ def main():
 	call_func( call_buy_resource, cid, 10, low=1000 )
 	call_func( call_update_all, cid )
 #	call_func( call_destroy_building, cid, [[6,14],[13,16],[14,18]] )
-	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
+#	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
 
 	
 # 	fly rain
@@ -768,9 +769,16 @@ def main():
 	call_func( call_update_all, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
-	call_func( check_minxin, cid )
 #	call_func( call_destroy_building, cid, [[4,30],[4,20]] )
 	print "Started.."
+
+# a 货城
+	cid = cities[7]
+	call_func( call_build_wall, cid )
+	call_func( call_buy_resource, cid, 10, low=1000 )
+	call_func( call_update_all, cid )
+	call_func( check_skill_point,cid)
+	call_func( check_minxin, cid )
 
 	#call_update_tech()
 	#call_update_build()
