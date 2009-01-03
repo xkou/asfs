@@ -341,6 +341,8 @@ class SG:
 		return ret
 	
 	def destroy_building( self, gid , pid = -1 ):
+		if gid==-1:
+			gid = self.get_building_gid(pid)
 		return self.post("/GateWay/OPT.ashx?id=65", "gid=%d&pid=%d&tid=%d&type=2" % (gid, pid, self.tid) )
 	
 	def get_money_number(self, cid = 0):
