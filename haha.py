@@ -420,7 +420,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# 人数
-	n =[0,5000,0, 0]
+	n =[0,10000,0, 0]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
@@ -495,22 +495,44 @@ def call_check_giving( dest, supid, count ):
 	sg.set_giving( dest, count, supid )
 	return 60
 
-def call_destroy_building( gid_pids ):
+def call_destroy_building( pids ):
 	tasklist = sg.get_current_update()
 	vs = tasklist.values()
 	if len(tasklist) == 3 :
 		return min(vs)
 	ts = []
-	for gid, pid in gid_pids:
+	for pid in pids:
 		if pid in tasklist.keys():
 			ts.append( tasklist[pid] )
 		r = sg.force_update_building( pid )
 		if r['ret']:
-			r = sg.destroy_building( gid, pid )
+			r = sg.destroy_building( -1, pid )
 			if r['ret'] == 0:
 				return 5
 	else:
 		return min(ts) if ts else min(vs)
+
+def call_destroy_a_building( pids ):
+	tasklist = sg.get_current_update()
+	vs = tasklist.values()
+	if len(tasklist) == 3 :
+		return min(vs)
+	ts = []
+	for pid in pids:
+		if pid in tasklist.keys():
+			ts.append( tasklist[pid] )
+		else:
+			r = sg.destroy_building(-1, pid )
+			print sg.cname, "拆除", sg.get_building_name(pid), r['ret'] == 0
+			if r['ret'] == 0:
+				return 5
+			else:
+				print sg.cname, "拆除", sg.get_building_name(pid), "错误:",r['ret']
+				return 15
+	else:
+		return min(ts) if ts else min(vs)
+		
+	return 5	
 
 def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	genids = [ y[0] for y in gens ]
@@ -686,7 +708,7 @@ def main():
 	call_func( check_minxin, cid )
 
 	call_func( call_do_task, cid, 0 ,[ 558155 ] )
-#	call_func( call_do_task, cid, 1, [363930,364214 ,326572 ] )
+#	call_func( call_do_task, cid, 1, [363930,558155 ,326572 ] )
 
 	call_func( check_skill_point, cid )
 	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
@@ -699,12 +721,14 @@ def main():
 #	call_func( call_make_new_weapon, cid, 13,  205, 105,2 )
 #	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
 #	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
-	call_func( call_update_no_house, cid )
+#	call_func( call_update_no_house, cid )
 
-	call_func( call_build_wall, cid )
+#	call_func( call_build_wall, cid )
+#	call_func( call_destroy_a_building, cid, [ 30] )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
-	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
+	call_func( call_update_store, cid )
+#	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
 #	call_func( call_up_shiqi, cid, [557531] )
@@ -784,7 +808,7 @@ def main():
 	cid = cities[8]
 	call_func( call_build_wall, cid )
 	call_func( call_buy_resource, cid, 10, low=1000 )
-	call_func( call_update_all, cid )
+	call_func( call_destroy_building, cid, [17,28,6] )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 
@@ -816,6 +840,7 @@ if __name__ == "__main__":
 	#do_task2( [ [442487,0,0,5000  ], [470182, 1000,0,3500] ] )
 	#print call_do_task(1,[363930,364214 ,326572 ])
 	#print call_up_shiqi([442097])
+	#print call_destroy_a_building( [ 30 ] )
 	getmap()
 	main()
 	#threads.deferToThread(execfile, "libsgmap.py").addCallback( main.done ).addErrback(main.done)
