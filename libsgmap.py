@@ -2,7 +2,7 @@ from libsg import SG
 import math
 
 sg = None
-if __name__ == "__main__": sg = SG()
+
 import sqlite3 
 
 class MapInfo:
@@ -35,7 +35,7 @@ class MapInfo:
 		self.cursor.execute("delete from npc where pos = %d " % pos )
 		self.conn.commit()
 	
-	def findall(self ):
+	def findall(self, sg ):
 		n = 70
 		for x  in range(-n, n, 9 ):
 			for y in range( -n, n, 8 ):
@@ -47,8 +47,7 @@ class MapInfo:
 
 import os,time
 def getmapinfo(s = None):
-	global sg
-	if sg == None: sg = s
+	sg = SG()
 	fn = "lasttime"
 	print "start get map info "
 	if not os.path.exists(fn): 
@@ -56,7 +55,7 @@ def getmapinfo(s = None):
 	lasttime = float(open(fn).read())
 	if time.time() - lasttime > 600:
 		m = MapInfo()
-		print m.findall( )
+		print m.findall( sg )
 	
 		open(fn,"wb").write(str(time.time()))
 	print "end get map info."
