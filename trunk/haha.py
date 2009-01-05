@@ -420,7 +420,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# 人数
-	n =[0,10000,0, 0]
+	n =[0,20000,0, 10000]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
@@ -678,9 +678,6 @@ def main():
 
 # 公共函数
 
-	call_many( check_general, (0,1,2,3,4,5,6,7,8) )
-
-
 #	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
 
@@ -693,22 +690,21 @@ def main():
 	#call_func( call_check_yz_res, cid, tids[3], wood= 20000, stone = 20000, iron = 20000 , food = 600000 )
 
 	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
-	call_func( do_task2, cid, [ [363930,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [363930,0,0,10000  ] ], (1,0) )
 	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
 	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
 
 	call_func( call_update_tech, cid )
 	call_func( call_buy_resource, cid, 15 )
-	call_func( call_build_wall, cities[0] )
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105, 2 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305, 2 )
 	call_func( call_make_new_weapon, cid, 15,  405, 501, 1 )
 #	call_func( call_sell_weapon,     cities[0], ( 207,306,406 ) )
 	call_func( check_minxin, cid )
 
-	call_func( call_do_task, cid, 0 ,[ 558155 ] )
-#	call_func( call_do_task, cid, 1, [363930,558155 ,326572 ] )
+#	call_func( call_do_task, cid, 0 ,[ 558155 ] )
+	call_func( call_do_task, cid, 1, [558155 ] )
 
 	call_func( check_skill_point, cid )
 	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
@@ -723,11 +719,11 @@ def main():
 #	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
 #	call_func( call_update_no_house, cid )
 
-#	call_func( call_build_wall, cid )
 #	call_func( call_destroy_a_building, cid, [ 30] )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
-	call_func( call_update_store, cid )
+#	call_func( call_update_no_house, cid )
+	call_func( call_update_hourse, cid )
 #	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
@@ -742,7 +738,6 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,1 )
 	call_func( call_update_no_house, cid )
-	call_func( call_build_wall, cid )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid)
 #	call_func( check_city_money, cid, cities[0] , timeout = 600)
@@ -751,12 +746,8 @@ def main():
 
 # 谁与争锋
 	cid = cities[3]
-	call_func( call_build_wall, cid )
 	call_func( call_buy_resource, cid, 10 )
-
-
-
-	call_func( call_update_all, cities[3]  )
+	call_func( call_update_no_house, cid  )
 	call_func( check_skill_point, cid)
 	call_func( check_minxin, cid )
 #	call_func( call_update_hourse, cid )
@@ -765,11 +756,10 @@ def main():
 
 # 东陵
 	cid = cities[4]
-	call_func( call_build_wall, cid )
 	call_func( call_buy_resource, cid, 10 )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
-	call_func( call_update_no_house, cid )
+	call_func( call_update_hourse, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,1 )
@@ -779,18 +769,18 @@ def main():
 	cid = cities[5]
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
-	call_func( call_build_wall, cid )
+
 	call_func( call_buy_resource, cid, 10, low=1000 )
-	call_func( call_update_all, cid )
+	call_func( call_update_hourse, cid )
 #	call_func( call_destroy_building, cid, [[6,14],[13,16],[14,18]] )
 #	call_func( call_check_yz_res, cid, tids[4], wood= 5000, stone = 5000, iron = 5000, food = 200000 )
 
 	
 # 	fly rain
 	cid = cities[6]
-	call_func( call_build_wall, cid )
+
 	call_func( call_buy_resource, cid, 10, low=1000 )
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 #	call_func( call_destroy_building, cid, [[4,30],[4,20]] )
@@ -798,23 +788,27 @@ def main():
 
 # a 货城
 	cid = cities[7]
-	call_func( call_build_wall, cid )
+
 	call_func( call_buy_resource, cid, 10, low=1000 )
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 
 #  时光机
 	cid = cities[8]
-	call_func( call_build_wall, cid )
+
 	call_func( call_buy_resource, cid, 10, low=1000 )
-	call_func( call_destroy_building, cid, [17,28,6] )
+	call_func( call_update_all, cid ) 
+#	call_func( call_destroy_building, cid, [17,28,6] )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
+	
+
+	call_many( check_general, range( len(cities) ) )
+	call_many( call_build_wall, range( len(cities) ) )
 
 
-	#call_update_tech()
-	#call_update_build()
+	
 from libsgmap import getmapinfo
 def done(n, r ):
 	print r
@@ -825,12 +819,9 @@ def done(n, r ):
 def getmap():
 	threads.deferToThread(getmapinfo, sg).addCallback( done, 0 ).addErrback(done, 1)
 
-
-
-
 if __name__ == "__main__":
 	#print check_minxin()
-	print sg.change_city( cities[1] )
+	print sg.change_city( cities[3] )
 	#call_make_new_weapon( 13, 103,103)
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
