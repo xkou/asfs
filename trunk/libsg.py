@@ -162,6 +162,7 @@ class SG:
 			response = self.conn.getresponse()
 		except:
 			self.get_new_http()
+			return dict(ret=1)
 		ret = response.read()
 		try:
 			ret = json.read(ret)
