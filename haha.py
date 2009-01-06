@@ -790,7 +790,7 @@ def main():
 	cid = cities[7]
 
 	call_func( call_buy_resource, cid, 10, low=1000 )
-	call_func( call_update_no_house, cid )
+	call_func( call_update_hourse, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
 	call_func( check_city_money, cid, cities[8] , timeout = 300)
