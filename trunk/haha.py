@@ -420,7 +420,7 @@ def call_do_task( tid, gs ):
 		return t
 
 	# 人数
-	n =[0,20000,0, 10000]
+	n =[0,20000,0, 20000]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
 	for geninfo in generals:
@@ -691,7 +691,7 @@ def main():
 
 	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
 	call_func( do_task2, cid, [ [363930,0,0,10000  ] ], (1,0) )
-	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
+#	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
 	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
 
 	call_func( call_update_tech, cid )
@@ -718,7 +718,7 @@ def main():
 #	call_func( call_make_new_weapon, cid, 14,  305, 305,2 )
 #	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
 #	call_func( call_update_no_house, cid )
-
+	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
 #	call_func( call_destroy_a_building, cid, [ 30] )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid )
@@ -737,7 +737,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,1 )
-	call_func( call_update_no_house, cid )
+	call_func( call_update_hourse, cid )
 	call_func( check_minxin, cid )
 	call_func( check_skill_point, cid)
 #	call_func( check_city_money, cid, cities[0] , timeout = 600)
@@ -747,7 +747,7 @@ def main():
 # 谁与争锋
 	cid = cities[3]
 	call_func( call_buy_resource, cid, 10 )
-	call_func( call_update_no_house, cid  )
+	call_func( call_update_hourse, cid  )
 	call_func( check_skill_point, cid)
 	call_func( check_minxin, cid )
 #	call_func( call_update_hourse, cid )
@@ -793,6 +793,7 @@ def main():
 	call_func( call_update_no_house, cid )
 	call_func( check_skill_point,cid)
 	call_func( check_minxin, cid )
+	call_func( check_city_money, cid, cities[8] , timeout = 300)
 
 #  时光机
 	cid = cities[8]
