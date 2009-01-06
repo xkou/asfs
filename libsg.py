@@ -104,6 +104,7 @@ class SG:
 	def get_new_http(self):
 		if self.conn:
 			self.conn.close()
+			del self.conn
 		self.conn = httplib.HTTPConnection("sg2.dipan.com:80")
 		
 	
@@ -162,7 +163,7 @@ class SG:
 			response = self.conn.getresponse()
 		except:
 			self.get_new_http()
-			return dict(ret=1)
+		
 		ret = response.read()
 		try:
 			ret = json.read(ret)
