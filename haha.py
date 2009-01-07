@@ -226,7 +226,7 @@ def call_func( func, cid, *args, **awk ):
 		sg.change_city( cid )
 		r = func( *args, **awk )
 		call_func_error_no = 0
-	except (t, err):
+	except Exception, err:
 		print func, sg.cid, args , err
 		call_func_error_no += 1
 		if call_func_error_no == 100 : threads.deferToThread( sendemail, "连接出错.." )
@@ -721,7 +721,7 @@ def main():
 #	call_func( check_city_money, cid, cities[5] , timeout = 60*20)
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 	call_func( call_up_shiqi, cid, [442487] )
-#	call_func( call_up_shiqi, cid, [557531] )
+	call_func( call_up_shiqi, cid, [557531] )
 	
 #新城2, 
 	cid = cities[2]
