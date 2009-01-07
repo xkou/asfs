@@ -374,6 +374,10 @@ class SG:
 		ret = filter( lambda x:x[0] == cid , ret )
 		return ret[0]
 	
+	def get_money_all_info(self):
+		ret = self.post("/GateWay/Common.ashx?id=29")['city']
+		return ret
+	
 	def get_tech_level(self, techid):
 		return filter(lambda x: x[0]==techid, self.get_all_tech()['list'])[0][2]
 	
@@ -758,8 +762,8 @@ class SG2(SG):
 
 if __name__ == "__main__":
 	sg = SG()
-	print sg.change_city( 57747 )
-	print sg.query_general()
+#	print sg.change_city( 57747 )
+#	print sg.query_general()
 #	print sg.change_city( 116399 )
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
@@ -817,9 +821,9 @@ if __name__ == "__main__":
 	#print sg.task_info()
 	#print sg.query_general()
 	#print sg.show_weapon()
-	print sg.get_wall_info( 57747 )
+	#print sg.get_wall_info( 57747 )
 	#print sg.make_wall(1,901)
 	#print sg.make_wall(1,901)
 	#print sg.dofind(1)  # use generals
 	#print sg.get_trader_info( )
-
+	print sg.get_money_all_info( )[0]
