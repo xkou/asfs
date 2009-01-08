@@ -343,7 +343,7 @@ class SG:
 			if res[name] < need[name]:
 				needbuy = (need[name] - res[name])/1000 + 2
 				btype = eval("SG._" + name)
-				print "buy",name, needbuy
+				print self.cname, "ÂòÈë",name, needbuy
 				self.buy(needbuy , btype, 2000 )
 		checkres("stone")
 		checkres("iron")
@@ -570,6 +570,9 @@ class SG:
 	
 	def anfu(self):
 		return self.post("/GateWay/OPT.ashx?id=4","lType=1&tid=0")
+	
+	def add_people(self):
+		return self.post("/GateWay/OPT.ashx?id=4","lType=4&tid=0")
 	
 	def get_idle_wen(self):
 		ls = self.get_wen_infos()
