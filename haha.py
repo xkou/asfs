@@ -315,6 +315,8 @@ def call_get_newb_general( tid ):# 7,8
 
 def call_build_wall( ):
 	i = sg.get_wall_info()
+	if 'current' not in i:
+		return 300
 	c = i['current']
 	if len(c) >=2:
 		ts = [ x[3] for x in c ]
