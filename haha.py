@@ -66,19 +66,25 @@ def call_sell_weapon( ws =(206,306,406) ):
 	
 	return 20
 
-def call_buy_resource( num = 5, low=1000):
+def call_buy_resource( num = 5, low = 10000 ):
+	lownum = 1000
+	has_store_gt4 = filter( lambda x: x[0] == 4, x[3] > 10  , self.building_data[ self.cid ] )
+	if has_store_gt4:
+		lownum = 10000
 	res = sg.get_resouce_number( )
 	def check( name, id ):
-		if res[name] < low - 12 * (res["-"+name] if res["-"+name]<0 else 0) :
+		if res[name] < lownum - 12 * (res["-"+name] if res["-"+name]<0 else 0) :
 			num = abs( res["-"+name]/1000 )
 			print sg.cname, "买入", name, num
-			if num <= 0: num =1 
+			if num <= 0: num = lownum/1000
 			sg.buy( num , id)
 
-#	check("stone", SG._stone )
+
 	check("food", SG._food )
-#	check("iron", SG._iron )
-#	check("wood", SG._wood )
+	if has_store_gt4:
+		check("iron", SG._iron )
+		check("wood", SG._wood )
+		check("stone", SG._stone )
 	
 	tasklist = sg.get_current_update()
 	m = sg.get_money_number()
@@ -261,10 +267,12 @@ def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 		ts = [ x[3] for x in c ]
 		return min(ts)
 	if len(c) == 1:
+		r=0
 		if( c[0][0] == wtype ):
-			sg.make( n, wtype2, speed )
+			r=sg.make( n, wtype2, speed )
 		else:
-			sg.make( n, wtype, speed )
+			r=sg.make( n, wtype, speed )
+		print sg.cname, "make", r['ret']==0
 		return c[0][3]
 	
 	sg.make( n, wtype,speed )
@@ -723,10 +731,10 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
 	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house, cid )
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
-	call_func( call_up_shiqi, cid, [442487] )
-	call_func( call_up_shiqi, cid, [557531] )
+#	call_func( call_up_shiqi, cid, [442487] )
+#	call_func( call_up_shiqi, cid, [557531] )
 	
 #新城2, 
 	cid = cities[2]
@@ -762,7 +770,7 @@ def main():
 
 # A 货城
 	cid = cities[7]
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house, cid )
 	call_func( check_city_money, cid, cities[8] , timeout = 300)
 
 #  时光机

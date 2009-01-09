@@ -767,14 +767,14 @@ if __name__ == "__main__":
 	sg = SG()
 #	print sg.change_city( 57747 )
 #	print sg.query_general()
-#	print sg.change_city( 116399 )
+	print sg.change_city( 116399 )
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
 	#print sg.get_build_detail(19,1)
 	#print sg.buildings
 	#print sg.get_building_name(28)
-	#print sg.show_all_building()
+	print sg.show_all_building()
 	#print sg.foo()
 	#print sg.geturl("/GateWay/OPT.ashx?id=38")
 	#print sg.make(1)
@@ -806,7 +806,8 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	#print sg.make( 1, 205,2 )
+	print sg.get_all_building( )
+#	print sg.get_build( 13 )
 	#print sg.get_money_info(  )
 	#print sg.get_building_level(14)
 	#print sg.make_buildings_data()
@@ -829,4 +830,4 @@ if __name__ == "__main__":
 	#print sg.make_wall(1,901)
 	#print sg.dofind(1)  # use generals
 	#print sg.get_trader_info( )
-	print sg.get_money_all_info( )[0]
+	#print sg.get_money_all_info( )[0]
