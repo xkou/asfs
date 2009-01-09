@@ -68,7 +68,7 @@ def call_sell_weapon( ws =(206,306,406) ):
 
 def call_buy_resource( num = 5, low = 10000 ):
 	lownum = 1000
-	has_store_gt4 = filter( lambda x: x[0] == 4, x[3] > 10  , self.building_data[ self.cid ] )
+	has_store_gt4 = filter( lambda x: x[0] == 4 and x[3] > 10  , sg.building_data[ sg.cid ] )
 	if has_store_gt4:
 		lownum = 10000
 	res = sg.get_resouce_number( )
@@ -272,7 +272,7 @@ def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 			r=sg.make( n, wtype2, speed )
 		else:
 			r=sg.make( n, wtype, speed )
-		print sg.cname, "make", r['ret']==0
+		#print sg.cname, "make", r['ret']==0
 		return c[0][3]
 	
 	sg.make( n, wtype,speed )
@@ -781,12 +781,13 @@ def main():
 # A货城2
 	cid = cities[9]
 	call_func( call_update_all, cid )
-	call_func( check_city_money, cid, cities[10] , timeout = 300)
+#	call_func( check_city_money, cid, cities[10] , timeout = 300)
+	call_func( call_add_people, cid )
 
 # 新城3 169578
 	cid = cities[10]
-	call_func( call_update_no_house, cid )
-
+#	call_func( call_update_all, cid )
+	call_func( call_destroy_building, cid, [9,16,18] )
 	
 	cs = range( len(cities) )
 	call_many( check_general, cs )
