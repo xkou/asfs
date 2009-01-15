@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -94,7 +94,7 @@ def call_buy_resource( num = 5, low = 10000 ):
 
 
 
-top_level = 30
+top_level = 33
 
 def call_update_tech():
 	global top_level
@@ -281,6 +281,8 @@ def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 def check_minxin():
 	v = sg.get_minyuan()
 	if v:
+		threads.deferToThread( sendemail, "需要安抚: " + sg.cname )
+		return randint(600, 800)
 		r = sg.pre_anfu()
 		if r['left']:
 			print sg.cname, "需要安抚",r['left'],"秒后重试"
@@ -502,6 +504,7 @@ def call_up_shiqi( gs ):
 	return 5
 
 def check_city_money( cid, timeout = 300 ):
+	if cid == 0 : return timeout
 	num = sg.get_money_number()
 	if num > 2000000:
 		call_trans_res( cid, money = 10000 )
@@ -705,6 +708,9 @@ def main():
 #	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
 
+
+	gcid =  cities[5]
+
 # 主城
 	cid = cities[0]
 	call_func( call_get_newb_general, cid, 7 )
@@ -714,6 +720,7 @@ def main():
 	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
 	call_func( do_task2, cid, [ [363930,0,0,10000  ] ], (1,0) )
 	call_func( do_task2, cid, [ [326572,10000,0,10000  ] ], (1,2) )
+	call_func( do_task2, cid, [ [558155,20000,0,20000  ] ], (1,2,3) )
 
 	call_func( call_update_tech, cid )
 	call_func( call_update_house, cid )
@@ -722,8 +729,8 @@ def main():
 	call_func( call_make_new_weapon, cid, 15,  405, 501, 1 )
 
 #	call_func( call_do_task, cid, 1, [558155 ] )
-
-	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
+	call_func( check_city_money, cid, gcid , timeout = 50)
+#	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
 	
 # 新城	营寨5: tid = 4
 	cid = cities[1]
@@ -731,11 +738,12 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 501,1 )
 	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
 #	call_func( call_up_shiqi, cid, [557531] )
-	call_func( check_city_money, cid, cities[8] , timeout = 200)
+#	call_func( check_city_money, cid, cities[5] , timeout = 60)
+	call_func( call_check_yz_res, cid,  -40050, wood= 0, stone = 0, iron = 0, food=100000 )
 #新城2, 
 	cid = cities[2]
 #	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
@@ -744,34 +752,35 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,1 )
 	call_func( call_update_house, cid )
-	call_func( check_city_money, cid, cities[6] , timeout = 300)
+#	call_func( check_city_money, cid, gcid , timeout = 20)
 
 # 谁与争锋
 	cid = cities[3]
 	call_func( call_update_house, cid  )
-	call_func( check_city_money, cid, cities[0] , timeout = 80)
+	call_func( check_city_money, cid, cities[0] , timeout = 30)
+#	call_func( check_city_money, cid, cities[1] , timeout = 40)
 #	call_func( call_add_people, cid )
 
 # 东陵
 	cid = cities[4]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105,1 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405,1 )
-	call_func( check_city_money, cid, cities[6] , timeout = 200)
+	call_func( check_city_money, cid, gcid , timeout = 20)
 
 # 低调的华丽
 	cid = cities[5]
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house, cid )
 	
 # 	fly rain
 	cid = cities[6]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 
 # A 货城
 	cid = cities[7]
-	call_func( call_update_no_house, cid )
-	call_func( check_city_money, cid, cities[8] , timeout = 300)
+	call_func( call_update_house, cid )
+	call_func( check_city_money, cid, cities[5] , timeout = 120)
 
 #  时光机
 	cid = cities[8]
@@ -781,21 +790,28 @@ def main():
 # A货城2
 	cid = cities[9]
 	call_func( call_update_all, cid )
-#	call_func( check_city_money, cid, cities[10] , timeout = 300)
+	call_func( check_city_money, cid, cities[10] , timeout = 300)
 #	call_func( call_add_people, cid )
 
 # 新城3 169578
 	cid = cities[10]
 	call_func( call_update_all, cid )
-#	call_func( call_destroy_building, cid, [9,16,18] )
+#	call_func( call_destroy_building, cid, [9,16,18] )	
+#  棋盘关
+	cid = cities[11]
+	call_func( call_update_all, cid )
 	
 	cs = range( len(cities) )
 	call_many( check_general, cs )
 	call_many( call_build_wall, cs )
-#	call_many( check_minxin, cs )
+	call_many( check_minxin, cs )
 	call_many( check_skill_point, cs )
 	call_many( call_buy_resource, cs )
 
+
+
+
+	
 	print "Started.."
 
 	
