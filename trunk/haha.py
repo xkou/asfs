@@ -281,6 +281,10 @@ def call_make_new_weapon( btype, wtype, wtype2, speed = None ):
 def check_minxin():
 	v = sg.get_minyuan()
 	if v:
+		r = sg.pre_anfu()
+		res = sg.get_resouce_number( )
+		if res['food'] < r['population'] * 3:
+			sg.buy( r['population'] * 3 /1000, SG._food )
 		threads.deferToThread( sendemail, "需要安抚: " + sg.cname )
 		return randint(600, 800)
 		r = sg.pre_anfu()
@@ -562,6 +566,8 @@ def call_destroy_a_building( pids ):
 	return 5	
 
 def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
+	m = sg.get_money_number()
+	if m < 200000 : return 100
 	genids = [ y[0] for y in gens ]
 	infos = sg.get_generals_info()
 	generals = infos['generals']
@@ -621,7 +627,7 @@ def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 				if gen[0] in genids:
 					ts.append( info[-2] )
 		if ts:
-			print "出征中,",min(ts),"秒后重试."
+			print sg.cname, "出征中,",min(ts),"秒后重试."
 			return min(ts)
 		else:
 			bok = 1
@@ -637,7 +643,7 @@ def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	if len(infos) != len( genids ):
 		return 150
 	
-	print "军队已就绪."
+	print sg.cname, "军队已就绪."
 	for e in allname: print tostr(e)
 		
 	from libsgmap import MapInfo
@@ -664,7 +670,7 @@ def do_task2( gens, ty ): # [id, 步兵人数， 骑兵人数, 弓兵人数 ]
 	print dest
 	if dest:
 		r = sg.do_beat_city( genids, dest[1] )
-		print "进攻" , r['ret'] == 0
+		print sg.cname, "进攻" , r['ret'] == 0
 		return 5
 		
 	return 100
@@ -757,7 +763,7 @@ def main():
 # 谁与争锋
 	cid = cities[3]
 	call_func( call_update_house, cid  )
-	call_func( check_city_money, cid, cities[0] , timeout = 30)
+	call_func( check_city_money, cid, cities[0] , timeout = 10)
 #	call_func( check_city_money, cid, cities[1] , timeout = 40)
 #	call_func( call_add_people, cid )
 
