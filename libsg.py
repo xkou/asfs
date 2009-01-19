@@ -216,19 +216,22 @@ class SG:
 		return self.send( self.geturl("/GateWay/OPT.ashx?id=48") ,"count=%d&price=%d&type=%d" % (num,price,wtype) )
 	
 	def buy(self, num, btype, restmoney=0 ):
+		r = dict( ret = 1 )
 		for seller in self.get_seller( btype )['infos']:
 			if restmoney:
 				all = self.get_money_number()
 				if int(seller['price'])*num + restmoney > all:
 					print num, seller['price']
 					return dict(ret=1)
-			buynum = num
-			if seller['count']<num:
-				buynum = seller['count']
-			r= self.internal_buy( buynum, btype, seller['seqno'], seller['price'], seller['seller'], seller['count'] )
+			seller['count'] = int( seller['count'] )
+			buynum = num if seller['count']>=num else seller['count']
+			r= self.internal_buy( buynum  , btype, seller['seqno'], seller['price'], seller['seller'], seller['count'] )
 			if r['ret']==0:
 				num=num-buynum
 			if num <= 0: return dict(ret=0)
+		
+		return r
+			
 
 	def internal_buy( self, num, wtype, seqno, price, seller, buyincount ):
 		data={}
