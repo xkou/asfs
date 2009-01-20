@@ -730,11 +730,11 @@ def main():
 	call_func( do_task2, cid, [ [558155,20000,0,20000  ] ], (1,2,3) )
 
 	call_func( call_update_tech, cid )
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house, cid )
 	call_func( call_make_new_weapon, cid, 13,  205, 105, 1 )
 	call_func( call_make_new_weapon, cid, 14,  305, 305, 1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 405, 1 )
-	call_func( check_city_money, cid, cities[1] , timeout = 5)
+#	call_func( check_city_money, cid, cities[1] , timeout = 5)
 
 #	call_func( call_do_task, cid, 1, [558155 ] )
 #	call_func( call_up_shiqi, cid, [ 363930, 364214, 326572 ] )
@@ -749,7 +749,7 @@ def main():
 	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
 #	call_func( call_up_shiqi, cid, [557531] )
-#	call_func( check_city_money, cid, cities[5] , timeout = 60)
+	call_func( check_city_money, cid, cities[11] , timeout = 5)
 #	call_func( call_check_yz_res, cid,  -40050, wood= 0, stone = 0, iron = 0, food=100000 )
 #新城2, 
 	cid = cities[2]
@@ -764,7 +764,7 @@ def main():
 # 谁与争锋
 	cid = cities[3]
 	call_func( call_update_house, cid  )
-	call_func( check_city_money, cid, cities[5] , timeout = 5 )
+	call_func( check_city_money, cid, cities[0] , timeout = 5 )
 
 
 # 东陵
@@ -789,7 +789,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
-	call_func( check_city_money, cid, cities[12] , timeout = 200)
+	call_func( check_city_money, cid, cities[12] , timeout = 5)
 
 # A 货城
 	cid = cities[7]
@@ -801,12 +801,12 @@ def main():
 #  时光机
 	cid = cities[8]
 	call_func( call_update_house, cid ) 
-	call_func( check_city_money, cid, cities[1] , timeout = 10)
+	call_func( check_city_money, cid, cities[7] , timeout = 5)
 
 # A货城2
 	cid = cities[9]
 	call_func( call_update_no_house, cid )
-	call_func( check_city_money, cid, cities[10] , timeout = 200)
+#	call_func( check_city_money, cid, cities[10] , timeout = 200)
 
 # 新城3 169578
 	cid = cities[10]
