@@ -486,6 +486,9 @@ def call_do_task( tid, gs ):
 	if n > at: return n -at 
 	return 10
 
+def get_img_code( ):
+	http://sg2.dipan.com/VerifyCode.gif?t=8599&xf=0.8225065351566111
+
 def call_up_shiqi( gs ):
 	t = 898
 	infos = sg.get_soldier_info()
@@ -805,20 +808,20 @@ def main():
 
 # A货城2
 	cid = cities[9]
-	call_func( call_update_no_house, cid )
-#	call_func( check_city_money, cid, cities[10] , timeout = 200)
+	call_func( call_update_house, cid )
+	call_func( check_city_money, cid, cities[10] , timeout = 5)
 
 # 新城3 169578
 	cid = cities[10]
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 
 #  棋盘关
 	cid = cities[11]
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 
 # 菊花台
 	cid =  cities[12]
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 
 # 等离籽
 	cid =  cities[13]

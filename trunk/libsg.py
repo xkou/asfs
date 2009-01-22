@@ -758,6 +758,19 @@ class SG:
 	
 	def get_user_info(self, uid):
 		return self.post("/GateWay/Common.ashx?id=45","uid=%d" % uid )
+	
+	def get_img_code(self):
+		
+		self.conn.request("GET", "/VerifyCode.gif?t=8599&xf=0.%d" % (random.randint(16724855855977736,96724855855977736) ), None, headers=self.headers )
+#		self.conn.request("POST", "/GateWay/Common.ashx?id=73&%d" % (random.randint(16724855855977736,96724855855977736) ), "1", headers=self.headers )
+		res = self.conn.getresponse()
+		buf = res.read()
+		#print buf
+		res.close()
+		open("img_verify\\v.gif","wb").write(buf)
+		r = self.post("/GateWay/Common.ashx?id=73")
+		
+
 
 class SG2(SG):
 	def __init__(self, cid ):
@@ -777,7 +790,7 @@ if __name__ == "__main__":
 	#print sg.get_build_detail(19,1)
 	#print sg.buildings
 	#print sg.get_building_name(28)
-	print sg.show_all_building()
+	#print sg.show_all_building()
 	#print sg.foo()
 	#print sg.geturl("/GateWay/OPT.ashx?id=38")
 	#print sg.make(1)
@@ -809,7 +822,7 @@ if __name__ == "__main__":
 	#print sg.get_money_number()
 	#sg.force_update_building(12)
 	#sg.show_all_building()
-	print sg.get_all_building( )
+	print sg.get_img_code( )
 #	print sg.get_build( 13 )
 	#print sg.get_money_info(  )
 	#print sg.get_building_level(14)
