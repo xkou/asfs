@@ -70,7 +70,7 @@ def call_buy_resource( num = 5, low = 10000 ):
 	lownum = 5000
 	has_store_gt4 = filter( lambda x: x[0] == 4 and x[3] > 10  , sg.building_data[ sg.cid ] )
 	if has_store_gt4:
-		lownum = 500000
+		lownum = 50000
 	res = sg.get_resouce_number( )
 	def check( name, id ):
 		if res[name] < lownum - 12 * (res["-"+name] if res["-"+name]<0 else 0) :
@@ -90,7 +90,7 @@ def call_buy_resource( num = 5, low = 10000 ):
 	m = sg.get_money_number()
 	print  time.asctime(), sg.cname, ", 铜钱:", m,"当前任务数:",len(tasklist)
 
-	return randint(10, 20)
+	return randint(30, 50)
 
 
 
@@ -736,7 +736,7 @@ def main():
 #	call_func( do_task2, cid, [ [558155,20000,0,20000  ] ], (1,2,3) )
 
 	call_func( call_update_tech, cid )
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 #	call_func( call_make_new_weapon, cid, 13,  205, 105, 1 )
 #	call_func( call_make_new_weapon, cid, 14,  305, 305, 1 )
 #	call_func( call_make_new_weapon, cid, 15,  405, 405, 1 )
