@@ -171,7 +171,7 @@ class SG:
 			print "Json error:", ret
 		return ret
 		
-	def make(self, num, gid, speed ):
+	def make(self, num, gid, speed, tid=0 ):
 		p={}
 		m = gid/100
 		p[1]=13
@@ -181,7 +181,7 @@ class SG:
 		p[5]=15
 		pid = filter( lambda x: x[0] == p[m] , self.buildings )[0][1]
 		#print num, gid, pid
-		return self.post("/GateWay/OPT.ashx?id=38" ,"count=%d&gid=%d&pos=%d&lFaster=%d" % (num, gid, pid, speed) )
+		return self.post("/GateWay/OPT.ashx?id=38" ,"count=%d&gid=%d&pos=%d&lFaster=%d&tid=%d" % (num, gid, pid, speed, tid) )
 	
 	def show_weapon(self):
 		#http://sg2.dipan.com/GateWay/Common.ashx?id=27&0.6599525046579348
