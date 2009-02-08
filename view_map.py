@@ -35,5 +35,5 @@ def create_db():
 
 
 if __name__ == "__main__":
-	refresh_map()
+	create_db()
 
