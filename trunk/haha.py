@@ -762,7 +762,7 @@ def main():
 #	call_func( call_make_new_weapon, cities[2], 13,  103, 103, 1 )
 #	call_func( call_sell_weapon,  cities[2], (103,) )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
-	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
+#	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
 	call_func( call_update_house, cid )
 #	call_func( check_city_money, cid, cities[0] , timeout = 5 )
@@ -770,7 +770,7 @@ def main():
 # Ë­ÓëÕù·æ
 	cid = cities[3]
 	call_func( call_update_house, cid  )
-	call_func( check_city_money, cid, cities[5] , timeout = 5 )
+#	call_func( check_city_money, cid, cities[5] , timeout = 5 )
 
 
 # ¶«Áê
