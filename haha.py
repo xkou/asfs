@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285 ]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854 ]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -795,7 +795,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
-#	call_func( check_city_money, cid, cities[12] , timeout = 5)
+	call_func( check_city_money, cid, cities[14] , timeout = 5)
 
 # A 货城
 	cid = cities[7]
@@ -816,18 +816,23 @@ def main():
 
 # 新城3 169578
 	cid = cities[10]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 
 #  棋盘关
 	cid = cities[11]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 
 # 菊花台
 	cid =  cities[12]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
+	call_func( check_city_money, cid, cities[14] , timeout = 200)
 
 # 等离籽
 	cid =  cities[13]
+	call_func( call_update_all, cid )
+
+# 新城4
+	cid =  cities[14]
 	call_func( call_update_all, cid )
 
 	cs = range( len(cities) )
