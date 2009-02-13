@@ -755,7 +755,7 @@ def main():
 #	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
 #	call_func( call_up_shiqi, cid, [557531] )
-#	call_func( check_city_money, cid, cities[11] , timeout = 5)
+	call_func( check_city_money, cid, cities[11] , timeout = 5)
 #	call_func( call_check_yz_res, cid,  -40050, wood= 0, stone = 0, iron = 0, food=100000 )
 #新城2, 
 	cid = cities[2]
@@ -770,7 +770,7 @@ def main():
 # 谁与争锋
 	cid = cities[3]
 	call_func( call_update_house, cid  )
-#	call_func( check_city_money, cid, cities[5] , timeout = 5 )
+	call_func( check_city_money, cid, cities[0] , timeout = 3 )
 
 
 # 东陵
@@ -803,10 +803,10 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
-#	call_func( check_city_money, cid, cities[9] , timeout = 10)
+	call_func( check_city_money, cid, cities[8] , timeout = 10)
 #  时光机
 	cid = cities[8]
-	call_func( call_update_house, cid ) 
+	call_func( call_update_no_house, cid ) 
 #	call_func( check_city_money, cid, cities[7] , timeout = 5)
 
 # A货城2
@@ -825,7 +825,7 @@ def main():
 # 菊花台
 	cid =  cities[12]
 	call_func( call_update_house, cid )
-	call_func( check_city_money, cid, cities[14] , timeout = 200)
+#	call_func( check_city_money, cid, cities[14] , timeout = 200)
 
 # 等离籽
 	cid =  cities[13]
@@ -837,7 +837,7 @@ def main():
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
-#	call_many( call_build_wall, cs )
+	call_many( call_build_wall, cs )
 	call_many( check_minxin, cs )
 	call_many( check_skill_point, cs )
 	call_many( call_buy_resource, cs )
