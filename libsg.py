@@ -1,6 +1,6 @@
 #! coding:utf-8
 import urllib2, time, random, urllib, re
-import httplib
+import httplib as httplib
 import json
 import socket, math
 
