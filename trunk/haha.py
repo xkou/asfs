@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582 ]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 ]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -228,6 +228,7 @@ call_update_wall =  functools.partial( call_update_building, gid = 2)
 call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14] )
 call_update_all2 =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14,16] )
 call_update_no_house = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14] )
+call_update_no_house2 = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14,16] )
 
 call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
@@ -845,7 +846,8 @@ def main():
 # 等离籽
 	cid =  cities[13]
 	call_func( call_update_all, cid )
-	call_func( call_check_yz_res, cid,  -51019, wood= 0, stone = 0, iron = 0, food=100000 )
+#	call_func( call_check_yz_res, cid,  -51019, wood= 0, stone = 0, iron = 0, food=100000 )
+	call_func( check_city_money, cid, cities[16] , timeout = 400)
 
 # 新城4
 	cid =  cities[14]
@@ -853,6 +855,10 @@ def main():
 
 # 骑士精神
 	cid =  cities[15]
+	call_func( call_update_all, cid )
+
+# 大轩
+	cid =  cities[16]
 	call_func( call_update_all, cid )
 
 	cs = range( len(cities) )
