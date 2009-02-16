@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854 ]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582 ]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -751,10 +751,10 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  405, 407,1 )
 #	call_func( do_task2, cid, [ [364214,10000,0,10000  ] ], (1,2) )
-	call_func( call_update_house, cid )
+	call_func( call_update_all2, cid )
 #	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
-#	call_func( call_up_shiqi, cid, [557531] )
+#	call_func( call_up_shiqi, cid, [442487] )
 	call_func( check_city_money, cid, cities[11] , timeout = 5)
 #	call_func( call_check_yz_res, cid,  -40050, wood= 0, stone = 0, iron = 0, food=100000 )
 #新城2, 
@@ -775,7 +775,7 @@ def main():
 
 # 东陵
 	cid = cities[4]
-	call_func( call_update_house, cid )
+	call_func( call_update_all2, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
@@ -832,6 +832,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
+	call_func( check_city_money, cid, cities[15] , timeout = 400)
 
 # 菊花台
 	cid =  cities[12]
@@ -844,9 +845,14 @@ def main():
 # 等离籽
 	cid =  cities[13]
 	call_func( call_update_all, cid )
+	call_func( call_check_yz_res, cid,  -51019, wood= 0, stone = 0, iron = 0, food=100000 )
 
 # 新城4
 	cid =  cities[14]
+	call_func( call_update_all, cid )
+
+# 骑士精神
+	cid =  cities[15]
 	call_func( call_update_all, cid )
 
 	cs = range( len(cities) )
