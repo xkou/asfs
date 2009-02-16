@@ -837,7 +837,7 @@ def main():
 # ¾Õ»¨Ì¨
 	cid =  cities[12]
 	call_func( call_update_house, cid )
-#	call_func( check_city_money, cid, cities[14] , timeout = 200)
+	call_func( check_city_money, cid, cities[14] , timeout = 300)
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
