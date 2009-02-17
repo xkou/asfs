@@ -822,14 +822,14 @@ def main():
 
 # 新城3 169578
 	cid = cities[10]
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house2, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
 
 #  棋盘关
 	cid = cities[11]
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
@@ -837,7 +837,7 @@ def main():
 
 # 菊花台
 	cid =  cities[12]
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house, cid )
 	call_func( check_city_money, cid, cities[14] , timeout = 300)
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
@@ -851,7 +851,7 @@ def main():
 
 # 新城4
 	cid =  cities[14]
-	call_func( call_update_all, cid )
+	call_func( call_update_house, cid )
 
 # 骑士精神
 	cid =  cities[15]
