@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 ]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 , 176032 ]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -187,7 +187,7 @@ def call_update_building2( gids = [] ):
 		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
 		return t
 
-def call_update_smart( ):
+def call_update_smart( upgrade=4 ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
 	h_gid = 3
@@ -205,7 +205,7 @@ def call_update_smart( ):
 		if sg.get_building_gid( t ) != h_gid :
 	
 			bs = filter( lambda x: x[0] != 5, bs )
-			bs = filter( lambda x: x[0]==3, bs )
+			bs = filter( lambda x: x[0] == 3, bs )
 			bs = filter( lambda x: x[1] not in tasklist.keys(), bs )
 			bs.sort( cmp = lambda x,y : cmp(x[3], y[3]) )
 			
@@ -216,7 +216,7 @@ def call_update_smart( ):
 					break
 			return 5
 	else:
-		obj = sg.get_pid_by_gid( 13 )[0]
+		obj = sg.get_pid_by_gid( upgrade )[0]
 		if obj[3] < 33:
 			ret = sg.force_update_building( obj[1] )
 			print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
@@ -796,7 +796,7 @@ def main():
 #	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
 #	call_func( call_up_shiqi, cid, [442487] )
-	call_func( check_city_money, cid, cities[11] , timeout = 5)
+	call_func( check_city_money, cid, cities[15] , timeout = 5)
 #	call_func( call_check_yz_res, cid,  -40050, wood= 0, stone = 0, iron = 0, food=100000 )
 #新城2, 
 	cid = cities[2]
@@ -877,8 +877,8 @@ def main():
 
 # 菊花台
 	cid =  cities[12]
-	call_func( call_update_smart, cid )
-	call_func( check_city_money, cid, cities[14] , timeout = 300)
+	call_func( call_update_smart, cid, 13 )
+	call_func( check_city_money, cid, cities[14] , timeout = 20)
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
@@ -892,6 +892,7 @@ def main():
 # 新城4
 	cid =  cities[14]
 	call_func( call_update_house, cid )
+	call_func( check_city_money, cid, cities[17] , timeout = 200)
 
 # 骑士精神
 	cid =  cities[15]
@@ -899,6 +900,10 @@ def main():
 
 # 大轩
 	cid =  cities[16]
+	call_func( call_update_all, cid )
+
+# 止战之殇
+	cid = cities[17]
 	call_func( call_update_all, cid )
 
 	cs = range( len(cities) )
