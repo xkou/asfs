@@ -161,12 +161,13 @@ def call_yz_update_building( pids ):
 def call_update_building2( gids = [] ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
+	vv = bs
 	bs = filter( lambda x:x[3]<33, bs )
 	
 	l = len( tasklist)
 	ts = tasklist.values()
 	print sg.cname
-	for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , bs )[0][3], "剩余时间:", tasklist[e]
+	for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , vv )[0][3], "剩余时间:", tasklist[e]
 	if len(ts) == 3 : return min(ts)
 	if gids: bs = filter( lambda x:x[0] in gids , bs )
 	m = min(ts) if l else 0
@@ -186,18 +187,57 @@ def call_update_building2( gids = [] ):
 		print  sg.cname, "无法升级成功任何建筑",t,"秒后重试"
 		return t
 
+def call_update_smart( ):
+	tasklist = sg.get_current_update()
+	bs = sg.get_all_building()
+	h_gid = 3
+	l = len(tasklist)
+	ts = tasklist.values()
+	if l:
+		m = min(ts)
+		print sg.cname
+		for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , bs )[0][3], "剩余时间:", tasklist[e]
+	if l>=3:
+		print sg.cname, m, "秒后重试"
+		return m
+	
+	for t in tasklist:
+		if sg.get_building_gid( t ) != h_gid :
+	
+			bs = filter( lambda x: x[0] != 5, bs )
+			bs = filter( lambda x: x[0]==3, bs )
+			bs = filter( lambda x: x[1] not in tasklist.keys(), bs )
+			bs.sort( cmp = lambda x,y : cmp(x[3], y[3]) )
+			
+			for obj in bs:
+				ret = sg.force_update_building( obj[1] )
+				print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+				if ret['ret'] == 0:
+					break
+			return 5
+	else:
+		obj = sg.get_pid_by_gid( 13 )[0]
+		if obj[3] < 33:
+			ret = sg.force_update_building( obj[1] )
+			print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+		else:
+			ret = sg.destroy_building( obj[0], obj[1] )
+			print sg.cname, "拆除", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+		
+		return 5
 
 
 def call_update_building( gid ):
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
+	vv = bs
 	l = len(tasklist)
 	ts = tasklist.values()
 	m = 0
 	if l:
 		m = min(ts)
 		print sg.cname
-		for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , bs )[0][3], "剩余时间:", tasklist[e]
+		for e in tasklist:print "\t", sg.get_building_name( e ),"级别:", filter( lambda x:x[1] == e , vv )[0][3], "剩余时间:", tasklist[e]
 	if l >= 3:
 		print sg.cname, m, "秒后重试"
 		return m
@@ -737,7 +777,7 @@ def main():
 #	call_func( do_task2, cid, [ [558155,20000,0,20000  ] ], (1,2,3) )
 
 	call_func( call_update_tech, cid )
-	call_func( call_update_house, cid )
+	call_func( call_update_smart, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107, 1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407, 1 )
@@ -829,7 +869,7 @@ def main():
 
 #  棋盘关
 	cid = cities[11]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_smart, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
@@ -837,7 +877,7 @@ def main():
 
 # 菊花台
 	cid =  cities[12]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_smart, cid )
 	call_func( check_city_money, cid, cities[14] , timeout = 300)
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
