@@ -455,6 +455,7 @@ class SG:
 	def get_all_building(self):
 		ret = self.post("/GateWay/City.ashx?id=5")
 		self.building_data[self.cid] = map( lambda x: (x[1], x[0], x[2],x[3]), ret["infos"] )
+		self.buildings = self.building_data[self.cid]
 		return self.building_data[self.cid]
 
 	def show_all_building(self):
