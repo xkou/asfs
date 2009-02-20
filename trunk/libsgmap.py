@@ -32,13 +32,13 @@ class MapInfo:
 		return rows
 	
 	def getbestforme(self, t , p ):
-		self.cursor.execute("select pos, x,y from npc where type in %s" % ( str(t) )  )
-		rows = self.cursor.fetchall()
-		rows2 = map( (lambda x : (math.sqrt((x[1]-p[0])**2 + (x[2]-p[1])**2), x[0])) , rows )
-		print rows2
-		rows2.sort( key =lambda x: x[0] )
 		
-		print rows2
+		self.cursor.execute("select pos, x,y, type from npc where type in %s" % ( str(t) )  )
+		rows = self.cursor.fetchall()
+		rows2 = map( (lambda x : ( x[3], x[0], math.sqrt((x[1]-p[0])**2 + (x[2]-p[1])**2) )) , rows )
+		print "type", t, "count:", len( rows2 )
+		rows2.sort( key =lambda x: x[2] )
+		return rows2
 
 	
 	def remove( self, pos ):
@@ -70,5 +70,6 @@ def getmapinfo(s = None):
 		open(fn,"wb").write(str(time.time()))
 	print "end get map info."
 if __name__ == "__main__":
+	getmapinfo()
 	m = MapInfo()
-	m.getbestforme( (1,), (0,1) )
+	m.getbestforme( (1,2), (0,1) )
