@@ -99,7 +99,19 @@ class SG:
 		self.cs = filter(lambda x:x[-1] == 0, citiesinfo )
 		self.ts = filter(lambda x:x[-1] > 0, citiesinfo)
 		
+
+		self.posinfos = {}
+		for e in citiesinfo:
+			self.posinfos[ e[1] ] = self.calc_xy( e[3] )
+		
 		self.res = {}
+	
+	def pos(self, cid =0):
+		if cid == 0:
+			cid = self.cid
+		return self.posinfos[ cid ] 
+		 
+		
 	
 	def get_new_http(self):
 		if self.conn:
@@ -432,7 +444,7 @@ class SG:
 			tid = citynum
 			tinfo = filter( lambda x: x[1]==tid, self.ts )[0]
 			cid = tinfo[-1]
-				
+		
 		cinfo = filter( lambda x: x[1]==cid, self.cs )[0]
 			
 		if self.cid == cid and self.tid==tid: return dict(ret=0)
@@ -786,6 +798,7 @@ if __name__ == "__main__":
 #	print sg.change_city( 57747 )
 #	print sg.query_general()
 	print sg.change_city( 116399 )
+	print sg.pos()
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
@@ -795,7 +808,7 @@ if __name__ == "__main__":
 	#print sg.show_all_building()
 	#print sg.foo()
 	#print sg.geturl("/GateWay/OPT.ashx?id=38")
-	print sg.make(1,207,1)
+	#print sg.make(1,207,1)
 	#print sg.get_weapon_number()
 	#print sg.get_build(1)
 	#print sg.get_build(15,19)
