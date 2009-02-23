@@ -781,7 +781,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107, 2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407, 1 )
-#	call_func( check_city_money, cid, cities[1] , timeout = 5)
+	call_func( check_city_money, cid, cities[18] , timeout = 5, money = 50000)
 
 
 #	call_func( call_up_shiqi, cid, [ 442097, 364214, 326572 ] )
@@ -834,7 +834,7 @@ def main():
 
 # 	fly rain
 	cid = cities[6]
-	call_func( call_update_smart, cid  )
+	call_func( call_update_house, cid  )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
@@ -877,7 +877,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
-	call_func( check_city_money, cid, cities[13] , timeout = 5)
+	call_func( check_city_money, cid, cities[13] , timeout = 5, money = 30000)
 
 # 菊花台
 	cid =  cities[12]
@@ -889,31 +889,31 @@ def main():
 
 # 等离籽
 	cid =  cities[13]
-	call_func( call_update_smart, cid , 1 )
+	call_func( call_update_house, cid  )
 #	call_func( call_check_yz_res, cid,  -51019, wood= 0, stone = 0, iron = 0, food=100000 )
-	call_func( check_city_money, cid, cities[16] , timeout = 100)
+	call_func( check_city_money, cid, cities[16] , timeout = 20)
 
 # 新城4
 	cid =  cities[14]
-	call_func( call_update_smart, cid, 1 )
-	call_func( check_city_money, cid, cities[17] , timeout = 200)
+	call_func( call_update_house, cid )
+	call_func( check_city_money, cid, cities[17] , timeout = 20)
 
 # 骑士精神
 	cid =  cities[15]
-	call_func( call_update_smart, cid, 1 )
+	call_func( call_update_all, cid )
 
 # 大轩
 	cid =  cities[16]
-	call_func( call_update_house, cid )
+	call_func( call_update_all, cid )
 
 # 止战之殇
 	cid = cities[17]
 	call_func( call_update_all, cid )
-	call_func( check_city_money, cid, cities[18] , timeout = 500)
+	
 
 # 古堡
 	cid = cities[18]
-	call_func( call_update_all, cid )
+	call_func( call_update_building2, cid, [4,1] )
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
