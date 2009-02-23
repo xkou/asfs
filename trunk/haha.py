@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 , 176032, 176390 ]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 , 176032, 176390, 176805 ]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -914,6 +914,10 @@ def main():
 # ¹Å±¤
 	cid = cities[18]
 	call_func( call_update_building2, cid, [4,1] )
+
+# Ä§ÊõÏÈÉú
+	cid = cities[19]
+	call_func( call_update_building2, cid, [4,1,11] )
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
