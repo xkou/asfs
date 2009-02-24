@@ -781,7 +781,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107, 2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407, 1 )
-	call_func( check_city_money, cid, cities[18] , timeout = 5, money = 50000)
+	call_func( check_city_money, cid, cities[19] , timeout = 5, money = 50000)
 
 
 #	call_func( call_up_shiqi, cid, [ 442097, 364214, 326572 ] )
@@ -873,7 +873,7 @@ def main():
 
 #  棋盘关
 	cid = cities[11]
-	call_func( call_update_smart, cid  )
+	call_func( call_update_house, cid  )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
@@ -883,9 +883,9 @@ def main():
 	cid =  cities[12]
 	call_func( call_update_smart, cid )
 	call_func( check_city_money, cid, cities[14] , timeout = 5)
-	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
-	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
-	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
+	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
+	call_func( call_make_new_weapon, cid, 14,  307, 307,2 )
+	call_func( call_make_new_weapon, cid, 15,  407, 407,2 )
 
 # 等离籽
 	cid =  cities[13]
@@ -901,6 +901,7 @@ def main():
 # 骑士精神
 	cid =  cities[15]
 	call_func( call_update_all, cid )
+	call_func( check_city_money, cid, cities[11] , timeout = 5)
 
 # 大轩
 	cid =  cities[16]
@@ -913,11 +914,11 @@ def main():
 
 # 古堡
 	cid = cities[18]
-	call_func( call_update_building2, cid, [4,1] )
+	call_func( call_update_smart, cid, 1 )
 
 # 魔术先生
 	cid = cities[19]
-	call_func( call_update_building2, cid, [4,1,11] )
+	call_func( call_update_all, cid )
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
