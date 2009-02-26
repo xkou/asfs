@@ -19,7 +19,7 @@ def showinfo( r ):
 			all.append( (tostr( u[1] ), tostr( u[3] ), tostr( e[1] ), math.sqrt(v[0]**2+v[1]**2),v, (238-v[1], v[0]-580)) )
 
 
-o = 50
+o = 60
 
 for x in range( -o, o, 9 ):
 	for y in range( -o, o, 9 ):
