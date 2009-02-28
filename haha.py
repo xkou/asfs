@@ -759,7 +759,7 @@ def main():
 
 # ¹«¹²º¯Êý
 
-#	call_func( call_check_yz_res, cities[0], tids[0], wood= 400000, stone = 400000, iron = 150000 )
+	call_func( call_check_yz_res, cities[0], -51019, wood= 630000, stone = 400000, iron = 150000 )
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
 
 
