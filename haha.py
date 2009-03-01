@@ -759,7 +759,7 @@ def main():
 
 # 公共函数
 
-	call_func( call_check_yz_res, cities[0], -51019, wood= 630000, stone = 400000, iron = 150000 )
+	
 #	call_func( call_check_yz_res, cities[0], tids[1], wood= 400000, stone = 400000, iron = 150000 )
 
 
@@ -851,7 +851,7 @@ def main():
 #	call_func( check_city_money, cid, cities[8] , timeout = 10)
 #  时光机
 	cid = cities[8]
-	call_func( call_update_smart, cid  ) 
+	call_func( call_update_house, cid  ) 
 	call_func( check_city_money, cid, cities[20] , timeout = 5, money = 50000)
 	call_func( call_make_new_weapon, cid, 13,  207, 107,1 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
@@ -872,6 +872,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,3 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
+	call_func( call_check_yz_res, cities[0], -51019, wood= 640000, stone = 400000, iron = 150000 )
 
 #  棋盘关
 	cid = cities[11]
