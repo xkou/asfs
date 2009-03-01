@@ -872,7 +872,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,3 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
-	call_func( call_check_yz_res, cities[0], -51019, wood= 640000, stone = 400000, iron = 150000 )
+	call_func( call_check_yz_res, cid, -51019, wood= 640000, stone = 400000, iron = 150000 )
 
 #  ∆Â≈Ãπÿ
 	cid = cities[11]
