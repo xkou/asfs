@@ -927,7 +927,7 @@ def main():
 
 # ²Êºç
 	cid = cities[20]
-	call_func( call_update_all, cid )
+	call_func( call_update_smart, cid, 1 )
 
 # ÎÞË«
 	cid = cities[21]
