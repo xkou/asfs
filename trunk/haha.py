@@ -893,7 +893,7 @@ def main():
 
 # µÈÀë×Ñ
 	cid =  cities[13]
-	call_func( call_update_house, cid  )
+	call_func( call_update_smart, cid, 1  )
 #	call_func( call_check_yz_res, cid,  -51019, wood= 0, stone = 0, iron = 0, food=100000 )
 	
 
