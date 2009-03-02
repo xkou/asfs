@@ -9,4 +9,4 @@ for k in cities:
 	print tostr( cities[k] ), k
 	sg.change_city(k)
 	ks = sg.get_wu_infos()
-	for k in ks:print "\t", tostr( k[1] ), k[0]
+	for k in ks:print "\t", tostr( k[1] ), k[0], k[5]
