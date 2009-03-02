@@ -158,7 +158,8 @@ def call_yz_update_building( pids ):
 	
 	return 5
 
-def call_update_building2( gids = [] ):
+def call_update_building2( rgids = [] ):
+	gids = map( lambda x:abs(x), rgids )
 	tasklist = sg.get_current_update()
 	bs = sg.get_all_building()
 	vv = bs
@@ -177,7 +178,18 @@ def call_update_building2( gids = [] ):
 		print  sg.cname, "无法升级成功任何建筑",min(ts),"秒后重试"
 		return min(ts)
 	bs.sort( key = lambda x:x[3] )
-	for obj in bs:
+
+	# need destroy
+	dgids = filter( lambda x:x <0 , rgids )
+	dbs = filter( lambda x:-x[0] in dgids , bs )
+	ndbs = filter( lambda x:-x[0] not in dgids , bs )
+	for obj in dbs:
+		ret = sg.destroy_building( obj[0], obj[1] )
+		print sg.cname, "拆除", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
+		return 5
+
+	for obj in ndbs:
+		if -obj[0] in rgids : continue
 		ret = sg.force_update_building( obj[1] )
 		print sg.cname, "升级", tostr(obj[2]), obj[1], "级别:", obj[3], ret['ret'] == 0
 		if ret['ret'] == 0:
@@ -265,10 +277,13 @@ call_update_store = functools.partial( call_update_building, gid = 4)
 call_update_rest =  functools.partial( call_update_building, gid = 8)
 call_update_base =  functools.partial( call_update_building, gid = 1)	
 call_update_wall =  functools.partial( call_update_building, gid = 2)
+
+call_update_house2 = functools.partial( call_update_building2, [3, -12, -8, -5, -7] )
 call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14] )
 call_update_all2 =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14,16] )
 call_update_no_house = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14] )
 call_update_no_house2 = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14,16] )
+call_update_no_house3 = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14,16,7,10,9] )
 
 call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
@@ -777,7 +792,7 @@ def main():
 #	call_func( do_task2, cid, [ [558155,30000,0,20000  ] ], (1,2,3) )
 
 	call_func( call_update_tech, cid )
-	call_func( call_update_smart, cid )
+	call_func( call_update_house2, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107, 2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407, 1 )
@@ -805,7 +820,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,2 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,2 )
-	call_func( call_update_house, cid )
+	call_func( call_update_no_house3, cid )
 #	call_func( check_city_money, cid, cities[0] , timeout = 5 )
 	call_func( call_check_yz_res, cid,  -50256, wood= 500000, stone = 0, iron = 0, food=100000 )
 # 谁与争锋
@@ -932,7 +947,7 @@ def main():
 
 # 无双
 	cid = cities[21]
-	call_func( call_update_all, cid )
+	call_func( call_update_house, cid )
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
@@ -960,8 +975,9 @@ def getmap():
 
 if __name__ == "__main__":
 	#print check_minxin()
-	print sg.change_city( cities[3] )
-	#call_make_new_weapon( 13, 103,103)
+#	cid = cities[21]
+#	print sg.change_city( cid )
+#	call_update_house2( )
 	#call_do_task(1, [363930,364214,326572])
 	#print check_general()
 	#check_skill_point()
