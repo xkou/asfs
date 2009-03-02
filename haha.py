@@ -899,7 +899,7 @@ def main():
 
 # 新城4
 	cid =  cities[14]
-	call_func( call_update_all, cid )
+	call_func( call_update_smart, cid, 1 )
 #	call_func( check_city_money, cid, cities[17] , timeout = 20)
 
 # 骑士精神
