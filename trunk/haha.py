@@ -282,7 +282,7 @@ call_update_house2 = functools.partial( call_update_building2, [3, -12, -8, -5, 
 #call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14] )
 call_update_all =  functools.partial( call_update_building2, [2,4,3,1,13,6,15,11,14,16] )
 call_update_no_house = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14,16] )
-call_update_no_house3 = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14,16,7,10,9] )
+call_update_no_house3 = functools.partial( call_update_building2, [2,4,1,13,6,15,11,14,16,7,10,9, 8] )
 
 call_func_error_no = 0
 def call_func( func, cid, *args, **awk ):
