@@ -904,7 +904,7 @@ def main():
 
 # 骑士精神
 	cid =  cities[15]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 #	call_func( check_city_money, cid, cities[11] , timeout = 5)
 
 # 大轩
