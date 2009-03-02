@@ -809,7 +809,7 @@ def main():
 	call_func( call_update_house, cid )
 #	call_func( do_task2, cid, [ [442097,7000,5000,9000  ] ], (2,0) )
 #	call_func( call_up_shiqi, cid, [442487] )
-	call_func( call_up_shiqi, cid, [442487] )
+#	call_func( call_up_shiqi, cid, [442487] )
 	call_func( check_city_money, cid, cities[15] , timeout = 5)
 #	call_func( call_check_yz_res, cid,  -40050, wood= 0, stone = 0, iron = 0, food=100000 )
 #ÐÂ³Ç2, 
