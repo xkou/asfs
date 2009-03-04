@@ -922,7 +922,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
-#	call_func( check_city_money, cid, cities[11] , timeout = 5)
+	call_func( check_city_money, cid, cities[11] , timeout = 5)
 
 # ´óÐù
 	cid =  cities[16]
