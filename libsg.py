@@ -4,6 +4,8 @@ import httplib as httplib
 import json
 import socket, math
 
+import img_verify as imgv
+
 # ÌúÌ¥¹­ 201
 # Í¸¼×Ç¹ 101
 # ºñ±³µ¶ 102
@@ -774,16 +776,20 @@ class SG:
 		return self.post("/GateWay/Common.ashx?id=45","uid=%d" % uid )
 	
 	def get_img_code(self):
+#		self.post("/GateWay/Common.ashx?id=73" )
 		
 		self.conn.request("GET", "/VerifyCode.gif?t=8599&xf=0.%d" % (random.randint(16724855855977736,96724855855977736) ), None, headers=self.headers )
-#		self.conn.request("POST", "/GateWay/Common.ashx?id=73&%d" % (random.randint(16724855855977736,96724855855977736) ), "1", headers=self.headers )
 		res = self.conn.getresponse()
 		buf = res.read()
-		#print buf
-		res.close()
 		open("img_verify\\v.gif","wb").write(buf)
-		r = self.post("/GateWay/Common.ashx?id=73")
-		
+
+		self.conn.request("POST", "/GateWay/Common.ashx?id=73&%d" % (random.randint(16724855855977736,96724855855977736) ), "1", headers=self.headers )
+		res = self.conn.getresponse()
+		buf = res.read()
+		imgs = re.findall("(\d+)", buf)[1:]
+		res.close()
+		print imgs
+		imgv.get_code(imgs, "img_verify\\" )
 
 
 class SG2(SG):
@@ -798,7 +804,8 @@ if __name__ == "__main__":
 #	print sg.change_city( 57747 )
 #	print sg.query_general()
 	print sg.change_city( 116399 )
-	print sg.pos()
+	print sg.get_img_code()
+#	print sg.pos()
 	#print sg.cname #, sg.tname
 	#print sg.change_city( 145742 )
 	#print sg.get_report_list(1)
