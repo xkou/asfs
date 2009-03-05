@@ -55,15 +55,17 @@ class YX:
 	def monster_fight(self, mid ):
 		return self.send("/modules/monster_fight.php?mid=%d" % mid)
 	
+	def people_fight( self, i ):
+		return self.send("/modules/duel_fight.php?action=fight&rid=%d" % i )
+	
+	def get_pk_user(self):
+		
+		return self.send("/modules/role_info.php?mod=role_base"  )
+	
 	def buy( self, url , t = 1, num = 100000 ):
 		return self.post("mirror_money_type=%d&select_life_pool=%d&select_mana_pool=%d" % ( t, num, num ) )
 
 if __name__ == "__main__":
 	yx = YX()
-	r = yx.get_global_data()
+	r = yx.get_pk_user()
 	print r
-	for e in  r['s_roles'][0]:
-		print e, r['s_roles'][0][e]
-	
-	for e in  r['s_roles'][1]:
-		print e, r['s_roles'][1][e]
