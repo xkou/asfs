@@ -13,7 +13,12 @@ def call_fight():
 
 	reactor.callLater( 5, call_fight )
 
+def call_keep():
+	yx.refresh_npc( )
+	reactor.callLater( 15, call_fight )
+
 call_fight ()
+
 
 reactor.run( )
 

@@ -46,6 +46,9 @@ class YX:
 	def post(self, url, data ):
 		return send( url, "POST", data )
 	
+	def get_global_data(self):
+		return self.send("/modules/refresh_scene_data.php?action=refresh&time=24")
+	
 	def refresh_npc(self):
 		return self.send("/modules/refresh_npc_barrier.php?instance=0&time=10")
 	
@@ -57,11 +60,10 @@ class YX:
 
 if __name__ == "__main__":
 	yx = YX()
-	r = yx.refresh_npc()
-	
-	for e  in  r['s_monster']:
-		print e['type_name']
-
-	r = yx.monster_fight()
+	r = yx.get_global_data()
 	print r
-		
+	for e in  r['s_roles'][0]:
+		print e, r['s_roles'][0][e]
+	
+	for e in  r['s_roles'][1]:
+		print e, r['s_roles'][1][e]
