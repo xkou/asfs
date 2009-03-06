@@ -861,8 +861,8 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  307, 307,2 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
 #	call_func( call_up_shiqi, cid, [363930] )
-	call_func( do_task2, cid, [ [558155,30000,0,20000  ] ], (1,2,3) )
-	call_func( check_city_money, cid, cities[21] , timeout = 10)
+#	call_func( do_task2, cid, [ [558155,30000,0,20000  ] ], (1,2,3) )
+	call_func( check_city_money, cid, cities[20] , timeout = 10)
 #  时光机
 	cid = cities[8]
 	call_func( call_update_house, cid  ) 
@@ -947,7 +947,7 @@ def main():
 # 彩虹
 	cid = cities[20]
 	call_func( call_update_no_house, cid )
-
+	call_func( check_city_money, cid, cities[7] , timeout = 10)
 # 无双
 	cid = cities[21]
 	call_func( call_update_all, cid )
