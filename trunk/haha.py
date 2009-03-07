@@ -946,7 +946,7 @@ def main():
 
 # ²Êºç
 	cid = cities[20]
-	call_func( call_update_no_house, cid )
+	call_func( call_update_house, cid )
 	call_func( check_city_money, cid, cities[7] , timeout = 10)
 # ÎÞË«
 	cid = cities[21]
