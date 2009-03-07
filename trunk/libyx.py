@@ -4,6 +4,9 @@ import httplib as httplib
 import json
 import socket, math
 
+import  time
+from traceback import print_exc
+import functools
 
 class YX:
 	
@@ -40,7 +43,8 @@ class YX:
 		try:
 			ret = json.read(ret)
 		except:
-			print "Json error:", ret
+			#print "Json error:", ret
+			pass
 		return ret
 	
 	def post(self, url, data ):
@@ -58,14 +62,26 @@ class YX:
 	def people_fight( self, i ):
 		return self.send("/modules/duel_fight.php?action=fight&rid=%d" % i )
 	
+	def get_today_task(self):
+		print  self.send("/modules/task.php?timestamp=%d" % time.time())
+	
 	def get_pk_user(self):
 		
-		return self.send("/modules/role_info.php?mod=role_base"  )
+		r = self.send("/modules/duel.php?act=hall"  )
+		ma0 = re.findall('<td align="left" width="15%" class="small_font">Lv.(\d+)</td>', r)
+		
+		ma1 = re.findall("Fight(\([^\)]+\))", r )
+		ma2= map( lambda x: eval(x), ma1)
+	
+		ma3 = map ( lambda x,y : [int(x), y[0], y[1]] ,  ma0[:-1], ma2 )
+		ma3.sort( key = lambda x:x[0] )
+		return ma3
 	
 	def buy( self, url , t = 1, num = 100000 ):
 		return self.post("mirror_money_type=%d&select_life_pool=%d&select_mana_pool=%d" % ( t, num, num ) )
 
 if __name__ == "__main__":
 	yx = YX()
-	r = yx.get_pk_user()
+	r = yx.get_today_task()
+
 	print r
