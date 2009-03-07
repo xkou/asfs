@@ -3,6 +3,10 @@
 from libyx import YX
 from twisted.internet import reactor, defer
 
+import  time
+from traceback import print_exc
+import functools
+
 yx = YX()
 
 import sys
@@ -18,21 +22,43 @@ def call_fight():
 	if 'success' not in r:
 		print  r['script_text'],r['result']
 
-	reactor.callLater( 5, call_fight )
+	return 5
+
+call_func_error_no = 0
+def call_func( func,  *args, **awk ):
+	global call_func_error_no
+	try:
+		r = func( *args, **awk )
+		if r == -1: return
+		call_func_error_no = 0
+	except Exception, err:
+		print func, args
+		print_exc( )
+		call_func_error_no += 1
+		if call_func_error_no == 150 : reactor.stop()
+		reactor.callLater( 10, call_func, func, *args, **awk )
+		return
+	reactor.callLater( r, call_func, func, *args, **awk )
+
 
 def call_keep():
 	yx.refresh_npc( )
 	reactor.callLater( 15, call_fight )
+
 def call_fight_people():
-	r = yx.people_fight(22749)
-	if "success" not in r:
-		print r['result']
-	reactor.callLater( 30, call_fight )
+	us = yx.get_pk_user()
+	u = us[0]
+	if u[0] <= 15:
+		r = yx.people_fight( u[1] )
+		if "success" not in r:
+			print r['result']
+			return 60 
+	return 30
 
 
-call_fight ()
-call_fight_people()
-
+#call_fight ()
+#call_func( call_fight_people )
+call_func( call_fight )
 
 
 reactor.run( )
