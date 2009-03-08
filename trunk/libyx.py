@@ -63,7 +63,12 @@ class YX:
 		return self.send("/modules/duel_fight.php?action=fight&rid=%d" % i )
 	
 	def get_today_task(self):
-		print  self.send("/modules/task.php?timestamp=%d" % time.time())
+		r=  self.send("/modules/task.php?timestamp=%d" % time.time())
+		ma = re.findall("'day', (\d+),", r )
+		return set(ma)
+	
+	def auto_task( self, id ):
+		return self.send("/modules/role_mission.php?act=detail&op=auto_complete&function=day&id=%d" % id)
 	
 	def get_pk_user(self):
 		
