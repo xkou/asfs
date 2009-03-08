@@ -787,7 +787,7 @@ def main():
 
 #	call_func( do_task2, cid, [ [470166,8000,0,2000  ] ], (1,0) )
 #	call_func( do_task2, cid, [ [363930,0,0,10000  ] ], (1,0) )
-	call_func( do_task2, cid, [ [363930,50000,0,50000  ] ], (1,2) )
+#	call_func( do_task2, cid, [ [363930,50000,0,50000  ] ], (1,2) )
 #	call_func( do_task2, cid, [ [558155,30000,0,20000  ] ], (1,2,3) )
 
 	call_func( call_update_tech, cid )
