@@ -4,7 +4,7 @@ import httplib as httplib
 import json
 import socket, math
 
-import img_verify as imgv
+#import img_verify as imgv
 
 # ÌúÌ¥¹­ 201
 # Í¸¼×Ç¹ 101
