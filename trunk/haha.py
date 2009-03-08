@@ -954,7 +954,7 @@ def main():
 
 # 我的地盘
 	cid = cities[22]
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 
 # 安静
 	cid = cities[23]
