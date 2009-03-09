@@ -913,8 +913,8 @@ def main():
 
 # 新城4
 	cid =  cities[14]
-	call_func( call_update_no_house, cid )
-#	call_func( check_city_money, cid, cities[17] , timeout = 20)
+	call_func( call_update_house, cid )
+	call_func( check_city_money, cid, cities[17] , timeout = 20)
 
 # 骑士精神
 	cid =  cities[15]
@@ -932,7 +932,7 @@ def main():
 # 止战之殇
 	cid = cities[17]
 	call_func( call_update_all, cid )
-	call_func( check_city_money, cid, cities[14] , timeout = 5, money = 10000)
+#	call_func( check_city_money, cid, cities[14] , timeout = 5, money = 10000)
 
 # 古堡
 	cid = cities[18]
