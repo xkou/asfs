@@ -17,7 +17,7 @@ class YX:
 		self.headers = {}
 		self.cookie=open("cookie-" + name,"rb").read()
 		self.headers['Content-Type']="application/x-www-form-urlencoded; charset=UTF-8"
-		self.headers['Referer'] = "http://yingxiongsvr23.webgame.xunlei.com"
+		self.headers['Referer'] = "http://yingxiongsvr25.webgame.xunlei.com"
 		self.headers['X-Requested-With'] = "XMLHttpRequest"
 		self.headers['X-Prototype-Version'] = "1.5.0"
 		self.headers['User-Agent']="Mozilla/5.0 (Windows; U; Windows NT 5.2; zh-CN; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3"
@@ -27,10 +27,10 @@ class YX:
 		if self.conn:
 			self.conn.close()
 			del self.conn
-		self.conn = httplib.HTTPConnection("yingxiongsvr23.webgame.xunlei.com:80")
+		self.conn = httplib.HTTPConnection("yingxiongsvr25.webgame.xunlei.com:80")
 	
 	def geturl(self, url ):
-		return "http://yingxiongsvr23.webgame.xunlei.com" + url + "&timeStamp=1236233710689&callback_func_name=callbackFnChkDetail"
+		return "http://yingxiongsvr25.webgame.xunlei.com" + url + "&timeStamp=1236233710689&callback_func_name=callbackFnChkDetail"
 	
 	def send(self, url, m ="GET", data ="" ):
 		self.conn.request(m, self.geturl(url), headers= self.headers, body = data)
