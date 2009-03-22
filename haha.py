@@ -976,7 +976,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,3 )
 	call_func( call_update_house, cid )
-
+	call_func( check_city_money, cid, cities[0] , timeout = 20)
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
