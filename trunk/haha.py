@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from random import randint
 
 
-cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 , 176032, 176390, 176805, 177223, 160819, 177910 , 178620]
+cities = [116399,125463,145742,57747,63829, 164347,121356, 79652, 168349, 142351, 169578, 156312, 171087, 167285, 174854,175582, 140539 , 176032, 176390, 176805, 177223, 160819, 177910 ]
 tids = [ -40050 , -34034 , -50256, -50278, -51019, -51071]
 
 def sendemail( content ):
@@ -792,9 +792,9 @@ def main():
 
 	call_func( call_update_tech, cid )
 	call_func( call_update_house2, cid )
-	call_func( call_make_new_weapon, cid, 13,  207, 107, 3 )
+	call_func( call_make_new_weapon, cid, 13,  207, 107, 2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 2 )
-	call_func( call_make_new_weapon, cid, 15,  407, 407, 2 )
+	call_func( call_make_new_weapon, cid, 15,  407, 407, 3 )
 #	call_func( check_city_money, cid, 178620 , timeout = 5, money = 50000)
 
 
@@ -934,6 +934,9 @@ def main():
 # 大轩
 	cid =  cities[16]
 	call_func( call_update_no_house, cid )
+	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
+	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
+	call_func( call_make_new_weapon, cid, 15,  407, 407,2 )
 	
 
 # 止战之殇
@@ -959,7 +962,7 @@ def main():
 	call_func( call_update_house, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
-	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
+	call_func( call_make_new_weapon, cid, 15,  407, 407,2 )
 	call_func( check_city_money, cid, cities[7] , timeout = 10)
 	
 # 无双
@@ -971,12 +974,9 @@ def main():
 	cid = cities[22]
 	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
-	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
+	call_func( call_make_new_weapon, cid, 15,  407, 407,3 )
 	call_func( call_update_house, cid )
 
-# 安静
-	cid = cities[23]
-	call_func( call_update_all, cid )
 
 	cs = range( len(cities) )
 	call_many( check_general, cs )
