@@ -835,7 +835,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
 #	call_func( call_up_shiqi, cid, [470182] )
-	call_func( check_city_money, cid, cities[14] , timeout = 5, money = 50000 )
+#	call_func( check_city_money, cid, cities[14] , timeout = 5, money = 50000 )
 	call_func( do_task2, cid, [ [470166,20000,0,10000  ] ], (1,2) )
 
 # µÍµ÷µÄ»ªÀö
