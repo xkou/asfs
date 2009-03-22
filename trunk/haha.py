@@ -795,7 +795,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107, 2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 2 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407, 3 )
-#	call_func( check_city_money, cid, 178620 , timeout = 5, money = 50000)
+	call_func( check_city_money, cid, 180312 , timeout = 5, money = 50000)
 
 
 #	call_func( call_up_shiqi, cid, [ 442097, 364214, 326572 ] )
@@ -992,15 +992,7 @@ def main():
 	print "Started.."
 
 	
-from libsgmap import getmapinfo
-def done(n, r ):
-	print r
-	if r:
-		print n
-	reactor.callLater(600, getmap )
 
-def getmap():
-	threads.deferToThread(getmapinfo, sg).addCallback( done, 0 ).addErrback(done, 1)
 
 if __name__ == "__main__":
 	#print check_minxin()
@@ -1016,6 +1008,17 @@ if __name__ == "__main__":
 	#print call_do_task(1,[363930,364214 ,326572 ])
 	#print call_up_shiqi([442097])
 	#print call_destroy_a_building( [ 30 ] )
+	from libsgmap import getmapinfo
+	def done(n, r ):
+		print r
+		if r:
+			print n
+		reactor.callLater(600, getmap )
+
+	def getmap():
+		threads.deferToThread(getmapinfo, sg).addCallback( done, 0 ).addErrback(done, 1)
+
+
 	getmap()
 	main()
 	#threads.deferToThread(execfile, "libsgmap.py").addCallback( main.done ).addErrback(main.done)
@@ -1023,5 +1026,5 @@ if __name__ == "__main__":
 
 	
 
-reactor.run()
+	reactor.run()
 
