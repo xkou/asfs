@@ -74,7 +74,7 @@ def call_func( func, cid, *args, **awk ):
 	reactor.callLater( r, call_func, func, cid, *args, **awk )
 
 
-call_update_all =  functools.partial( call_update_building2, [1,4,3] )
+call_update_all =  functools.partial( call_update_building2, [1,4,3,11] )
 
 
 sg = SG(179973)
