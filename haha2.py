@@ -132,7 +132,7 @@ def show_money( ):
 	print  time.asctime(), sg.cname, ", ͭǮ:", m
 	return 15
 
-call_update_all =  functools.partial( call_update_building2, [1,4,3,11 ] ) #8, 6,7
+call_update_all =  functools.partial( call_update_building2, [1,4,3,11,8, 6,7 ] ) #8, 6,7
 
 
 sg = SG(179973)
