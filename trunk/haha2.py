@@ -132,13 +132,13 @@ def show_money( ):
 	print  time.asctime(), sg.cname, ", Í­Ç®:", m
 	return 15
 
-call_update_all =  functools.partial( call_update_building2, [1,4,3,11,8, 6,7 ] ) #8, 6,7
-
+call_update_all =  functools.partial( call_update_building2, [1,4,11] ) #8, 6,7
+# 3 Îª·¿ÎÝk
 
 sg = SG(179973)
 
 cid = 180312 
 
-call_func( call_update_all, 180312 )
+call_func( call_update_all, 180312)
 call_func( show_money, 180312 )
 reactor.run()

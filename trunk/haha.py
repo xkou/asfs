@@ -795,7 +795,7 @@ def main():
 	call_func( call_make_new_weapon, cid, 13,  207, 107, 2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307, 2 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407, 3 )
-	call_func( check_city_money, cid, 180312 , timeout = 5, money = 50000)
+#	call_func( check_city_money, cid, 180312 , timeout = 5, money = 50000)
 
 
 #	call_func( call_up_shiqi, cid, [ 442097, 364214, 326572 ] )
@@ -972,9 +972,9 @@ def main():
 
 # Œ“µƒµÿ≈Ã
 	cid = cities[22]
-	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
-	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
-	call_func( call_make_new_weapon, cid, 15,  407, 407,3 )
+#	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
+#	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
+#	call_func( call_make_new_weapon, cid, 15,  407, 407,3 )
 	call_func( call_update_house, cid )
 	call_func( check_city_money, cid, cities[0] , timeout = 20)
 
