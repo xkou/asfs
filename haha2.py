@@ -133,7 +133,7 @@ def show_money( ):
 	return 15
 
 
-call_update_all =  functools.partial( call_update_building2, [11] ) #8, 6,7
+call_update_all =  functools.partial( call_update_building2, [3] ) #8, 6,7
 #call_update_all =  functools.partial( call_update_building2, [1,4,11] ) #8, 6,7
 # 3 Îª·¿ÎÝk
 
@@ -141,6 +141,6 @@ sg = SG(179973)
 
 cid = 180312 
 
-call_func( call_update_smart, 180312, 1)
+call_func( call_update_all, 180312)
 call_func( show_money, 180312 )
 reactor.run()
