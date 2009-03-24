@@ -830,7 +830,7 @@ def main():
 
 # ЖЋСъ
 	cid = cities[4]
-	call_func( call_update_no_house3, cid )
+	call_func( call_update_house2, cid )
 	call_func( call_make_new_weapon, cid, 13,  207, 107,2 )
 	call_func( call_make_new_weapon, cid, 14,  307, 307,1 )
 	call_func( call_make_new_weapon, cid, 15,  407, 407,1 )
