@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #! coding: utf-8
 from libsg import SG
 from twisted.internet import reactor, defer
