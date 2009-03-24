@@ -113,12 +113,14 @@ def call_update_smart( upgrade=4 ):
 def call_func( func, cid, *args, **awk ):
 	global call_func_error_no
 	try:
-		sg.change_city( cid )
+		
+                sg.change_city( cid )
 		r = func( *args, **awk )
 		if r == -1: return
 		call_func_error_no = 0
 	except Exception, err:
 		print func, sg.cid, args
+                
 		print_exc( )
 		call_func_error_no += 1
 		if call_func_error_no == 100 : threads.deferToThread( sendemail, "Á¬½Ó³ö´í.." )
