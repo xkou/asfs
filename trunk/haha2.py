@@ -21,7 +21,7 @@ def sendemail( content ):
 	smtp.login("hk888","3281044")
 
 	msg = MIMEText(content)
-	msg['subject']='三国之兵临城下'
+	msg['subject']='三国第二个城'
 	msg.set_charset('gbk')
 	msg['From'] = f
 
