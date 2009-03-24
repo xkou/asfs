@@ -143,7 +143,7 @@ class SG:
 		return k
 
 	def init_building(self, cid ):
-		#self.building_data[cid] = json.read(open("buildings.data.%d" % cid,"rb").read())
+		#self.building_data[cid] = json.read(open("buildings.data.%d" % cid,"rb").read().strip())
 		self.building_data[cid] = self.get_all_building()
 	
 	def fix_cookie(self, cityid, tid=0 ):
