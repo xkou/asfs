@@ -2,7 +2,7 @@
 import urllib2, time, random, urllib, re
 import httplib as httplib
 import json
-import socket, math
+import socket, math, sys
 
 #import img_verify as imgv
 
@@ -172,15 +172,17 @@ class SG:
 		if data.find("tid") == -1:
 			data+="&tid=%d" % ( self.cid if self.tid==0 else self.tid )
 		self.conn.request("POST", self.geturl(url), data, self.headers)
+		ret = ""
 		try:
-		
 			response = self.conn.getresponse()
+			ret = response.read()
 		except KeyboardInterrupt:
+			print "<Ctrl-C> pressed, Exit."
  			sys.exit(0)
+ 			
 		except:
 			self.get_new_http()
 		
-		ret = response.read()
 		try:
 			ret = json.read(ret)
 		except:
