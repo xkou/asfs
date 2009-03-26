@@ -175,7 +175,9 @@ class SG:
 		try:
 		
 			response = self.conn.getresponse()
-		except:
+		except KeyboardInterrupt:
+ 			sys.exit(0)
+		finally:
 			self.get_new_http()
 		
 		ret = response.read()
