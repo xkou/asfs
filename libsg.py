@@ -781,7 +781,9 @@ class SG:
 	
 	def get_user_info(self, uid):
 		return self.post("/GateWay/Common.ashx?id=45","uid=%d" % uid )
-	
+
+    
+
 	def get_img_code(self):
 #		self.post("/GateWay/Common.ashx?id=73" )
 		
@@ -796,7 +798,7 @@ class SG:
 		imgs = re.findall("(\d+)", buf)[1:]
 		res.close()
 		print imgs
-		imgv.get_code(imgs, "img_verify\\" )
+#		imgv.get_code(imgs, "img_verify\\" )
 
 
 class SG2(SG):
