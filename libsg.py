@@ -185,6 +185,8 @@ class SG:
 		
 		try:
 			ret = json.read(ret)
+			if ret['ret'] == 110 :
+				print time.asctime(), "需要验证码"
 		except:
 			print "Json error:", ret
 		return ret
