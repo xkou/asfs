@@ -8,6 +8,8 @@ iClientCount = 0 #客户端连接数
 
 rootdir="."
 
+
+
 def ConnectThread(conn, addr):
 	global iClientCount         #引用全局变量
 	sock = conn      
