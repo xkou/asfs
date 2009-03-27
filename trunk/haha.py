@@ -967,7 +967,7 @@ def main():
 	
 # 无双
 	cid = cities[21]
-	call_func( call_update_all, cid )
+	call_func( call_update_no_house, cid )
 #	call_func( check_city_money, cid, cities[7] , timeout = 10)
 
 # 我的地盘
