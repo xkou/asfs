@@ -10,12 +10,23 @@ def get_cpu():
 	r = "Server Status:\n"
 	n = 0
 	for s in c.Win32_Processor():
-		r += " -- CPU %d 占用 %d%%\n" % (n, s.LoadPercentage )
+		r += " -- CPU %d 占 %d%%\n" % (n, s.LoadPercentage )
 		n += 1
 	return r;
 
 
+def get_mem():
+	info =""
+	c = wmi.WMI()
+	print dir(c)
+	print c.query("select * from Win32_LogicalMemoryConfiguration") 
+	memory=c.Win32_LogicalMemoryConfiguration()[0]
+	print memory.TotalPhysicalMemory 
+	
 
+	e = c.query( "Select * from Win32_PerfRawData_PerfOS_Memory")[0]
+	info += "PhysicalMemory: %f%%" % (int(e.AvailableMBytes)*100 /( memory.TotalPhysicalMemory/1024.0))
+	return info
 
 
 def get_iis():
@@ -32,7 +43,7 @@ def get_iis():
 
 def send_mail( t, cont ):
 	import smtplib
-	f = "服务器监控 <keger@126.com>"
+	f = " <keger@126.com>"
 	to = ["server-mon@googlegroups.com"]
 	s = smtplib.SMTP("smtp.126.com")
 	s.set_debuglevel(1)
@@ -48,7 +59,8 @@ def send_mail( t, cont ):
 if __name__ == "__main__":
 	info =""
 	info += get_cpu()
+	info += get_mem()
 	info += "\n"
 	info +=  get_iis()
-#	get_mem()
-	send_mail( time.strftime("%Y年%m月%d日 %H:%M:%S"), info )
+
+	send_mail( time.strftime("%Y%m%d %H:%M:%S"), info )
