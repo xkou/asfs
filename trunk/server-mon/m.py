@@ -10,7 +10,7 @@ def get_cpu():
 	r = "Server Status:\n"
 	n = 0
 	for s in c.Win32_Processor():
-		r += " -- CPU %d 占 %d%%\n" % (n, s.LoadPercentage )
+		r += " -- CPU %d 占用 %d%%\n" % (n, s.LoadPercentage )
 		n += 1
 	return r;
 
@@ -43,7 +43,7 @@ def get_iis():
 
 def send_mail( t, cont ):
 	import smtplib
-	f = " <keger@126.com>"
+	f = "服务器监控 <keger@126.com>"
 	to = ["server-mon@googlegroups.com"]
 	s = smtplib.SMTP("smtp.126.com")
 	s.set_debuglevel(1)
