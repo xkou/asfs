@@ -26,10 +26,17 @@ def get_mem():
 
 def get_iis():
 	c = wmi.WMI()
+	# http://timgolden.me.uk/python/wmi/cookbook.html
 	iis = c.query("select * from Win32_PerfRawData_W3SVC_WebService" )
 	for a in iis:
 		print a.name
-		print a
+		a
+#	connection = wmi.connect_server (server=".", namespace="root/MicrosoftIISv2")
+	c = wmi.WMI (namespace="MicrosoftIISv2")
+
+	for web_server in c.IIsWebService ( Name="W3SVC" ):
+		break
+
 
 def send_mail( t, cont ):
 	import smtplib
@@ -48,7 +55,7 @@ def send_mail( t, cont ):
 
 if __name__ == "__main__":
 	info =""
-	info += get_cpu()
+#	info += get_cpu()
 	print  get_iis()
 #	get_mem()
 #	send_mail( time.strftime("%Y年%m月%d日 %H:%M:%S"), info )
