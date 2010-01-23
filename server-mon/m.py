@@ -63,4 +63,4 @@ if __name__ == "__main__":
 	info += "\n"
 	info +=  get_iis()
 
-	send_mail( time.strftime("%Y%m%d %H:%M:%S"), info )
+	send_mail( time.strftime("%YÄê%mÔÂ%dÈÕ %H:%M:%S"), info )
