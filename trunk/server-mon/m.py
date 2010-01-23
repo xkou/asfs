@@ -25,8 +25,8 @@ def get_mem():
 	
 
 	e = c.query( "Select * from Win32_PerfRawData_PerfOS_Memory")[0]
-	info += "PhysicalMemory: %f%%\n" % (int(e.AvailableMBytes)*100 /( memory.TotalPhysicalMemory/1024.0))
-	info += "AvalableMemory: %dM\n" % int(e.AvailableMBytes)
+	info += " -- PhysicalMemory: %f%%\n" % (int(e.AvailableMBytes)*100 /( memory.TotalPhysicalMemory/1024.0))
+	info += " -- AvalableMemory: %dM\n" % int(e.AvailableMBytes)
 	return info
 
 
