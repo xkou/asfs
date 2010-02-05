@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>会员中心 -<?php echo $cfg_webname; ?></title>
+<?php include(DEDEMEMBER."/templets/head_inc.htm"); ?>
+<script type="text/javascript" src="js/box.js"></script>
+</head>
+<body>
+<?php include(DEDEMEMBER."/templets/head.htm"); ?>
+<div class="wrapper lineT">
+  <div class="mainBox">
+    <div class="main">
+      <?php include(DEDEMEMBER."/templets/menu.php"); ?>
+      <div class="dedeCenter" id="personal">
+        <!--个人信息 -->
+        <div class="message">
+          <div class="visualize fLeft">
+          	<img class="mB10" src="<?php echo (!empty($cfg_ml->fields['face']) ? $cfg_ml->fields['face'] : "images/nopic.gif"); ?>" width="150" height="150" alt="您的形象" />
+            <ul class="black">
+              <li><a class="icon upImage" href="edit_face.php" title="修改个人头像">上传头像</a></li>
+              <li><a class="icon mySetting" href="edit_baseinfo.php" title="设置个人资料">个人资料</a></li>
+            </ul>
+            <div class="clear"></div>
+          </div>
+          <div class="datum fLeft mT10">
+            <h3 class="userName"><?php echo $cfg_ml->M_LoginID; ?><em class="mL10"><?php echo $cfg_ml->M_MbType; ?>用户</em></h3>
+            <div class="userState mTB10"><span class="fLeft"><?php echo $cfg_ml->GetSta($dsql); ?></span>
+              <div class="clear"></div>
+            </div>
+            <ul class="entry">
+              <li><a href="pm.php?TB_iframe=true&height=600&width=700" title="我的短信息" class="thickbox" target="_blank">短消息</a>(<?php echo $pms['nums'];?>)</li>
+              <li><a href="caicai.php" title="发出的评论">评论</a>(<?php echo $minfos['feedback']; ?>)</li>
+              <li><a href="mystow.php" title="收藏夹">收藏</a>(<?php echo $minfos['stow']; ?>)</li>
+              <li><a href="javascript:;">其它</a>(<?php echo $minfos['archives']; ?>)</li>
+              <li><a href="content_list.php?channelid=1" title="已发布的文章">文章</a>(<?php echo $minfos['article']; ?>)</li>
+              <li><a href="content_list.php?channelid=2" title="管理图集">图集</a>(<?php echo $minfos['album']; ?>)</li>
+              <li><a href="content_list.php?channelid=3" title="已发布的软件">软件</a>(<?php echo $minfos['soft']; ?>)</li>
+              <li><a href="shops_products.php" title="购买的商品">商品</a>(<?php echo $minfos['shop']; ?>)</li>              
+            </ul>
+            <div>
+            	<span class="fRight" style='clear:both;padding:3px 5px 0px 5px;margin-top:8px;'>
+            		<a href="#" onclick="location='buy.php';return false;" class="thickbox">
+            			<img src='images/buybt.gif' border='0' alt='申请升级/点卡充值' title='申请升级/点卡充值' />
+            		</a>
+            	</span>
+            </div>
+            <div class="clear"></div>
+    <!-- //系统提示 -->
+      <script type="text/javascript">
+			$("document").ready(function(){
+				$(".tipClose").click(function(){$(this).parent(".tip").animate({ height: 'toggle', opacity: 'toggle' }, "hide");})
+			});
+			</script>
+            <?php
+        switch($cfg_ml->M_Spacesta)
+        {
+        	case '-10':
+        		echo "<div class='tip'>
+            <div class='tipClose fRight'>隐藏提示</div>
+            <div class='tipContent fLeft icon titTip'>等待进行邮件验证！[<a href='index_do.php?fmdo=sendMail'><u>重新发送验证邮件</u></a>]</div>
+            <br class='clear' />
+            </div>";
+        		break;
+        	case '-2':
+        		echo "<div class='tip'>
+            <div class='tipClose fRight'>隐藏提示</div>
+            <div class='tipContent fLeft icon titTip'>帐号已经被强制禁用！</div>
+            <br class='clear' />
+            </div>";
+        		break;
+        	case '-1':
+        		echo "<div class='tip'>
+            <div class='tipClose fRight'>隐藏提示</div>
+            <div class='tipContent fLeft icon titTip'>未审核的会员！<a href='edit_space_info.php'>[修改空间资料]</a> &nbsp; <a href='edit_fullinfo.php'>[修改详细资料]</a></div>
+            <br class='clear' />
+            </div>";
+        		break;
+        	case '0':
+        		echo "<div class='tip'>
+            <div class='tipClose fRight'>隐藏提示</div>
+            <div class='tipContent fLeft icon titTip'>您的空间信息不完整！<a href='edit_space_info.php'>[填写空间资料]</a></div>
+            <br class='clear' />
+            </div>";
+        		break;
+        	case '1':
+        		echo "<div class='tip'>
+            <div class='tipClose fRight'>隐藏提示</div>
+            <div class='tipContent fLeft icon titTip'>您还没有填写您的详细资料：<a href='edit_fullinfo.php'>[完善详细资料]</a></div>
+            <br class='clear' />
+            </div>";
+        		break;
+        	default:
+        		echo "<div class='tip'>
+            <div class='tipClose fRight'>隐藏提示</div>
+            <div class='tipContent fLeft icon titTip'>资料状况正常： <a href='edit_fullinfo.php'>[修改空间资料]</a> &nbsp; <a href='edit_fullinfo.php'>[修改详细资料]</a></div>
+            <br class='clear' />
+            </div>";
+        		break;
+        }
+        ?>
+          </div>
+        </div>
+        <div class="titleBar bgGreen lineB">
+          <h5 class="fLeft icon titFangle">最新文档</h5>
+          <div class="fRight"></div>
+          <div class="clear"></div>
+        </div>
+        <div class="fangle">
+          <dl class="artList mL10 mR10">
+            <?php
+foreach ($archives as $archive)
+{
+?>
+            <dd> <em><a class="yellow" href="index.php?uid=<?php echo $archive['userid'];?>" target="_blank"><?php echo $archive['userid'];?></a> <?php echo MyDate('m-d H:i', $archive['senddate']);?></em> <span><a href="<?php echo $archive['htmlurl'];?>" title="<?php echo $archive['title'];?>" target="_blank"><?php echo $archive['title'];?></a></span> </dd>
+            <?php
+}
+?>
+            <dt><a class="titMore icon" href="caicai.php">随便踩踩...</a></dt>
+          </dl>
+        </div>
+        <!-- //谁来看过我 -->
+        <div class="whoSeeMe">
+          <div class="titleBar bgGreen lineB">
+            <h5 class="fLeft icon titWhoSeeMe">谁来看过我</h5>
+          </div>
+          <ul class="picList textCenter">
+            {dede:newvisitor row=6}
+            <li>
+              <p><a target="_blank" href="{dede:field.url/}"><img src="{dede:field.face/}" width="45" height="50" alt="{dede:field.uname/}" /></a></p>
+              <span><a target="_blank" href="{dede:field.url/}">{dede:field.uname/}</a></span></li>
+            {/dede:newvisitor}
+          </ul>
+          <div class="clear"></div>
+          <!-- //我的收藏夹 -->
+          <div class="titleBar bgGreen lineB">
+            <h5 class="fLeft icon titStow">我的收藏</h5>
+            <div class="fRight"><a href="mystow.php">管理</a></div>
+            <div class="clear"></div>
+          </div>
+          <div class="Stow">
+            <dl class="artList mL10 mR10">
+              <?php
+foreach ($favorites as $favorite)
+{
+?>
+              <dd><em><?php echo MyDate('m-d H:i', $favorite['addtime']);?></em><span><a href="archives_do.php?dopost=viewArchives&aid=<?php echo $favorite['aid'];?>" title="<?php echo $favorite['title'];?>" target="_blank"><?php echo $favorite['title'];?></a></span> </dd>
+              <?php
+}
+?>
+              <dt>&nbsp;</dt>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="dedeRight">
+      <!--信息统计 -->
+      <div class="titleBar bgGaryImg">
+        <h5 class="fLeft">信息统计</h5>
+      </div>
+      <dl class="statistics overflow mL10 mR10">
+        <dt>空间访问量：</dt>
+        <dd><?php echo $minfos['homecount']; ?></dd>
+        <dt>文档总点击：</dt>
+        <dd><?php echo $minfos['pagecount']; ?></dd>
+        <dt>好友数量：</dt>
+        <dd><?php echo $minfos['friend']; ?></dd>
+        <dt>空间版本：</dt>
+        <dd>
+          <?php
+        if($cfg_mb_lit=='Y') echo '精简版';
+        else echo '完全版';
+        ?>
+        </dd>
+        <dt>上传限制：</dt>
+        <dd><?php echo $cfg_mb_upload_size; ?> KB</dd>
+        <dt>空间大小：</dt>
+        <dd><?php echo $minfos['totaluse']."/".$cfg_mb_max; ?> MB</dd>
+      </dl>
+      <div class="clear"></div>
+      <!--好友列表 -->
+      <script type="text/javascript">
+		$("document").ready(function(){
+			$(".buddy dt").click(function(){$(this).toggleClass("close");$(this).next("dd").toggle();});
+			$(".buddy li").hover(function(){$(this).addClass("hover"); },function(){$(this).removeClass("hover"); });
+		});
+		</script>
+      <div class="titleBar bgGaryImg">
+        <h5 class="fLeft">好友列表</h5>
+        <span class="fRight"><a href="myfriend.php" title="好友管理">管理</a></span> </div>
+      <dl class="buddy overflow mL10 mR10">
+        <dt class="buddySort icon"><a href="myfriend.php?ftype=0">所有好友</a></dt>
+        <dd class="buddyList">
+          <ul>
+            <?php
+foreach ($friends as $friend)
+{
+?>
+            <li class="thickbox"><span class="fLeft icon16 titOnline"></span><a href="index.php?uid=<?php echo $friend['floginid'];?>" target="_blank"><?php echo $friend['floginid'];?></a></li>
+            <?php
+}
+?>
+          </ul>
+        </dd>
+        <dt class="buddySort icon"><a href="myfriend.php?ftype=1">特别关注</a></dt>
+        <dt class="buddySort icon"><a href="myfriend.php?ftype=-1">黑名单</a></dt>
+      </dl>
+      <hr />
+      <!--好友搜索 -->
+      <div class="buddySearch textCenter">
+        <form action="search.php">
+          <input class="text" type="text" name="keyword" value="" style="width:100px;" />
+          <button class="button5" type="submit">搜索会员</button>
+        </form>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<?php include(DEDEMEMBER."/templets/foot.htm"); ?>
+</body>
+</html>
