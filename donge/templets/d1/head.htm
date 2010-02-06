@@ -1,0 +1,86 @@
+<div class="header center w960">
+    <div class="top w960 center">
+      <div class="title">
+        <h1> <a href="{dede:global.cfg_basehost/}">{dede:global.cfg_webname/}</a> </h1>
+      </div>
+      <!-- /title -->
+      <div class="banner"><div style="font-size:14px; color=black"><strong><a href="/plus/list.php?channelid=-8&tid=1&nativeplace=500&infotype=">分类信息</a></strong> 
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=1500&nativeplace=500" >二手</a> 
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=2000&nativeplace=500" >招聘</a>
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=2500&nativeplace=500" >求职</a>
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=1002&nativeplace=500" >求租</a>
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=1004&nativeplace=500" >售房</a>
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=3500&nativeplace=500" >交友征婚</a>
+	
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=4000&nativeplace=500" >商务服务</a>
+		<a href="/plus/list.php?channelid=-8&tid=1&infotype=3000&nativeplace=500" >汽车服务</a>
+		</div>
+		
+	<div style="font-size:14px; color=black; margin-top:10px"><strong><a title="东阿贴吧,东阿论坛" href="/bbs/">东阿贴吧</a></strong> 
+		<a href="/bbs/forumdisplay.php?fid=16" >茶余饭后</a> 
+		<a href="/bbs/forumdisplay.php?fid=17" >娱乐前沿</a> 
+		<a href="/bbs/forumdisplay.php?fid=14" >电脑沙龙</a> 
+		<a href="/bbs/forumdisplay.php?fid=13" >车友天地</a> 
+		<a href="/bbs/forumdisplay.php?fid=9" >学习教育</a> 
+        <a href="/bbs/forumdisplay.php?fid=11" ><font color=red><b>投诉建议</b></font></a> 
+	</div>
+
+	</div>
+      <!-- /banner {dede2:myad name='topbanner'/} -->
+      <div class="rlink">
+      <ul>
+          <li class="r1"><a rel="slidebar" href="{dede:global.cfg_memberurl/}">会员中心</a></li>
+          <li class="r2"><a href="{dede:global.cfg_cmsurl/}/tags.php">TAG标签</a></li>
+          <li class="r3"><a href="{dede:global.cfg_dataurl/}/sitemap.html">网站地图</a></li>
+          <li class="r4"><a href="javascript:void(0);" onclick="javascript:addCookie()" >加入收藏</a></li>
+        </ul>
+      </div>
+      <!-- /banner -->
+    </div>
+    <!-- /top -->
+    <div class="nav mt1 center">
+      <div class="w960 center">
+        <ul>
+          <li><a href='{dede:global.cfg_cmsurl/}/'>主页</a></li>
+		  <li><a href='/bbs/'><strong>东阿论坛</strong></a></li>
+		  <li><a href='/u/'>东阿开心网</a></li>
+		  <li><a href='/xinxi/infotype.html'>所有分类</a></li>
+          {dede:channel type='top' currentstyle="<li class='thisclass'><a href='~typelink~'>~typename~</a> </li>"}
+          <li><a href='[field:typeurl/]'>[field:typename/]</a></li>{/dede:channel}
+		  <li class="navtail"><a href="/member/newinfo.php">免费发布信息</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /nav -->
+    <div class="search">
+      <div class="w960 center">
+      <form action="{dede:field name='phpurl'/}/list.php?nativeplace=0&nativeplace_top=0&nativeplace_son=0&infotype=0&infotype_top=0&infotype_son=0" name="formsearch">
+        <div class="form">
+          <h4>搜索</h4>
+           <input type="hidden" name="kwtype" value="0" />
+           <input name="keyword" type="text" class="search-keyword" id="search-keyword" />
+           <select name="tid" class="search-option" id="search-option">
+               <option value="1" selected='1'>分类信息</option>
+               <option value="2">个人文集</option>
+           </select>
+          <button type="submit" class="search-submit">搜索</button>
+        </div>
+        </form>
+		<div class="tags">
+		<a href="/member/newinfo.php" style="color:red" title="免费发布信息,供求信息" ><h3>免费发布信息</h3></a>
+		</div>
+
+        <!-- /form -->
+        <div class="tags">
+          <h4>热门标签</h4>
+          <ul>
+          {dede:tag row='8' getall='1' sort='month'}<li><a href='[field:link/]'>[field:tag /]</a></li>
+          {/dede:tag}
+          </ul>
+        </div>
+        <!-- /tags -->
+      </div>
+    </div>
+    <!-- /search -->
+  </div>
+<!-- /header -->

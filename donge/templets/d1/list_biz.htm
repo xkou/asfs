@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>东阿商圈,商家展示,{dede:global.cfg_webname/}</title>
+<meta name="keywords" content="{dede:field name='keywords'/},东阿县,分类信息,房产信息,供求信息,人才信息" />
+<meta name="description" content="{dede:field name='description' function='html2text(@me)'/},东阿县供求信息,人才信息,房产信息交流平台" />
+
+<link href="/templets/style/biz.css" rel="stylesheet" media="screen" type="text/css" />
+
+</head>
+<body class="infoslist">
+
+
+    <div class="dh_top">
+        <div class="dh_l"><a href="/"><img src="/templets/images/top-logo.gif" /></a></div>
+
+        <div class="dh_r tR">
+            <script src="/inc/login.aspx" type="text/javascript"></script>
+            <div class="t_5">
+                <form action="search.aspx?lbid=0" method="get" name="top_search" id="top_search">
+                    <input name="key" type="text"  value=" 输入要搜索商家名称关键字" onFocus="this.value=''" size="15" maxlength="15" class="search_key" />
+                    <input type="submit" name="Submit1" id="Submit1" value="搜索商家" class="search_submit" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+    {dede:include filename="list_biz_head.htm"/}
+    <div class="content top_5">
+
+        <div class="list_l">
+            <div class="list_dh">
+                <h5>类别筛选</h5>
+                <dl id="1">
+<dt><a href="lb-1.html">党政机关、社会团体</a></dt>
+<dd id="1-0"><a href="lb-1-0.html">全部</a></dd>
+<dd id="1-1"><a href="lb-1-1.html">党政机关</a></dd>
+<dd id="1-2"><a href="lb-1-2.html">居委会、管理区</a></dd>
+
+<dd id="1-3"><a href="lb-1-3.html">民主党派</a></dd>
+<dd id="1-4"><a href="lb-1-4.html">公安、法院、检察</a></dd>
+<dd id="1-5"><a href="lb-1-5.html">工青妇</a></dd>
+<dd id="1-6"><a href="lb-1-6.html">协会、人民团体</a></dd>
+</dl><dl id="2"  class="lb_x">
+<dt><a href="lb-2.html">公司、工厂</a></dt>
+<dd id="0"  class="xlb_x"><a href="lb-2-0.html">全部</a></dd>
+<dd id="2-7"><a href="lb-2-7.html">金属、机械、机电</a></dd>
+<dd id="2-8"><a href="lb-2-8.html">化工、石油、燃料</a></dd>
+
+<dd id="2-9"><a href="lb-2-9.html">进出口、外贸</a></dd>
+<dd id="2-10"><a href="lb-2-10.html">五金、刀具</a></dd>
+<dd id="2-11"><a href="lb-2-11.html">轻工、家居日用</a></dd>
+<dd id="2-12"><a href="lb-2-12.html">电子电器</a></dd>
+<dd id="2-13"><a href="lb-2-13.html">生产资料、物资</a></dd>
+<dd id="2-14"><a href="lb-2-14.html">房产、建材、装饰</a></dd>
+<dd id="2-15"><a href="lb-2-15.html">广告、印刷、包装</a></dd>
+<dd id="2-16"><a href="lb-2-16.html">计算机、通讯、办公设备</a></dd>
+<dd id="2-17"><a href="lb-2-17.html">纺织、服装、皮革</a></dd>
+
+<dd id="2-18"><a href="lb-2-18.html">粮油、食品、农副产品</a></dd>
+<dd id="2-19"><a href="lb-2-19.html">综合集团企业</a></dd>
+<dd id="2-20"><a href="lb-2-20.html">其它企业厂商</a></dd>
+</dl><dl id="3">
+<dt><a href="lb-3.html">科技、教育、文化</a></dt>
+<dd id="3-0"><a href="lb-3-0.html">全部</a></dd>
+<dd id="3-21"><a href="lb-3-21.html">科研机构</a></dd>
+<dd id="3-22"><a href="lb-3-22.html">科普及技术推广</a></dd>
+<dd id="3-23"><a href="lb-3-23.html">中学教育</a></dd>
+
+<dd id="3-24"><a href="lb-3-24.html">小学教育</a></dd>
+<dd id="3-25"><a href="lb-3-25.html">学前教育</a></dd>
+<dd id="3-26"><a href="lb-3-26.html">职业技术教育</a></dd>
+<dd id="3-27"><a href="lb-3-27.html">业余爱好、技能培训</a></dd>
+<dd id="3-28"><a href="lb-3-28.html">广播、电影、电视</a></dd>
+<dd id="3-29"><a href="lb-3-29.html">报社、出版、发行</a></dd>
+<dd id="3-30"><a href="lb-3-30.html">文化艺术馆、公园</a></dd>
+</dl><dl id="4">
+<dt><a href="lb-4.html">医疗、卫生、保健</a></dt>
+
+<dd id="4-0"><a href="lb-4-0.html">全部</a></dd>
+<dd id="4-31"><a href="lb-4-31.html">医院、诊所</a></dd>
+<dd id="4-32"><a href="lb-4-32.html">保健、防疫、疗养</a></dd>
+<dd id="4-33"><a href="lb-4-33.html">药店、医药公司</a></dd>
+<dd id="4-34"><a href="lb-4-34.html">卫生管理机构</a></dd>
+<dd id="4-38"><a href="lb-4-38.html">婚姻服务</a></dd>
+</dl><dl id="5">
+<dt><a href="lb-5.html">公共事业和生活服务</a></dt>
+<dd id="5-0"><a href="lb-5-0.html">全部</a></dd>
+
+<dd id="5-35"><a href="lb-5-35.html">邮政、电信</a></dd>
+<dd id="5-36"><a href="lb-5-36.html">供水、供电</a></dd>
+<dd id="5-37"><a href="lb-5-37.html">银行、保险、海关</a></dd>
+<dd id="5-39"><a href="lb-5-39.html">环保绿化</a></dd>
+<dd id="5-40"><a href="lb-5-40.html">社保机构</a></dd>
+<dd id="5-41"><a href="lb-5-41.html">社区家政</a></dd>
+</dl><dl id="6">
+<dt><a href="lb-6.html">餐饮、娱乐、服务业</a></dt>
+<dd id="6-0"><a href="lb-6-0.html">全部</a></dd>
+
+<dd id="6-42"><a href="lb-6-42.html">宾馆、酒店、酒家</a></dd>
+<dd id="6-43"><a href="lb-6-43.html">餐厅、快餐店</a></dd>
+<dd id="6-44"><a href="lb-6-44.html">影剧院、歌舞厅</a></dd>
+<dd id="6-45"><a href="lb-6-45.html">网吧、游乐场</a></dd>
+<dd id="6-46"><a href="lb-6-46.html">酒吧、夜总会</a></dd>
+<dd id="6-47"><a href="lb-6-47.html">旅店、招待所</a></dd>
+<dd id="6-48"><a href="lb-6-48.html">旅行社、票务中心</a></dd>
+</dl><dl id="7">
+<dt><a href="lb-7.html">交通运输、物流</a></dt>
+
+<dd id="7-0"><a href="lb-7-0.html">全部</a></dd>
+<dd id="7-49"><a href="lb-7-49.html">汽车客运站</a></dd>
+<dd id="7-50"><a href="lb-7-50.html">火车站</a></dd>
+<dd id="7-51"><a href="lb-7-51.html">客运公司</a></dd>
+<dd id="7-52"><a href="lb-7-52.html">货物运输、物流配送</a></dd>
+</dl><dl id="8">
+<dt><a href="lb-8.html">超市、商场、商店</a></dt>
+<dd id="8-0"><a href="lb-8-0.html">全部</a></dd>
+<dd id="8-53"><a href="lb-8-53.html">百货超市</a></dd>
+
+<dd id="8-54"><a href="lb-8-54.html">综合商场</a></dd>
+<dd id="8-55"><a href="lb-8-55.html">专卖店</a></dd>
+<dd id="8-56"><a href="lb-8-56.html">零售商店</a></dd>
+</dl><dl id="9">
+<dt><a href="lb-9.html">农林牧渔</a></dt>
+<dd id="9-0"><a href="lb-9-0.html">全部</a></dd>
+<dd id="9-57"><a href="lb-9-57.html">农业</a></dd>
+<dd id="9-58"><a href="lb-9-58.html">林业</a></dd>
+<dd id="9-59"><a href="lb-9-59.html">畜牧业</a></dd>
+
+<dd id="9-60"><a href="lb-9-60.html">渔业</a></dd>
+</dl><dl id="10">
+<dt><a href="lb-10.html">其它企事业单位</a></dt>
+<dd id="10-0"><a href="lb-10-0.html">全部</a></dd>
+<dd id="10-61"><a href="lb-10-61.html">其它企事业单位</a></dd>
+</dl>
+            </div>
+        </div>
+        <div class="list_r">
+            
+                    
+                 {dede:list pagesize='12'}
+            
+            
+                    <div class="tr" onmouseover="this.style.backgroundColor = '#E5F0FF'" onmouseout="this.style.backgroundColor = ''">
+                        <div class="tr_l">
+                            <a href="2495.html"><img src="[field:litpic/]" /></a></div>
+                        <div class="tr_r">
+                            <dl>
+                                <dt><img src="image/ico_2.gif" /><a href="[field:arcurl/]">[field:title/]</a></dt>
+
+                                <dd class="nr">[field:intro function='cn_substr(@me,280)' /]...
+                                </dd>
+                                <dd>[field:address/]</dd>
+                            </dl>
+                        </div>
+                    </div>
+                {/dede:list}
+                   
+
+                
+            <div class="page">
+                {dede:pagelist listitem="info,index,end,pre,next,pageno" listsize="5"/}
+            </div>
+
+           
+        </div>
+    </div>
+    <div class="top_5">
+    </div>
+    <div class="bottom"><a href="/xinxi/">分类广告</a> | <a href="/biz/">企业商圈</a> | <a href="/bbs">交流论坛</a><br />以上结果系 donge168.com 根据您的指令自动搜索所得，不代表{dede:global.cfg_webname/}赞成其内容真实有效</div>
+
+</body>
+</html>
+
+
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+<title>东阿信息港,东阿贴吧,东阿论坛,东阿县最大的生活服务门户网站.</title>
+<meta name="description" content="{dede:global.cfg_description/}" />
+<meta name="keywords" content="{dede:global.cfg_keywords/}" />
+<link href="{dede:global.cfg_templeturl/}/style/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script src="{dede:global.cfg_cmspath/}/images/js/j.js" language="javascript" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+<!--
+	$(function(){
+		$("#_userlogin").hide();
+		$("#loading").show();
+		Startroll();
+		showhtime();
+		Showlastuser();
+		$.get("{dede:global.cfg_cmspath/}/member/ajax_loginsta.php", "", function (d,s){ $("#loading").hide(); var ul=$("#_userlogin"); ul.show(); if(d) ul.html(d);  });
+	});
+	
+	function getSWF(movieName)
+	{
+		if (navigator.appName.indexOf("Microsoft") != -1)
+		{
+			return window[movieName];
+		}
+		else
+		{
+			return document[movieName];
+		}
+	}
+
+	function getdelta( t )
+{
+	Today = new Date();
+	var NowHour = Today.getHours();
+	var NowMinute = Today.getMinutes();
+	var NowMonth = Today.getMonth();
+	var NowDate = Today.getDate();
+	var NowYear = Today.getYear();
+	var NowSecond = Today.getSeconds();
+
+	if (NowYear <2000)
+		NowYear=1900+NowYear;
+
+	var d = new Date();
+	d.setTime(t);
+	dYear = d.getYear();
+	if (dYear <2000)
+		dYear=1900+dYear;
+	Hourleft =	NowHour - d.getHours();
+	Minuteleft = 	NowMinute - d.getMinutes();
+	Monthleft = 	NowMonth - d.getMonth();
+	Dateleft =	NowDate - d.getDate();
+	
+	Yearleft = NowYear- 	dYear ;
+	Secondleft = NowSecond -	d.getSeconds();
+	
+	if (Secondleft<0)
+	{
+		Secondleft=60+Secondleft;
+		Minuteleft=Minuteleft-1;
+	}
+	if (Minuteleft<0)
+	{
+		Minuteleft=60+Minuteleft;
+		Hourleft=Hourleft-1;
+	}
+	if (Hourleft<0)
+	{
+		Hourleft=24+Hourleft;
+		Dateleft=Dateleft-1;
+	}
+	if (Dateleft<0)
+	{
+		Dateleft=31+Dateleft;
+		Monthleft=Monthleft-1;
+	}
+	if (Monthleft<0)
+	{
+		Monthleft=12+Monthleft;
+		Yearleft=Yearleft-1;
+	}
+	if( Yearleft > 0 || Monthleft>0 || Dateleft > 1)
+	{
+		//alert( Yearleft+","+Monthleft+","+ Dateleft );
+		return (d.getMonth() +1)+"-"+d.getDate();
+	}
+
+	if( Dateleft == 1 )
+	{ 
+		return "昨天";
+	}
+
+	if( Hourleft > 0 )
+	{
+		return "<Font color=red>"+Hourleft+"小时前</font>";
+	}
+
+	if( Minuteleft > 0)
+		return "<Font color=red>"+Minuteleft+"分前</font>";
+	if( Secondleft > 0)
+		return Secondleft+"秒前";
+
+}
+
+	function showhtime()
+	{
+		
+
+		$.each( $("span[ttime]") , function() {
+				$(this).html( getdelta ( parseInt($(this).attr('ttime'))*1000 ) );
+			}
+		)
+	}
+
+
+
+	
+	function getcookie(name) {
+var cookie_start = document.cookie.indexOf(name);
+var cookie_end = document.cookie.indexOf(";", cookie_start);
+return cookie_start == -1 ? '' : decodeURI(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)));
+}
+	function reload_secimg()
+	{	
+		if( $("#secdiv").css("display")=="none" )
+		{
+			var d= new Date().getTime();
+			$("#secdiv").show();
+			$("#secimg").attr("src", "/include/vdimgck.php?t="+d);
+			$("input[name=vdcode]").val('');
+		}
+	}
+
+	function Showlastuser()
+	{
+		 $("#dedeusername").val( getcookie('uchome_loginuser') );
+	}
+
+
+	function Startroll()
+	{
+		var td1=document.getElementById("td1");
+		var outdiv=document.getElementById("outdiv");
+		var td2=document.getElementById("td2");
+		var td3=document.getElementById("td3");
+		var speed=60;
+		td2.innerHTML = td1.innerHTML;
+		function Marquee(){
+			if(td2.offsetWidth-outdiv.scrollLeft<=0)
+				outdiv.scrollLeft-=td1.offsetWidth;
+			else{
+				outdiv.scrollLeft++;
+			}
+		}
+		
+		var MyMar=setInterval(Marquee,speed);
+		outdiv.onmouseover=function() {clearInterval(MyMar)}
+		outdiv.onmouseout=function() {MyMar=setInterval(Marquee,speed)}
+		
+		//alert(td2);
+
+	}
+-->
+</script>
+<script type="text/javascript">
+        function  addCookie() {   //  加入收藏夹
+             if  (document.all) {
+                window.external.addFavorite( 'http://www.donge168.com' ,  '东阿信息港' );
+            }
+             else   if  (window.sidebar) {
+            window.sidebar.addPanel('东阿信息港','http://www.donge168.com' ,  "" );
+            }
+        }
+
+         function  setHomepage() {   //  设置首页
+             if  (document.all) {
+                document.body.style.behavior  =   ' url(#default#homepage) ' ;
+                document.body.setHomePage( 'http://www.donge168.com' );
+
+            }
+             else   if  (window.sidebar) {
+                 if  (window.netscape) {
+                     try  {
+                        netscape.security.PrivilegeManager.enablePrivilege( " UniversalXPConnect " );
+                    }
+                     catch  (e) {
+                        alert( " 该操作被浏览器拒绝，如果想启用该功能，请在地址栏内输入 about:config,然后将项 signed.applets.codebase_principal_support 值该为true " );
+                    }
+                }
+                 var  prefs  =  Components.classes[ ' @mozilla.org/preferences-service;1 ' ].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref( ' browser.startup.homepage ' ,  ' http://donge168.com ' );
+            }
+
+        }
+</script> 
+</head>
+<body class="index">
+{dede:include filename="head.htm"/}
+<!-- /header -->
+<div id="outdiv" class="w960 center " style="padding-left:3px;border:1px solid #eeeeee;line-height:24px;position=relative;overflow:hidden;height:28px;width:960px;color:#gray">
+<table align=left cellpadding=0 cellspace=0 border=0>
+	<tr>
+		<td id="td3" width=100 noWrap valign=top>1</td>
+		<td id="td1" noWrap valign=top>{dede:uchomefeed /}</td>
+		<td id="td2" noWrap valign=top></td>
+	</tr>
+</table>
+</div>
+
+<p />
+<div class="w960 center clear">
+	<script language="javascript" type="text/javascript" src="/templets/images/main948-80.js"></script>
+</div>
+<div class="w960 center clear mt1">
+	
+  <div class="pleft">
+    <div class="bignews">
+    <!--头条-->
+      <div class="onenews">
+      	{dede:arclist flag='h' limit='0,1'}
+        <h2><a href="[field:arcurl/]">[field:title/]</a></h2>
+        <p>[field:description/]...<a href="[field:arcurl/]">[查看全文]</a></p>
+        {/dede:arclist}
+      </div>
+      <!-- /onenews -->
+      <ul class="c3">
+	  <script language="javascript" type="text/javascript" >
+	  <!--
+		document.write('{dede:bbsnews row=18}<li ><span class="date">[field:dateline function="MyDate('m-d',@me)"/]</span><a title="[field:subject/]" class="bbsstyle[field:hl/]" href="[field:acturl/]">[field:subject/]</a></li>{/dede:bbsnews}');
+	-->
+	  </script>
+      </ul>
+	  <dl class="tbox mt1" ><dt><strong><a   href="/plus/list.php?channelid=-8&tid=1&infotype=2000&nativeplace=500">招聘信息</a></strong> <span class="more"><a  href="/plus/list.php?channelid=-8&tid=1&infotype=2000&nativeplace=500">更多...</a></span></dt>
+    <!--/头条--><dd>
+      <ul class="c2 ico1">
+      
+      {dede:arclistsg row=14 titlelen=32 orderby=pubdate channelid='-8'  infotype='2001,2002,2003,2004,2004,2005,2006,2007,2008,2009,2010,2011,2012' }
+      <li><span ttime="[field:senddate/]" class="date">[field:pubdate function="MyDate('m-d',@me)"/]</span><a href="[field:arcurl/]">[field:title/]</a></li>
+      {/dede:arclistsg}
+      
+      </ul></dd>
+	  </dl>
+
+    </div>
+    <!-- /bignews -->
+    <div class="liveinfos">
+	<dl class="tbox">
+		<dt><strong>便民信息</strong></dt>
+		<dd><ul>
+			{dede:flink typeid=9 /}
+		</ul></dd>
+       </dl></div>
+    <!-- /flashnews -->
+    <div class="latestnews">
+      <dl class="tbox">
+        <dt><strong> <a href="/xinxi/">最新信息 </a> </strong><span class="more"><a href="/xinxi/">更多...</a></span></dt>
+        <dd>
+          <ul class="d2 ico2">{dede:arclistsg channelid=-8 row=11 titlelen=38 orderby=pubdate}
+            <li><span ttime=[field:senddate/] class="date">[field:pubdate function="MyDate('m-d',@me)"/]</span><a href="[field:arcurl/]">[field:title/]</a></li>{/dede:arclistsg}
+          </ul>
+        </dd>
+      </dl>
+    </div>
+    <!-- /latestnews -->
+    <div class="picnews">
+      <dl class="tbox">
+        <dt><strong>图文资讯</strong></dt>
+        <dd>
+          <ul class="e1">{dede:arclist row=5 orderby=pubdate type='image.' imgwidth='124' imgheight='94'}
+          	<li><a href="[field:arcurl/]">[field:image/]<span class="title">[field:title/]</span></a></li>{/dede:arclist}
+          </ul>
+        </dd>
+      </dl>
+    </div>
+    <!-- /picnews -->
+<div class="listbox">
+	
+      <dl class="tbox">
+        <dt><strong><a href="/plus/list.php?channelid=-8&tid=1&nativeplace=500&infotype=2500">个人求职</a></strong><span class="more"><a href="/plus/list.php?channelid=-8&tid=1&nativeplace=500&infotype=2500">更多...</a></span></dt>
+        <dd>
+          <ul class="d1 ico3">
+          {dede:arclistsg row=10 titlelen=60 orderby=pubdate channelid='-8'  infotype='2501,2502,2503,2504,2505' }
+            <li><span class="date">[field:pubdate function="MyDate('m-d',@me)"/]</span><a href="[field:arcurl /]">[field:title /]</a></li>
+          {/dede:arclistsg}
+          </ul>
+        </dd>
+      </dl>
+	
+	   <dl class="tbox">
+        <dt><strong><a href="/plus/list.php?channelid=-8&tid=1&infotype=1000&nativeplace=500">房屋信息</a></strong><span class="more"><a href="/plus/list.php?channelid=-8&tid=1&infotype=1000&nativeplace=500">更多...</a></span></dt>
+        <dd>
+          <ul class="d1 ico3">
+          {dede:arclistsg row=10 titlelen=60 orderby=pubdate channelid='-8'  infotype='1001,1002,1003,1004,1005,1006' }
+            <li><span class="date">[field:pubdate function="MyDate('m-d',@me)"/]</span><a href="[field:arcurl /]">[field:title /]</a></li>
+          {/dede:arclistsg}
+          </ul>
+        </dd>
+      </dl>
+	
+      <dl class="tbox">
+        <dt><strong><a href="/plus/list.php?channelid=-8&tid=1&infotype=3500&nativeplace=500">交友征婚</a></strong><span class="more"><a href="/plus/list.php?channelid=-8&tid=1&infotype=3500&nativeplace=500">更多...</a></span></dt>
+        <dd>
+          <ul class="d1 ico3">
+          {dede:arclistsg row=10 titlelen=60 orderby=pubdate channelid='-8'  infotype='3501,3502,3503,3504,3505' }
+            <li><span class="date">[field:pubdate function="MyDate('m-d',@me)"/]</span><a href="[field:arcurl /]">[field:title /]</a></li>
+          {/dede:arclistsg}
+          </ul>
+        </dd>
+      </dl>
+		
+		 <dl class="tbox">
+        <dt><strong><a href="/plus/list.php?channelid=-8&tid=1&infotype=4500&nativeplace=500">生活服务</a></strong><span class="more"><a href="/plus/list.php?channelid=-8&tid=1&infotype=4500&nativeplace=500">更多...</a></span></dt>
+        <dd>
+          <ul class="d1 ico3">
+          {dede:arclistsg row=10 titlelen=60 orderby=pubdate channelid='-8'  infotype='4501,4502,4503,4504,4505,4506,4507,4508,4509,4510,4511,4512,4513,4514,4515,4516,4517,4518' }
+            <li><span class="date">[field:pubdate function="MyDate('m-d',@me)"/]</span><a href="[field:arcurl /]">[field:title /]</a></li>
+          {/dede:arclistsg}
+          </ul>
+        </dd>
+      </dl>
+
+
+
+    </div>
+    <!-- /listbox -->    
+
+  </div>
+  <!-- /pleft -->
+  <div class="pright">
+    <div class="usercenter">
+      <dl class="tbox">
+        <dt> <strong>会员中心</strong> </dt>
+        
+        <dd id="uc_member" >
+		 <div id="loading"> 正在载入会员信息,请稍候... </div>
+         <div id="_userlogin">
+			
+             <div class="userlogin">
+                <form name="userlogin" action="{dede:global.cfg_memberurl/}/index_do.php" method="POST">
+                <input type="hidden" name="fmdo" value="login" />
+                <input type="hidden" name="dopost" value="login" />
+                <input type="hidden" name="keeptime" value="604800" />
+                <div class="fb"><span >用户名:</span>
+                    <input id="dedeusername" type="text" onfocus="javascript:reload_secimg();" name="userid" size="20" class="ipt-txt" />
+					
+                </div>
+				
+                <div class="fb"><span>密码:</span>
+                    <input onfocus="javascript:reload_secimg();" type="password" name="pwd" size="20" class="ipt-txt" />
+                </div>
+				<div id="secdiv" style="display:none" >
+                <div   class="fb"><span>验证码:</span>
+                    <input type="text" name="vdcode" size="8" class="ipt-txt" />
+                  <img id="secimg" />
+                </div>
+				</div>
+                <div class="submit">
+                  <button type="submit" class="btn-1">登录</button>
+                  <a href="{dede:global.cfg_memberurl/}/index_do.php?fmdo=user&dopost=regnew">注册帐号</a> <a href="{dede:global.cfg_memberurl/}/resetpassword.php">忘记密码?</a>
+                </div>
+                </form>
+              </div>
+          </div>
+          <!-- /userlogin -->
+         
+          <div class="latestlogin"> <strong>最近登陆的会员</strong>
+              <ul class="e7">
+              {dede:memberlist row=6 signlen=30}
+                <li><div class="minfo" ><span><a>查看空间</a></span></div><a href="[field:spaceurl/]" target="_blank"><img src="[field:face/]" alt='[field:spacename/]' width="52" height="52" />[field:uname/]</a></li>
+              {/dede:memberlist}
+              </ul>
+          </div>
+          <!-- /latestlogin -->
+        </dd>
+        <!-- /uc_member -->
+      </dl>
+    </div>
+    <!-- /usercenter -->
+	
+	<div class="commend mt1">
+      <dl class="tbox">
+        <dt><strong>最新评论</strong></dt>
+        <dd>
+         <ul class="f2">
+{dede:feedback row='7' titlelen='24' infolen='80'}
+            <li> <small><a href="#" class="username">[field:username function="(@me=='guest' ? '游客' : @me)"/]</a> 评论 <a href="[field:global.cfg_phpurl/]/feedback.php?aid=[field:aid/]" class="title">[field:title/]</a></small>
+                <p>[field:msg/]</p>
+            </li>
+{/dede:feedback}
+          </ul>   <ul class="d4">
+           {dede:arclist flag='c' titlelen=42 row=6}
+          	<li><a href="[field:arcurl/]">[field:title/]</a>
+            	
+            </li>{/dede:arclist}
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+	<div class="hot mt1">
+      <dl class="tbox">
+        <dt><strong>个人文集</strong></dt>
+        <dd>
+          <ul class="c1 ico2">
+           {dede:arclist typeid='2' titlelen=42 row=10}
+          	 <li><a href="[field:arcurl /]">[field:title /]</a></li>{/dede:arclist}
+          </ul>
+        </dd>
+      </dl>
+    </div>
+
+    
+    
+  </div>
+  <!-- /pleft -->
+</div>
+<div class="flink w960 center mt1 clear">
+	<dl class="tbox">
+		<dt>
+			<strong>友情链接</strong>
+			<span class="more">
+				<a href="plus/flink.php">所有链接</a> | <a href="plus/flink_add.php">申请加入</a>
+			</span>
+		</dt>
+		<dd>
+			<ul class="f5">
+				{dede:flink row='24' typeid=1/}
+		  </ul>
+		</dd>
+	</dl>
+</div><!-- /flink -->
+{dede:include filename="footer.htm"/}
+<!-- /footer -->
+
+</body>
+</html>
+<!-- 首页生成时间:{dede:field.maketime function="MyDate('Y-m-d H:m:s',@me)" /} -->
