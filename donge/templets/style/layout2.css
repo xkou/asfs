@@ -9,49 +9,42 @@
 
 .tbox{/* 自适应宽度的块(通用块) */
 	width:100%;
-	border:1px solid #CCCCCC;
+	border-bottom:1px solid #C5DDBC;
 	overflow:hidden;
 }
 .tbox dt{
-	height:24px;
-	background:url(/images/box_bj0.gif) repeat scroll 0 0 ;
+	height:25px;
+	background:url(../images/mbox-tbg.png) right top no-repeat;
 	overflow:hidden;
 	clear:both;
-	border-bottom: 1px solid #cccccc;
 }
 .tbox dt strong{
-	height:21px;
-	border-color:#cccccc;
-	border-style: solid solid none;
-	border-width: 1px 1px 0px;
-	margin: 3px 0px -1px 5px;
-	position:absolute;
-	line-height:21px;
+	height:25px;
+	line-height:25px;
 	padding-left:10px;
 	padding-right:4px;
 	display:block;
 	float:left;
-	color:#333333;
-	background-color: white;
-	/* background:url(../images/mbox-tbg.png) left top no-repeat; */
+	color:#4A7749;
+	background:url(../images/mbox-tbg.png) left top no-repeat;
 	letter-spacing:1px;
 }
 .tbox dt strong a{
-	color:#333333;
+	color:#4A7749;
 }
 .tbox dt strong a:hover{
-	color:red;
+	color:#444;
 	text-decoration:none;
 }
 .tbox dt span.more{
 	float:right;
 	position:relative;
-	line-height:24px;
+	line-height:25px;
 	padding-right:8px;
-	color:#333333;
+	color:#85A484;
 }
 .tbox dt span.more a{
-	color:#333;
+	color:#7B9D79;
 	text-decoration:none;
 }
 .tbox dt span.more a:hover{
@@ -65,13 +58,13 @@
 	padding-top:2px;
 }
 .tbox dt span.label a{
-	height:24px;
+	height:25px;
 	display:block;
 	padding:0px 7px 0px 8px;
 	line-height:23px;
 	border-left:1px solid #C5DDBC;
 	float:left;
-	color:#333;
+	color:#666;
 	text-decoration:none;
 	overflow:hidden;
 	letter-spacing:1px;
@@ -85,7 +78,9 @@
 	border-top:3px solid #F1F7EE;
 }
 .tbox dd{
-	padding:0px;
+	border-left:1px solid #C5DDBC;
+	border-right:1px solid #C5DDBC;
+	padding:1px;
 	overflow:hidden;
 }
 /*--------------------------------------------------
@@ -107,8 +102,8 @@
 	clear:right;
 }
 .c1 li{
-	height:22px;
-	line-height:22px;
+	height:27px;
+	line-height:27px;
 	overflow:hidden;
 	padding-left:16px;
 	background:url(../images/ico-2.gif) 7px 11px no-repeat;
@@ -130,7 +125,7 @@
 	background:url(../images/ico-2.gif) 4px 8px no-repeat;
 }
 
-.c3 li span{ float:right; color:#999999; font-size:11px; }
+.c3 li span{ float:right; color:#999999 }
 .c2 li{
 	width:45%;
 	margin-right:0%;
@@ -147,15 +142,14 @@
 	padding:4px 0px;
 }
 .d1 li{
-	height:22px;
-	line-height:22px;
+	height:27px;
+	line-height:27px;
 	overflow:hidden;
 }
 .d1 li span{
 	color:#999;
 	margin-right:5px;
 	float:right;
-	font-size:11px;
 }
 .d1 li a{
 }
@@ -163,8 +157,8 @@
 	padding:4px 0px;
 }
 .d2 li{
-	height:22px;
-	line-height:22px;
+	height:27px;
+	line-height:27px;
 	overflow:hidden;
 }
 .d2 li span{
@@ -172,7 +166,6 @@
 	float:right;
 	padding-right:10px;
 	margin-left:10px;
-	font-size:12px;
 }
 .d2 li a{
 	overflow:hidden;
@@ -204,8 +197,8 @@
 	border-bottom:1px solid #EEE;
 }
 .d5 li{
-	height:40px;
-	line-height:40px;
+	height:41px;
+	line-height:41px;
 	background:url(../images/ico-2.gif) 2px 17px no-repeat;
 	padding-left:16px;
 }
@@ -215,7 +208,6 @@
 .d5 li span{
 	margin-left:10px;
 	color:#999;
-	font-size:11px;
 }
 /*---------- e : 图文混排列表 ---------*/
 .e1{/* 横向浮动的图片列表 120*90  */
@@ -364,7 +356,6 @@
 	clear:both;
 	overflow:hidden;
 }
-
 .e6 li{
 	display:block;
 	width:104px;
@@ -390,13 +381,13 @@
 }
 .e7{/* 横排小图列表 52*52 (用户头像列表) */
 	clear:both;
+	overflow:hidden;
 }
 .e7 li{
 	width:60px;
 	height:86px;
 	float:left;
 	overflow:hidden;
-	position: relative;
 	padding-left:11px;
 }
 .e7 li a{
@@ -532,7 +523,7 @@
 	overflow:hidden;
 }
 .f2 li{
-	height:59px;
+	height:73px;
 	clear:both;
 	overflow:hidden;
 	border-bottom:1px dashed #DCEBD7;
@@ -551,7 +542,7 @@
 	color:#666;
 }
 .f2 p{
-	height:35px;
+	height:42px;
 	overflow:hidden;
 	line-height:21px;
 	color:#888;

@@ -1,0 +1,89 @@
+﻿/* ========== 全局CSS定义 ====== */
+body{font-family:"宋体", arial; margin:0;padding:0; font-size:12px; color:#000;}
+div,table,td{font-size:12px;line-height:20px;}
+div,ul,li,dl,dt{list-style:none;list-style-type: none;}
+div,p,form,img,ul,li,dl,dt,dd {margin:0; padding:0; border:0;}
+.left{float:left;}
+.right{float:right;}
+.center{margin:0 auto;}
+
+/* ========== 链接颜色 ====== */
+a:link { color: #00007F;}
+a:visited { color: #00007F;}
+a:hover { color: #f60;}
+a:active { color: #00007F;}
+a.img:hover {border: 2px solid #C60;}
+
+/* ========== 颜色属性 [定义规则，小写c加颜色名称] ====== */
+.cRed,a.cRed:link,a.cRed:visited{ color:Red; }
+.cWhite,a.cWhite:link,a.cWhite:visited{ color:White; }
+.cBlue,a.cBlue:link,a.cBlue:visited{ color:Blue;}
+.cBlack,a.cBlack:link,a.cBlack:visited{ color:#000;}
+.cF60,a.cF60:link,a.cF60:visited{ color:#f60;}
+.c888,a.c888:link,a.c888:visited{ color:#888;}
+
+/* ========== 字体属性 [定义规则，小写f加属性名称] ====== */
+.fB {font-weight: bold;}
+.fI {font-style: italic;}
+.fU {text-decoration: underline;}
+.fN {text-decoration:none;} /*无下划线，单独定义
+
+/* ========== 字体大小 ====== */
+h1,h2,h3,h5 {font-size:100%;margin:0;padding:0;}
+.f10{font-size:10px;}
+.f12{font-size:12px;}
+.f14{font-size:14px;}
+.f16{font-size:16px;}
+.f18{font-size:18px;}
+.f20{font-size:20px;}
+.f22{font-size:22px;}
+
+/* ========== 表格边框 ====== */
+.table {border: 1px solid #ccc;}
+.table-xia {border-bottom: 1px solid #ccc;}
+.table-xiaxu {border-bottom: 1px dotted #ccc;}
+.table-zuoyou {border-left: 1px solid #ccc;border-right: 1px solid #ccc;}
+.table-shangxia {border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;}
+.table-you {border-right: 1px solid #ccc;}
+.table-zuo {border-left: 1px solid #ccc;}
+.table-shang {border-top: 1px solid #ccc;}
+
+.mytable{ border-collapse:collapse; }
+.mytable td{ border:#ccc solid 1px; padding:4px;}
+.mytable .title{background:#f1f1f1;}
+
+.wenbenkuang {border: 1px solid #999;}
+.go-wenbenkuang {background-color:menu;height:20px;border: 1px outset #fff;}
+.top_2 {padding-top: 2px;}
+.top_5 {padding-top: 5px;}
+.top_10 {padding-top: 10px;}
+.top_20 {padding-top: 20px;}
+.bottom_2	{padding-bottom: 2px;}
+.bottom_5	{padding-bottom: 5px;}
+.bottom_10	{padding-bottom: 10px;}
+.left_5 {padding-left: 5px;}
+.left_10 {padding-left: 10px;}
+.right_5 {padding-right: 5px;}
+.right_10 {padding-right: 10px;}
+.t_2 {margin-top:2px;}
+.t_5 {margin-top:5px;}
+.t_10 {margin-top:10px;}
+.b_2 {margin-bottom:2px;}
+.b_5 {margin-bottom:5px;}
+.b_10 {margin-bottom:10px;}
+.mg_1 {margin:1px;}
+.mg_2 {margin:2px;}
+.mg_3 {margin:3px;}
+.mg_5 {margin:5px;}
+.pd_1 {padding:1px;}
+.pd_2 {padding:2px;}
+.pd_3 {padding:3px;}
+.pd_5 {padding:5px;}
+
+.tL {text-align:left;}
+.tC {text-align:center;}
+.tR {text-align:right;}
+
+.content {margin:0 auto;width:948px;overflow:hidden;clear:both;}
+.hidden {overflow: hidden;}
+.clear{clear:both;}
