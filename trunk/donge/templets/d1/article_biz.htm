@@ -1,0 +1,148 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset={dede:global.cfg_soft_lang/}" />
+    <title>{dede:field.title/}_{dede:global.cfg_webname/}</title>
+    <link href="/templets/style/biz.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/templets/images/player.js"></script>
+    <script src="/jst/image/szr.js"></script>
+
+</head>
+<body>
+   <div class="dh_top">
+        <div class="dh_l"><a href="/"><img src="/templets/images/top-logo.gif" /></a></div>
+        <div class="dh_r tR">
+            <script src="/inc/login.aspx" type="text/javascript"></script>
+            <div class="t_5">
+               <form action="search.aspx?lbid=0" method="get" name="top_search" id="top_search">
+                    <input name="key" type="text"  value=" 输入要搜索商家名称关键字" onFocus="this.value=''" size="15" maxlength="15" class="search_key" />
+
+                    <input type="submit" name="Submit1" id="Submit1" value="搜索商家" class="search_submit" />
+                </form>
+            </div>
+        </div>
+    </div>
+   {dede:include filename="list_biz_head.htm"/}
+    <div class="content top_10">
+        <div class="p_l">
+            <div class="p_xinxi">
+                <div id="player_" style="width:370px;float:left;" ><img style="width:380px;" src="{dede:field.litpic/}"/>
+                </div>
+                <dl>
+                    <dt>{dede:field.title/}</dt>
+
+                    <dd class="t_10">商家归类：<a href="#">-</a> &raquo; <a href="lb-6-43.html">-</a></dd>
+                    <dd>商家地址：{dede:field.address/}</dd>
+                    <dd>联系电话：{dede:field.tel /}</dd>
+                    <dd>传真号码：</dd>
+                    <dd>商家人气：2306</dd>
+
+                    <dd>商家级别：<img src="/templets/images/vip.gif" /></dd>
+                    
+                    <dd class="t_10 tR"><a href="javascript:window.external.addFavorite(window.location.href,'蜀香妈妈菜馆')">收藏</a> | <a href="javascript:window.print()">打印</a> | <a href="/inc/guestbook.aspx?ly=针对企业纠错：蜀香妈妈菜馆" target="_blank">纠错</a> | <a href="/info/jm.aspx">我要加盟</a></dd>
+
+                </dl>
+            </div>
+            <div class="p_ts"><img src="/image/ico_03.gif" />商户简介</div>
+            <div class="p_nr">商家名称：&nbsp;青岛蜀香妈妈菜馆&nbsp;<br/>所在区域：&nbsp;青岛市-胶南市
+			{dede:field.intro/}
+			</div>
+<!--
+            <div class="p_ts"><img src="image/ico_03.gif" />网友点评</div>
+            
+            <dl class="p_list">
+                <dt><img src="/tp/face/0.gif" /><cite>123.234.193.* 点评时间：2009-4-11 17:16:51</cite></dt>
+                <dd>去吃过，川味十足</dd>
+            </dl>
+            
+            <dl class="p_list">
+                <dt><img src="/tp/face/0.gif" /><cite>219.145.103.* 点评时间：2009-5-15 17:46:33</cite></dt>
+
+                <dd>真的川味十足吗</dd>
+            </dl>
+            
+            <div class="p_nr tC"><span id="Label1">分页： 上一页  |  下一页</span></div>
+            <div class="p_nr">
+                <b>发表点评：</b><span class="c888">请自觉遵守互联网相关政策法规，评论字数5-500字；严禁发广告或商户自己发表虚假评论。</span>
+                <form id="form1" name="form1" method="post" action="ping.aspx?id=2185" onsubmit="javascript:return jc(this)">
+                    <label>
+
+                        <textarea name="nr" cols="75" rows="6" class="wenbenkuang" id="nr"></textarea>
+                    </label>
+                    <br />
+                    <input name="Submit2" type="submit" class="search_submit t_5" id="Submit2" value="提交点评" /><input name="user" type="hidden" value="xkou" /> 
+                    
+                </form>
+            </div> -->
+        </div>
+		
+        <div class="p_r">
+            <div class="p_box">
+
+                <div id="myMap" style="position: relative; width: 228px; height: 228px;">
+                </div>
+            </div>
+            <a href="jm.aspx">
+                <img src="/templets/images/ad_240.gif" class="t_10" /></a>
+        </div>
+        <div class="p_box t_10">
+            <h5>
+                类似商户</h5>
+
+            <ul>
+                
+                <li><a href="#">测试</a></li>
+                <li><a href="#">测试</a></li>
+                <li><a href="#">测试</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="top_5"></div>
+    <div class="bottom"><a href="/classad">分类广告</a>&nbsp;|&nbsp;<a href="/info">企业商圈</a>&nbsp;|&nbsp;<a href="/shop">网上商城</a>&nbsp;|&nbsp;<a href="/zhidao">你问我答</a>&nbsp;|&nbsp;<a href="/blog">博客日志</a>&nbsp;|&nbsp;<a href="/bbs">交流论坛</a><br />免责声明：本网站所有商家信息、内容均为会员发布，请注意识别验证信息的虚假。据此交易风险自负！本站不提供任何保证并不承担任何法律连带责任。<br /></div>
+
+<script type="text/javascript">
+
+var s2 = new SWFObject("/templets/images/img.swf","rotator","380","285","9");
+		s2.addParam("allowfullscreen","true");
+		//rotatetime=图片切换时间，默认5秒
+        s2.addVariable("file","playlist.aspx%3Fid%3D2185&transition=random");
+		s2.addVariable("width","380");
+		s2.addVariable("height","285");
+		s2.write("player");
+
+function jc(aa){
+if(aa.nr.value.length<5 ||aa.nr.value.length>500){
+alert('点评内容5-500字符以内!');
+return false;}
+aa.Submit2.disabled=true;
+return true;}
+
+
+</script>
+<script language="javascript" src="http://api.51ditu.com/js/maps.js"></script>
+<script type="text/javascript">
+var maps = new LTMaps("myMap");
+var map="";
+//var no_map="12004332,3587388,7"; //当未标注时显示的位置，可自行设置
+var no_map="{dede:field.mappos/}"; //当未标注时显示的位置，可自行设置
+if (map.length!=18 && map.length!=19){map=no_map;}
+var point = new LTPoint(parseInt(map.substring(0,8)),parseInt(map.substring(9,16)));
+var icon = new LTIcon();
+icon.setImageUrl("/image/mapwz.gif");
+var marker=new LTMarker(point, icon);
+maps.centerAndZoom (point, parseInt(map.substring(17,18)));
+if (map!=no_map)
+  {
+   maps.addOverLay(marker);
+   var text = new LTMapText(marker);
+   text.setLabel("{dede:field.title/}");
+   text.setFontColor("red");
+   maps.addOverLay(text);
+   }
+maps.addControl(new LTSmallMapControl());
+
+</script>
+</body>
+</html>
