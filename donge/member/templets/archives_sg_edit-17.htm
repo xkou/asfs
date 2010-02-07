@@ -1,11 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>修改文档</title>
+<title>修改我的商圈</title>
 <?php include(DEDEMEMBER."/templets/head_inc.htm"); ?>
+<script language="javascript" src="http://api.51ditu.com/js/maps.js"></script>
+
+<script language="javascript" src="http://api.51ditu.com/js/ezmarker.js"></script>
+
 <script language='javascript' src='js/main.js'></script>
 <script language="javascript">
 <!--
+
+function picerror ( t )
+{
+
+	alert( "error" );
+}
 function checkSubmit()
 {
 
@@ -43,14 +53,14 @@ function checkSubmit()
     <div class="main">
       <?php include(DEDEMEMBER."/templets/menu.php"); ?>
       <div class="dedeMain">
-        <div class="location"><span class="titEditChannel1 icon">修改<?php echo $cInfos['typename']; ?>：</span></div>
+        <div class="location"><span class="titEditChannel1 icon">修改<?php echo $cInfos['typename']; ?></span></div>
         <form class="mTB10 mL10 mR10" name="form1" action="archives_sg_edit.php" method="post" enctype="multipart/form-data" onsubmit="return checkSubmit();">
           <input type="hidden" name="dopost" value="save" />
           <input type="hidden" name="aid" value="<?php echo $addRow['aid']; ?>" />
           <input type="hidden" name="idhash" value="<?php echo md5($addRow['aid'].$cfg_cookie_encode); ?>" />
           <input type="hidden" name="channelid" value="<?php echo $addRow['channel']; ?>" />
           <input type="hidden" name="sortrank" value="<?php echo $addRow['senddate']; ?>" />
-          <input type="hidden" name="oldlitpic" value="<?php echo (isset($row['litpic']) ? $row['litpic'] : ''); ?>" />
+          <input type="hidden" name="oldlitpic" value="<?php echo (isset($addRow['litpic']) ? $addRow['litpic'] : ''); ?>" />
           <table width="100%" border="0" cellpadding="2" cellspacing="1" style="margin-bottom:6px" class="submit">
             <thead>
               <tr bgcolor="#F0FBE3">
@@ -63,33 +73,72 @@ function checkSubmit()
                 <td width="81%" colspan="3" bgcolor="#FFFFFF"><input name="title" type="text" id="title" size="30" class="nb" style='width:250px' value="<?php echo $addRow['title']?>" />
                   <font color="#FF0000">*</font> </td>
               </tr>
-              <?php if($cInfos['dfcid']>0)
-      {
-      	echo "<input type='hidden' name='typeid' value='{$cInfos['dfcid']}' />";
-      }
-      else
-      {
-      ?>
-              <tr>
-                <td height="28" align="center" bgcolor="#F7FDF0">隶属栏目：</td>
-                <td colspan="3" bgcolor="#F7FDF0"><?php
-    $typeOptions = GetOptionList($addRow["typeid"],$addRow["channel"]);
-    echo "<select name='typeid' style='width:350px' size='1'>\r\n";
-    echo $typeOptions;
-    echo "</select>";
-		?>
-                  (只允许并且必须选择白色背景的项目<font color="#FF0000">*</font>) </td>
-              </tr>
+             
               <tr style='<?php if($cInfos['needpic']==0) echo 'display:none'; ?>'>
                 <td height="28" align="center"  class='tdline'>缩略图：</td>
                 <td colspan="3"  class='tdline'><input name="litpic" type="file" id="litpic" style="width:300px" onchange="SeePicNew('divpicview',this);"  />
-                  <div id='divpicview' class='divpre'></div></td>
+                  <div id='divpicview' class='divpre'><img onerror=picerror(this) style="width:250px;" src="<?php echo $addRow['litpic']?>" />
+				  </div></td>
               </tr>
-              <?php
-      }
-      //自定义字段
-      PrintAutoFieldsEdit($cInfos['fieldset'],$addRow,'autofield');
-      ?>
+
+			  
+              <input type='hidden' name='typeid' value='7' /><tr>
+  <td align="right" valign="top">商家地址：</td>
+  <td><input type='text' name='address' id='address' style='width:250px'  class='text' value='<?php echo $addRow['address']?>' />
+
+</td>
+</tr>
+<tr>
+  <td align="right" valign="top">联系电话：</td>
+  <td><input type='text' name='tel' id='tel' style='width:250px'  class='text' value='<?php echo $addRow['tel']?>' />
+</td>
+</tr>
+<tr>
+  <td align="right" valign="top">传真号码：</td>
+  <td><input type='text' name='fax' id='fax' style='width:250px'  class='text' value='<?php echo $addRow['fax']?>' />
+</td>
+
+</tr>
+<tr>
+  <td align="right" valign="top">公司介绍：</td>
+  <td><textarea name='intro' id='intro' style='width:100%;height:280px'><?php echo $addRow['intro']?>
+</textarea>
+</td>
+</tr>
+<tr>
+  <td align="right" valign="top">地图位置：</td>
+  <td><input type='text' name='mappos' id='mappos' style='width:250px;'  class='text' value='<?php echo $addRow['mappos']?>' />
+  <script language="javascript">
+var ez=new LTEZMarker("ezmarker");
+ez.setSearch(false,"");//不显示搜索控件
+ez.setPlaceList(false);//不显示地图浏览控件
+var map=document.getElementById("mappos");
+
+ez.setDefaultView(new LTPoint(11625000,3633000),1); //用座标定义初始位置，与下面定义可二选一或不选
+function setMap(point,zoom)
+	{
+		document.getElementById("mappos").value=point.getLongitude()+","+point.getLatitude()+","+zoom;
+	}
+ LTEvent.addListener(ez,"mark",setMap);//"mark"是标注事件
+</script> 
+
+</td>
+
+</tr>
+<tr>
+  <td align="right" valign="top">商家类别：</td>
+  <td><input type='hidden' id='hidden_biztype' name='biztype' value='1504' />
+<span id='span_biztype'></span>
+<span id='span_biztype_son'></span>
+<script language="javascript" type="text/javascript" src="/images/enums.js"></script>
+<script language='javascript' type='text/javascript' src='/data/enums/biztype.js'></script>
+<script language='javascript' type='text/javascript'>MakeTopSelect('biztype', <?php echo $addRow['biztype']?>);</script>
+</td>
+</tr>
+
+<input type='hidden' name='dede_addonfields' value="address,text;tel,text;fax,text;intro,multitext;mappos,text;biztype,stepselect">
+   
+              
             </tbody>
             <tfoot>
               <tr>

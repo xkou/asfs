@@ -1,0 +1,64 @@
+<table cellspacing="0" CELLPADDING ="0" class='sglist' >
+<thead>
+  <tr>
+	<th >所属文章</th>
+	<th width="8%">状态 </th>
+	
+	
+	<th width="12%">发布时间 </th>
+	<th width="11%">操作</th>
+  </tr>
+</thead>
+<tbody>
+
+{dede:datalist}
+<tr id=tr<?php echo $fields['aid']?> >
+  <td class='sgtitle' ><?php echo $fields['arctitle']; ?> 
+  <a href='javascript:void(0);'  onclick="showcc(<?php echo $fields['id'] ?>);" >查看评论 </a> 
+  <a href='<?php echo $cfg_phpurl; ?>/view.php?aid=<?php echo $fields['aid']; ?>' target=_blank >查看文章</a>
+  </td>
+  
+  <td align="center"><?php echo $fields['ischeck']==1?'正常':'等待审核'; ?></td>
+
+  <td align="center"><?php echo GetDateMk($fields['dtime']); ?></td>
+  <td align="center"><a id="ar<?php echo $fields['aid']?>" href="javascript:delcomm(<?php echo $fields['aid']?>);">删除</a> </td>
+</tr>
+<tr style='display:none;background-color:#eeeeee' id=cc<?php echo $fields['id'] ?>  > <td class='sgtitle' colspan=4><?php echo $fields['msg'] ?></td></tr>
+{/dede:datalist}
+</tbody>
+
+<tfoot>
+  <tr>
+	<td colspan="6"><div class="pages mTB10 fRight">{dede:pagelist listsize=5/}</div>
+	  <div class="clear"></div></td>
+  </tr>
+</tfoot>
+</table>
+<script>
+function showcc(i)
+{
+	$("#cc"+i).show();
+}
+function delcomm( t )
+{
+		v=$("#ar"+t);
+		$("#cdel").css({'display':'', 'top':v.offset().top,'left':v.offset().left});
+		$("#cdel_b2").bind("click",function (){ $("#cdel").hide() ;});
+		$("#cdel_b1").unbind('click');
+		$("#cdel_b1").bind("click", t, function ( e ){ $.getJSON('/member/fun.php', {'x':'d2','aid':t }, 
+		function(d  ){
+			$("#cdel").hide();
+			if(d['r']==0) 
+			{
+				$('#tr'+t).fadeOut();
+			}
+			else
+			{
+				alert(d['i']);
+			}
+			
+		}) });
+		
+	}
+
+</script>

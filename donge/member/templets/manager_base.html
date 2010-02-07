@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>文档管理</title>
+
+<?php include(DEDEMEMBER."/templets/head_inc.htm"); ?>    
+</head>
+<body>
+<div id=cdel style="position:absolute; display:none" ><div class=title>确定要删除吗</a></div><ul><li><a id="cdel_b1" href="javascript:void(0)"> 确定删除</a></li><li><a id="cdel_b2" href="javascript:void(0)" > 取消</a></li></ul></div>
+<?php include(DEDEMEMBER."/templets/head.htm"); ?>  
+<div class="wrapper lineT">
+  <div class="mainBox">
+    <div class="main">
+      <?php include(DEDEMEMBER."/templets/menu.php"); ?>
+      <div class="dedeMain">
+        <div class="location"><span class="fLeft">已发布<?php echo $positionname; ?></span></div>
+
+        <form name="form2" >
+         
+		  {dede:include file='/templets/manager_$action.html' ismake='yes' /}
+        </form>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+<?php include(DEDEMEMBER."/templets/foot.htm"); ?>
+</body>
+</html>

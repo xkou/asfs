@@ -16,17 +16,22 @@ body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input
 html, body {
 	height:100%;
 }
+.center
+{
+	margin: 0 auto;
+	width:948px;
+}
 body {
 	min-height:100%;
 	height:auto !important;
 	height:100%;
 	font-family:Tahoma, SimSun, Arial;
 	font-size:12px;
-	color:#333;
-	background-color: #fff;
+	color:#000;
+	width: 100%;
 	line-height: 15px;
 	font-weight:400;
-	background-color: #e9f4e6;
+	background-color: #fff;
 }
 hr {
 	clear:both;
@@ -120,11 +125,11 @@ fieldset li {
 /* 链接
 -------------------------------------------------------------------*/
 a:link, a:visited {
-	color:#338815;
+	color:#11408b;
 	text-decoration:none;
 }
 a:hover, a:active {
-	color:#338815;
+	color:red;
 	text-decoration:underline;
 }
 /*红色*/
@@ -338,7 +343,7 @@ a.buttonGary2,
 /* 常用样式
 -------------------------------------------------------------------*/
 .wrapper {
-	max-width: 1060px;
+	max-width: 1270px;
 	min-width: 960px;
 	/*width:960px;*/
 	clear: both;
@@ -346,7 +351,7 @@ a.buttonGary2,
 	margin-left: auto;
 }
 *html .wrapper {
-	width:expression(document.body.clientWidth < 1280? "960px": "1060px" );
+	width:expression(document.body.clientWidth < 1024? "960px": "1220px" );
 }/**/
 
 .clear {
@@ -411,24 +416,38 @@ a.buttonGary2,
 	border: 1px solid #acd98c;
 }
 .lineTB {
-	border-top: 1px solid #acd98c;
-	border-bottom: 1px solid #acd98c;
+	border-top-width: 1px;
+	border-bottom-width: 1px;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-top-color: #acd98c;
+	border-bottom-color: #acd98c;
 }
 .lineLR {
-	border-right: 1px solid #acd98c;
-	border-left: 1px solid #acd98c;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #acd98c;
+	border-left-color: #acd98c;
+}
+.lineT {
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #acd98c;
 }
 .lineB {
-	border-bottom: 1px solid #acd98c;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #acd98c;
 }
 .lineL {
-	border-left: 1px solid #acd98c;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #acd98c;
 }
 .lineR {
-	border-right: 1px solid #acd98c;
-}
-.indexTitle {
-	height:56px;
-	line-height:56px;
-	border-bottom: 1px dashed #acd98c;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #acd98c;
 }
