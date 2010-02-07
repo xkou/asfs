@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__).'/../include/common.inc.php');
 require_once(DEDEINC.'/filter.inc.php');
-require_once(DEDEINC.'/memberlogin.class.php');
+require_once(DEDEINC.'/memberlogin2.class.php');
 require_once(DEDEINC.'/dedetemplate.class.php');
 
 //获得当前脚本名称，如果你的系统被禁用了$_SERVER变量，请自行更改这个选项

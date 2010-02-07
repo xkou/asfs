@@ -1,0 +1,57 @@
+<table cellspacing="0" CELLPADDING ="0" class='sglist' >
+<thead>
+  <tr>
+	<th >商铺名称</th>
+	<th width="10%">状态 </th>
+	<th width="10%">类别 </th>
+	<th width="5%">点击 </th>
+	<th width="12%">发布时间 </th>
+	<th width="11%">操作</th>
+  </tr>
+</thead>
+<tbody>
+
+{dede:datalist}
+<tr id=tr<?php echo $fields['aid']; ?> >
+  <td class='sgtitle' ><a href='<?php echo $cfg_phpurl; ?>/view.php?aid=<?php echo $fields['aid']; ?>' target='_blank'><?php echo $fields['title']; ?></a> </td>
+  <td align="center"><?php echo $fields['arcrank']==0?'正常':'等待审核'; ?></td>
+  <td align="center"><?php echo $fields['name1']; ?></td>
+  <td align="center"><?php echo $fields['click']; ?></td>
+  <td align="center"><?php echo GetDateMk($fields['senddate']); ?></td>
+  <td align="center"><a id="ar<?php echo $fields['aid']; ?>" href="archives_sg_edit.php?channelid=-17&aid=<?php echo $fields['aid']; ?>">编辑</a> <a id="ar<?php echo $fields['aid']; ?>" href="javascript:delArc(<?php echo $fields['aid']; ?>);">删除</a>  
+</tr>
+{/dede:datalist}
+</tbody>
+
+<tfoot>
+  <tr>
+	<td colspan="6"><div class="pages mTB10 fRight">{dede:pagelist listsize=5/}</div>
+	  <div class="clear"></div></td>
+  </tr>
+</tfoot>
+</table>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function delArc( t )
+	{
+		v=$("#ar"+t);
+		$("#cdel").css({'display':'', 'top':v.offset().top,'left':v.offset().left});
+		$("#cdel_b2").bind("click",function (){ $("#cdel").hide() ;});
+		$("#cdel_b1").unbind('click');
+		$("#cdel_b1").bind("click", t, function ( e ){ $.getJSON('/member/fun.php', {'x':'d1','aid':t }, 
+		function(d  ){
+			$("#cdel").hide();
+			if(d['r']==0) 
+			{
+				$('#tr'+t).fadeOut();
+			}
+			else
+			{
+				alert(d['i']);
+			}
+			
+		}) });
+		
+	}
+//-->
+</SCRIPT>

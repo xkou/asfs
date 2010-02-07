@@ -1,9 +1,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>会员登录</title>
+<title>会员登录 - 东阿信息港</title>
 <?php include(DEDEMEMBER."/templets/head_inc.htm"); ?>
+<style>
+/*login*/
+.login{position:relative;margin:40px auto 0 auto;height:300px;width:760px;}
+.login_bj{ background-color: #42B4E4; height:130px; }
+.login_bj img{float:left;padding-right:15px;}
+.login_bj span{color:#fff;}
+.login_r{position:absolute;right:30px;top:-25px;height:260px;width:240px;background-color: #f9f9f9;border: 1px solid #aaa;padding:15px;}
+.login ul{margin-top:10px;color:#666;}
+.login ul li{line-height:22px;height:22px;}
+.login ul a:link,.login ul a:hover,.login ul a:visited{padding-right:10px;font-weight: bold;color:#333;text-decoration:none;}
+.login td{ height: 28px;}
+#Submit{ width: 80px; height: 30px;}
+.bottom {margin:10px auto 0px auto;width:760px;padding:5px 0;text-align:center;border-top: 1px solid #eee;color:#333;}
+</style>
+
 <script language="javascript" type="text/javascript">
+<!--
 function changeAuthCode() {
 	var num = 	new Date().getTime();
 	var rand = Math.round(Math.random() * 10000);
@@ -13,50 +29,95 @@ function changeAuthCode() {
 	}
 	return false;	
 }
+
+	function getcookie(name) {
+	var cookie_start = document.cookie.indexOf(name);
+	var cookie_end = document.cookie.indexOf(";", cookie_start);
+	return cookie_start == -1 ? '' : decodeURI(document.cookie.substring(cookie_start + name.length + 1, (cookie_end > cookie_start ? cookie_end : document.cookie.length)));
+	}
+
+
+	function Showlastuser()
+	{
+		// $("#txtUsername").val( getcookie('uchome_loginuser') );
+	}
+-->
 </script>
 </head>
 <body>
-<?php include(DEDEMEMBER."/templets/head.htm"); ?>
-<div class="wrapper lineBorder" id="login">
-  <div class="location">帐号登录</div>
-  <div class="theme fLeft">
-    <form name='form1' method='POST' action='index_do.php'>
-      <input type="hidden" name="fmdo" value="login">
+<?php include(DEDEMEMBER."/templets/head.htm"); 
+if (empty($gourl))
+{
+	$gourl = $_SERVER['HTTP_REFERER'];
+}
+?>
+
+<div class="login">
+  <div class="login_r">
+     <strong class="f14">没有会员帐号？</strong>
+     <div align="center"><input type="button" value="立即免费注册会员" style="margin:10px 0 6px 0;width:140px" onClick="window.parent.location.href='/member/reg_new.php'"></div>
+     <hr size="0" style="border-top:1px solid #aaa">
+     <strong class="f14">东阿信息港 一站通会员登录</strong>
+     <script language="javascript">
+function hy() {
+if (( document.form1.huiyuan.value == '' )||(document.form1.password.value == '')) {
+window.alert('会员名称和登录密码不能为空!!');
+return false;}
+return true;}
+function showvcode()
+{
+	if( $("#codediv").css("display")!='none') return;
+	$("#codediv").show();
+	changeAuthCode();
+}
+</script> <form name="form1" method="post" action="index_do.php" onSubmit="javascript:return hy()">
+ <input type="hidden" name="fmdo" value="login">
       <input type="hidden" name="dopost" value="login">
-      <input type="hidden" name="gourl" value="<?php if(!empty($gourl)) echo $gourl;?>">
-      <ul>
-        <li><span>用户名：</span>
-          <input name="userid" type="text" id="txtUsername" class="text" />
-        </li>
-        <li><span>密&nbsp;&nbsp;&nbsp;码：</span>
-          <input name="pwd" type="password" id="txtPassword" class="text" />
-        </li>
-        <li><span>验证码：</span>
-          <input name="vdcode" type="text" id="vdcode" style='width:50px;text-transform:uppercase;' class="text" />
-          <img id="vdimgck" src="../include/vdimgck.php" alt="看不清？点击更换" align="absmiddle" style="cursor:pointer" onclick="this.src=this.src+'?'" /> 看不清？<a onclick="changeAuthCode();" href="#">点击更换</a></li>
-        <li> <span>有效期：</span>
-          <input type='radio' name='keeptime' value='2592000' />
-          一个月
-          <input type='radio' name='keeptime' value='604800' checked='checked' />
-          一周
-          <input type='radio' name='keeptime' value='86400' />
-          一天
-          <input type='radio' name='keeptime' value='0' />
-          即时</li>
-        <li><span>&nbsp;</span>
-          <button class="button2" id="btnSignCheck" type="submit">登录</button>
-        </li>
-      </ul>
-    </form>
+      <input type="hidden" name="gourl" value="<?php echo $gourl ?>">
+<table width="100%" border="0" cellpadding="4">
+  <tr>
+    <td width="50">用户名：</td>
+    <td><input onfocus=showvcode(); name="userid" type="text" id="txtUsername" style="width:135px;height:18px;"></td>
+  </tr>
+  <tr>
+    <td>密　码：</td>
+
+    <td><input onfocus=showvcode(); name="pwd" type="password" id="txtPassword" maxlength="16" style="width:135px;height:18px;"></td>
+  </tr>
+  <tr id=codediv style="display:none">
+    <td >验证码：</td>
+
+    <td><input name="vdcode" type="text" id="vdcode" maxlength="16" style="width:50px;height:18px;"> <img id="vdimgck" src="" alt="看不清？点击更换" align="absmiddle" style="cursor:pointer" onclick="this.src=this.src+'?'" /> <a onclick="changeAuthCode();" href="#">更换</a></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td><input name="keeptime" id="cook" type="checkbox" value="604800"><label for="cook">记住我的登录状态</label><br /><font color="#888888">使用公用电脑请勿选择该项</font></td>
+  </tr>
+  <tr>
+    <td></td>
+
+    <td><input name="Submit" type="submit"  id="Submit" value="会员登录"> <a href="?login=pass"> 忘记密码？</a></td>
+  </tr>
+</table>
+</form>
   </div>
-  <div class="useNew fLeft textCenter">
-    <p class="signUp">
-      <button class="button6 mTB10" onclick="location='index_do.php?fmdo=user&dopost=regnew'">注册一个新帐号</button>
-    </p>
-    <p class="mTB10"><a href="resetpassword.php">找回密码&gt;&gt;</a></p>
-  </div>
-  <div class="clear"></div>
-</div>
+  <div class="login_bj"><img src="images/login_l.jpg" /><span><br /><strong class="f14">注册会员 一站全通</strong><br /><br />
+    注册会员用户，尽享一站通为您提供的<br />信息查询、网友交流等全部服务</span></div>
+
+    <ul>
+			  <li><a href="/xinxi">分类信息</a>本地信息量最大，房产、二手、人才、交友免费发布查询</li>
+	<!--		  <li><a href="/">商圈黄页</a>本地企业、商家一网打尽，VIP企业智能建站</li> -->
+			  <li><a href="/ask">你问我答</a>汇聚群众的智慧，互助解答问题</li>
+			  <li><a href="/u">东阿开心网</a>建立个人主页空间，随时记录、分享生活点滴</li>
+
+			  <li><a href="/bbs">社区论坛</a>畅所欲言的网络空间，汇聚本土吃、住两大特色版块</li>
+	<!--		  <li><a href="/shop">网上商城</a>同城C2C，免费网上开店</li> -->
+    </ul>
+</div> 
+
+
 <?php include(DEDEMEMBER."/templets/foot.htm"); ?>
 </body>
+<script>Showlastuser();</script>
 </html>
