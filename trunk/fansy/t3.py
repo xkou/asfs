@@ -27,8 +27,8 @@ def sell( cc, s, npc, saves= [] ):
 	cc.s( cc.items ).sort()
 	walk( cc, s, pc )
 
-def mail( cc, to, its ):
-	print cc.sn( cc.mails ).send ( to,"gogo","gogo",0,its )
+def mail( cc, to, its, gold =0 ):
+	print cc.sn( cc.mails ).send ( to,"gogo","gogo",gold,its )
 
 def walk( cc, start, end, w = None ):
 	if start == end : return
@@ -607,7 +607,7 @@ class PICK(Client):
 	buy_npc = 0
 	buy_scene = 1
 	saves = ( 30951, )
-	send_to = "www"
+	send_to = "[1服]www".decode("gbk").encode("utf8")
 	sends = [  ]
 	do_sell = True
 	def onStart( self, cc ):
@@ -619,7 +619,9 @@ class PICK(Client):
 				slwait(0.4)
 		if ch.st:
 			return
-		
+		if ch.gold > 100000:
+			mail( cc, self.send_to, [], ch.gold - 100000 )
+
 		walk( cc, ch.scene , self.pick_scene )
 		pick( cc, self.pick_scene, self.pick_npc )
 		
@@ -740,6 +742,7 @@ class Pick_KWY( PICK ):
 	sends = [ 30902, 30904, 30926, 30950 ]  # 草
 #	ps = [1019,1016,1017,1024,1022] # 从许昌移动
 	sends = [ 31072, 31078, 31084, 31090 ] # 高等
+	sends = []
 
 class Pick_X4( Pick_KWY ):
 	user = "xkou4"
