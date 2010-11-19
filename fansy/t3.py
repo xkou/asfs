@@ -916,7 +916,7 @@ class Fuse_TT( FUSE ):
 
 def work( C ):
 #	server2( "1.1.1.11", 3005, C )
-	server2( "s005.tj.game5.cn", 3005, C )
+	server2( "s010.tj.game5.cn", 3010, C )
 
 
 if __name__ == "__main__":
