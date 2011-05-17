@@ -13,7 +13,10 @@ import fansy as FAN
 from fansy import *
 
 def keepAlive( cc ):
+	zz = cc.s( cc.ch ).zzz()
 	print "zzz", s1(cc.ch.name)
+	print zz, time.time() *1000
+	cc.dtime =  time.time()*1000 - zz
 	callLater( 60, keepAlive, cc )
 
 def sell( cc, s, npc, saves= [] ):
@@ -67,8 +70,14 @@ def login( cc, user, pw, uu = 0 ):
 		u = cc.s( "UserNames").signKey( us["uid"][0], int(us["t"][0]) , 1, us["token"][0] )
 		
 		v = cc.s( cc.user ).signCh( uu, 1 )
+		
+		print "~~~~~~~~~~"
+		start = 5 + (uu * 3)
+		cc.ch = u[start]
 		ch = cc.ch
-		cc.itemEs.s =  u[6]
+		cc.itemEs = u[ start+1 ]
+		cc.itemEs.s = u[ start+2 ]
+		
 	except :
 		print "err"
 		slwait(30)
@@ -152,14 +161,15 @@ class X2(Client):
 	#	self.ss = [ [], [1,1,1] ]
 		self.needBuff = False
 		self.start = time.time()
-		ch = login( cc, self.user, self.pw )
+		ch = login( cc, self.user, self.pw, self.login_user )
 		print "位置:", ch.place, ch.scene, ch.fb
 		self.target = 0
+		self.lastSend = 0
 		if ch.st :
 			print "状态", ch.st
 			ch.st.owner = ch
 			if issub( ch.st , Die ):
-				cc.s( ch.st ).yuan()
+			#	cc.s( ch.st ).yuan()
 				pass
 			else:
 				if cc.pk:
@@ -168,7 +178,7 @@ class X2(Client):
 		
 		if ch.scene != 0 :
 			walk( cc, ch.scene, 0, self.level )
-	
+		
 		self.reset()
 	
 	def getNext( self ):
@@ -240,8 +250,13 @@ class X2(Client):
 			t = 0
 		else:
 			t = (self.pk.t - v1*10 - cc.getServerTime() )/1000
-		print "下次时间",t
-		callLater( t, cc.sn( "Pk" ).auto )
+		print "下次时间",t, self.cc.dtime
+		
+	#	if t < 2.5 : t = 2.5
+		callLater( t, self.pk_auto )
+
+	def send_auto( self ):
+		cc.sn( "Pk" ).auto()
 
 	def on_ItemJ ( self, cc, o ):
 		pass
@@ -251,7 +266,7 @@ class X2(Client):
 
 	def on_Die( self, cc, o ):
 		o.owner = cc.ch
-		cc.sn( o ).yuan()
+	#	cc.sn( o ).yuan()
 		print cc.ch.name , "死亡"
 		callLater( 1, walk, cc, self.scene, 0, self.level )
 		callLater( 3, self.reset )
@@ -283,14 +298,18 @@ class X2(Client):
 			pass
 	
 	def pk_auto( self ):
-		if self.cc.ch.st:
-			self.cc.sn( "Pk" ).auto()
+		
+		self.lastSend = time.time()
+		self.cc.sn( "Pk" ).auto()
 					
 	def on_Buff( self, cc, o ):
 		if len(o.s) > 7 and o.s[0] == cc.ch.id:
 		
 			getattr(cc.ch,"as")[11] = o.s[7]
 			self.do_pk(cc)
+
+		if time.time() - self.lastSend > 10:
+			self.pk_auto()
 		
 class MOVE( Client ):
 	user = "xkou"
@@ -323,9 +342,6 @@ class MOVE( Client ):
 
 			if p == place:
 				start = True
-			
-			
-		
 		print s1( cc.ch.name ) , "结束"
 	
 	def on_Move( self, cc, o ):
@@ -891,12 +907,20 @@ class FB_BIRD( X2 ):
 
 class FB_OK( X2 ):
 	user = "xkou"
+	login_user = 2
 	ss = [ [], [1,1,1],[1,1,0,1] ]
 	ss = [ [], [1,1,1,1], [1,1] ]
 	ss = [ [], [1,1] ]
+	ss = [ [], [1] ]
 	level = 0
-	sells = (35736,35737,35738,35739,35740,35741,35742,35743,35744,30099,   35969, 35970, 35971, 35972, 35973, 35974, 35785, 35786,  35787, 35788, 35789, 35790, 35791, 35792, 35793)
+	sells = (30110, 35520, 35521, 35522, 35523, 35524, 35525, 35526, 35527, 35528, 35529, 35530, 35531, 35532, 35533, 35534, 35535, 35536, 35537, 35538, 35539, 35540, 35541, 35542, 35543, 35544, 35545, 35546, 35547, 35548, 35549, 35550, 35551, 35552, 35553, 35554, 35555, 35556, 35557, 35558, 35559, 35560, 35561, 35562, 35563, 35564, 35565,35736,35737,35738,35739,35740,35741,35742,35743,35744)
 	sell_npc = 0
+
+class FB_LMS( X2 ):
+	ss = [ [], [1] ]
+	user = "zbs99899"
+	pw = "6481703"
+	level = 0
 
 class FB_FATHER( X2 ):
 	user = "cxlby"
@@ -916,7 +940,7 @@ class Fuse_TT( FUSE ):
 
 def work( C ):
 #	server2( "1.1.1.11", 3005, C )
-	server2( "s010.tj.game5.cn", 3010, C )
+	server2( "s001.tj.game5.cn", 3001, C )
 
 
 if __name__ == "__main__":
@@ -928,12 +952,12 @@ if __name__ == "__main__":
 #
 #	1/0
 #
-	
+	callLater( 0, work, Make_WWW )
 	callLater( 0, work, Pick_KWY )
 	callLater( 0, work, Pick_TT )
-	callLater( 0, work, Pick_LABA )
-	callLater( 0, work, Pick_AAA )
-	callLater( 0, work, Pick_TU )
+#	callLater( 0, work, Pick_LABA )
+#	callLater( 0, work, Pick_AAA )
+#	callLater( 0, work, Pick_TU )
 	callLater( 0, work, Pick_X4 )
 	callLater( 0, work, Pick_X5 )
 	callLater( 0, work, Pick_X6 )
