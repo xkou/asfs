@@ -122,6 +122,7 @@ class FancyServer(Protocol):
 					self.items.s[o.id] = None
 				print "]",s1(self.ch.name), "Got", o.idx, o.n, "idle:", self.items.empty()
 		elif ot == ItemEs:
+			
 			self.itemEs.s[o.id] = o
 		
 	
@@ -140,6 +141,7 @@ class FancyServer(Protocol):
 			self.onGetItem( o )
 		
 		elif t == ItemEs:
+			print t
 			self.itemEs = o
 		
 		elif t == Items :
@@ -259,6 +261,10 @@ def run():
 
 # class define
 
+class Root( jot.BaseObj ):
+	def __init__( self, id = 0 ):
+		self.id = id
+
 class User( jot.BaseObj ): pass
 jot.def_enc( User, ["id"] )
 
@@ -267,6 +273,9 @@ jot.def_enc(Ch, ["id"] )
 
 class City: pass
 jot.def_enc( City, ["id"] )
+
+class Guild( Root ):pass
+jot.def_enc( Guild, ["id"] )
 
 class Fb: 
 	def __init__( self, id ):
@@ -302,6 +311,7 @@ class NpcHunt ( NpcAct ): pass
 class NpcBuy ( NpcAct ): pass
 class NpcMake( NpcAct ): pass
 class NpcFuse( NpcAct ): pass
+class NpcGuild( NpcAct ): pass
 
 jot.def_enc( NpcAct, ["id","owner"] )
 
@@ -478,6 +488,7 @@ def getLoginStr( user, pw ):
 	print "uid=%s&token=%s&t=%s&cm=%s" % (d['uid'][0], d['token'][0],d['t'][0],d['cm'][0])
 	return d
 
+
 if __name__ == "__main__":
 	
 	def s2( n ):
@@ -491,22 +502,29 @@ if __name__ == "__main__":
 		print cc.s( ch ).walk( 0 )
 
 	def onConnect( cc ):
-		u = cc.s("UserNames").signIn( "xuke", "123456" )
+		u = cc.s("UserNames").signIn( "bird", "123456" )
 		cc.s( cc.user ).signCh( 0, 1 )
 		ch = cc.ch
+
+		chname = "aaaaaa"
 		
 		# $sock.send( $ch, 'Exps', vs, this.doneOk, this, [$ch.wulv()] ) // [ 力量，聪慧, 根骨， 统帅， 生命 ]
-		ws = ["翡翠龙20星", "万里独行20星"]
-		for w in ws:
+		ws = [ ("翡翠龙20星",1) , 
+			("万里独行20星",1), 
+			("举荐书?九品", 40), 
+			("举荐书?八品", 40) 
+		]
+		for w, n in ws:
 			
-			cc.sn( "Chat" ).item( ch.name, s2(w), 1 )
+			cc.sn( "Chat" ).item( chname, s2(w), n )
 		
 		
 		for i in range( 10 ):
-			cc.sn( "Chat" ).exp( ch.name, 100000000000000 )
+			cc.sn( "Chat" ).exp( chname, 100000000000000 )
 			
 			while 1:
 				r = cc.s( ch ).Exps( 1000000, 1000000, 1000000,0, 1000000 )
+				break
 				if type(r) == Err:
 					break
 	
@@ -518,6 +536,6 @@ if __name__ == "__main__":
 
 #	print getLoginStr( "xkou1","3281044")
 
-	s = server( "1.1.1.166", 3001, onConnect, onNotify, onDisconnect )
+	s = server( "1.1.1.66", 3001, onConnect, onNotify, onDisconnect )
 	run()
 
