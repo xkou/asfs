@@ -18,7 +18,7 @@ def sendemail( content ):
 	t = 'netmud@gmail.com'
 	smtp = SMTP()
 	smtp.connect('smtp.163.com')
-	smtp.login("hk888","3281044")
+	smtp.login("hk888","-------")
 
 	msg = MIMEText(content)
 	msg['subject']='三国之兵临城下'
